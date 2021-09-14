@@ -3,6 +3,7 @@ using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -29,9 +30,10 @@ namespace Xinaschack2._0
     {
         private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
+        private CanvasBitmap Earth { get; set; }
         private readonly float DesignWidth = 1280;
         private readonly float DesignHeight = 720;
-        private List<Rect> RectList{ get; set; }
+        private List<Rect> RectList { get; set; }
 
         public MainPage()
         {
@@ -39,6 +41,7 @@ namespace Xinaschack2._0
 
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            RectList = new List<Rect>();
 
         }
     
@@ -47,6 +50,7 @@ namespace Xinaschack2._0
         {
             StartScreen = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/background.PNG"));
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameFieldCentered.png"));
+            Earth = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/earth_mini34x34.png"));
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)  
@@ -57,9 +61,17 @@ namespace Xinaschack2._0
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             args.DrawingSession.DrawImage(StartScreen);
-            // args.DrawingSession.DrawImage(Board);
+            args.DrawingSession.DrawImage(Board);
             MakeRectList(sender, args);
-
+            foreach (Rect rect in RectList)
+            {
+                args.DrawingSession.DrawRectangle(rect, Windows.UI.Color.FromArgb(255, 255, 0, 0), 2);
+            }
+            
+            for (int i = 0; i < 10; i++)
+            {
+                args.DrawingSession.DrawImage(Earth, RectList[i]);
+            }
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
@@ -67,11 +79,22 @@ namespace Xinaschack2._0
 
         }
 
+        private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            foreach (Rect rect in RectList.ToList())
+            {
+                if (rect.Contains( e.GetCurrentPoint(null).Position))
+                {
+                    Debug.Print(rect.X.ToString());
+                    Debug.Print(rect.Y.ToString());
+                }
+            }
+        }
+
         private void MakeRectList(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            //
             double XStart = DesignWidth / 2;
-            double YStart = DesignHeight ;
+            double YStart = 28;
 
             double XCurrent = 621;
             double YCurrent = 28;
@@ -89,11 +112,12 @@ namespace Xinaschack2._0
                 
                 for (int j = 0; j < gameArray[i]; j++)
                 {
-                    args.DrawingSession.DrawRectangle(new Rect(XCurrent, YCurrent, 35, 35), Windows.UI.Color.FromArgb(255, 255, 0, 0), 2);
+                    Rect newRect = new Rect(XCurrent, YCurrent, 35, 35);
+                    RectList.Add(newRect);
+
                     XCurrent += XSameLevelDiff;
                 }
             }
-
 
             // ball size = 34x34
             // middle of 1280 = 640
