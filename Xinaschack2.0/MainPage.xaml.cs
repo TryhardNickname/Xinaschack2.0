@@ -34,6 +34,9 @@ namespace Xinaschack2._0
         private readonly float DesignWidth = 1280;
         private readonly float DesignHeight = 720;
         private List<Rect> RectList { get; set; }
+        private List<int> PlayerPositions { get; set; }
+        private int RectSelected { get; set; }
+        private int PlanetSelectedFlag { get; set; }
 
         public MainPage()
         {
@@ -42,9 +45,20 @@ namespace Xinaschack2._0
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             RectList = new List<Rect>();
+            PlayerPositions = new List<int>();
+            PlanetSelectedFlag = -1;
+            MakeRectList();
+            InitPlayerPlanets();
 
         }
-    
+
+        private void InitPlayerPlanets()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                PlayerPositions.Add(i);
+            }
+        }
 
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
@@ -62,16 +76,25 @@ namespace Xinaschack2._0
         {
             args.DrawingSession.DrawImage(StartScreen);
             args.DrawingSession.DrawImage(Board);
-            MakeRectList(sender, args);
-            foreach (Rect rect in RectList)
-            {
-                args.DrawingSession.DrawRectangle(rect, Windows.UI.Color.FromArgb(255, 255, 0, 0), 2);
+
+
+            for (int rectIndex = 0; rectIndex < RectList.Count; rectIndex++)
+            { 
+                if ( RectSelected == rectIndex)
+                {
+                    args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 0, 255, 0), 2);
+                }
+                else
+                {
+                    args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 255, 0, 0), 2);
+                }
             }
-            
-            for (int i = 0; i < 10; i++)
+
+            for (int posIndex = 0; posIndex < PlayerPositions.Count; posIndex++)
             {
-                args.DrawingSession.DrawImage(Earth, RectList[i]);
+                args.DrawingSession.DrawImage(Earth, RectList[PlayerPositions[posIndex]]);
             }
+
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
@@ -81,17 +104,59 @@ namespace Xinaschack2._0
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            foreach (Rect rect in RectList.ToList())
+
+            for (int rectIndex = 0; rectIndex < RectList.Count; rectIndex++)
             {
-                if (rect.Contains( e.GetCurrentPoint(null).Position))
+                if (RectList[rectIndex].Contains(e.GetCurrentPoint(null).Position))
                 {
-                    Debug.Print(rect.X.ToString());
-                    Debug.Print(rect.Y.ToString());
+                    RectSelected = rectIndex;
+                    if ( PlayerPositions.Contains(RectSelected))
+                    {
+                        PlanetSelectedFlag = RectSelected;
+                    }
+                    else
+                    {
+                        if ( PlanetSelectedFlag > 0)
+                        {
+                            // move planet
+                            for (int posIndex = 0; posIndex < PlayerPositions.Count; posIndex++)
+                            {
+                                if ( PlayerPositions[posIndex] == PlanetSelectedFlag)
+                                {
+                                    PlayerPositions[posIndex] = RectSelected;
+                                }
+                            }
+                            
+                        }
+                        PlanetSelectedFlag = -1;
+                    }
                 }
             }
+
+
+            //foreach (Rect rect in RectList.ToList())
+            //{
+            //    index++;
+            //    if (rect.Contains( e.GetCurrentPoint(null).Position))
+            //    {
+            //        RectSelected = index;
+            //        foreach (int position in PlayerPositions)
+            //        {
+            //            if (index == position)
+            //            {
+            //                PlanetSelected = index;
+            //            }
+            //        }
+
+            //        if ( PlanetSelected != RectSelected)
+            //        {
+            //            PlayerPositions.Find(PlanetSelected);
+            //        }
+            //    }
+            //}
         }
 
-        private void MakeRectList(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
+        private void MakeRectList()
         {
             double XStart = DesignWidth / 2;
             double YStart = 28;
