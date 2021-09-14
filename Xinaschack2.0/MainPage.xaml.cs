@@ -37,7 +37,7 @@ namespace Xinaschack2._0
         {
             InitializeComponent();
 
-            ApplicationView.PreferredLaunchViewSize = new Size(720, 1280);
+            ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
         }
@@ -46,10 +46,10 @@ namespace Xinaschack2._0
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             StartScreen = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/background.PNG"));
-            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan2.png"));
+            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameFieldCentered.png"));
         }
 
-        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
+        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)  
         {
             args.TrackAsyncAction(CreateResourcesAsync(sender).AsAsyncAction());
         }
@@ -57,7 +57,8 @@ namespace Xinaschack2._0
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             args.DrawingSession.DrawImage(StartScreen);
-            args.DrawingSession.DrawImage(Board);
+            // args.DrawingSession.DrawImage(Board);
+            MakeRectList(sender, args);
 
         }
 
@@ -66,8 +67,34 @@ namespace Xinaschack2._0
 
         }
 
-        private void MakeRectList()
+        private void MakeRectList(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
+            //
+            double XStart = DesignWidth / 2;
+            double YStart = DesignHeight ;
+
+            double XCurrent = 621;
+            double YCurrent = 28;
+
+            double XDiff = 22.5;
+            double YDiff = 39;
+            double XSameLevelDiff = 45;
+
+            int[] gameArray = new int[] { 1, 2, 3, 4, 13, 12, 11, 10, 9, 10, 11, 12, 13, 4, 3, 2, 1};
+
+            for (int i = 0; i < gameArray.Length; i++)
+            {
+                YCurrent = YStart + (YDiff * i);
+                XCurrent = XStart - (XDiff * gameArray[i]);
+                
+                for (int j = 0; j < gameArray[i]; j++)
+                {
+                    args.DrawingSession.DrawRectangle(new Rect(XCurrent, YCurrent, 35, 35), Windows.UI.Color.FromArgb(255, 255, 0, 0), 2);
+                    XCurrent += XSameLevelDiff;
+                }
+            }
+
+
             // ball size = 34x34
             // middle of 1280 = 640
             // bottom of board = 632
@@ -75,5 +102,6 @@ namespace Xinaschack2._0
             // Point middle_bottom_point = new Point(640, )
             // RectList.Add(new Rect(new Point(6), new Size()));
         }
+
     }
 }

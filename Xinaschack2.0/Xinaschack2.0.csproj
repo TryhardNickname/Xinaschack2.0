@@ -132,6 +132,7 @@
   <ItemGroup>
     <Content Include="Assets\Images\background.PNG" />
     <Content Include="Assets\Images\earth_mini34x34.png" />
+    <Content Include="Assets\Images\GameFieldCentered.png" />
     <Content Include="Assets\Images\spelplan2.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
