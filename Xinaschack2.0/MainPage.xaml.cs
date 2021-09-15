@@ -37,12 +37,16 @@ namespace Xinaschack2._0
         private List<int> PlayerPositions { get; set; }
         private int RectSelected { get; set; }
         private int PlanetSelectedFlag { get; set; }
+        private readonly double XSameLevelDiff = 45;
+        private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
+        private readonly double YDiff = 40; // rectsize + 5?
+        private readonly double RectSize = 35;
 
         public MainPage()
         {
             InitializeComponent();
 
-            ApplicationView.PreferredLaunchViewSize = new Size(1280, 720);
+            ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             RectList = new List<Rect>();
             PlayerPositions = new List<int>();
@@ -104,43 +108,91 @@ namespace Xinaschack2._0
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-
+            // every cklick on a rectangle, it is stored in RectSelected prop
             for (int rectIndex = 0; rectIndex < RectList.Count; rectIndex++)
             {
                 if (RectList[rectIndex].Contains(e.GetCurrentPoint(null).Position))
                 {
-                    RectSelected = rectIndex;
-                    if ( PlayerPositions.Contains(RectSelected))
-                    {
-                        PlanetSelectedFlag = RectSelected;
-                    }
-                    else
-                    {
-                        if ( PlanetSelectedFlag >= 0)
-                        {
-                            // move planet
-                            for (int posIndex = 0; posIndex < PlayerPositions.Count; posIndex++)
-                            {
-                                if ( PlayerPositions[posIndex] == PlanetSelectedFlag)
-                                {
-                                    PlayerPositions[posIndex] = RectSelected;
-                                }
-                            }
-                            
-                        }
-                        PlanetSelectedFlag = -1;
-                    }
+                    CheckSelection(rectIndex);
                 }
             }
         }
 
+        private void CheckSelection(int rectIndex)
+        {
+            RectSelected = rectIndex;
+            if (PlayerPositions.Contains(RectSelected)) //rectangle contains a planet == planet is selected
+            {
+                PlanetSelectedFlag = RectSelected;
+            }
+            else
+            {
+                if (PlanetSelectedFlag >= 0) // if planet was selected last click AND new click is empty rect == move
+                {
+                    // check if move is OK
+                    List<int> OKMoves = CheckOKMoves();
+                        // top left
+                    
+
+                    // move planet
+                    for (int posIndex = 0; posIndex < PlayerPositions.Count; posIndex++)
+                    {
+                        if (PlayerPositions[posIndex] == PlanetSelectedFlag)
+                        {
+                            PlayerPositions[posIndex] = RectSelected;
+                        }
+                    }
+
+                }
+                PlanetSelectedFlag = -1;
+            }
+        }
+
+        private List<int> CheckOKMoves()
+        {
+            // check which places you can move with PlanetSelectedFlag
+            List<int> list = new List<int>();
+
+            // top left
+            // -xdiff, +ydiff
+            Point topleft = new Point
+            {
+                X = RectList[PlanetSelectedFlag].X - XDiff,
+                Y = RectList[PlanetSelectedFlag].Y + YDiff
+            };
+
+            Point topright = new Point
+            {
+                X = RectList[PlanetSelectedFlag].X + XDiff,
+                Y = RectList[PlanetSelectedFlag].Y + YDiff
+            };
+
+
+            for (int i = 0; i < RectList.Count; i++)
+            {
+                if (RectList[i].Contains(topleft) && !PlayerPositions.Contains(i))
+                {
+                    list.Add(i);
+                }
+                else if (RectList[i].Contains(topright) && !PlayerPositions.Contains(i))
+                {
+
+                }
+
+            }
+            
+
+            // top right
+
+
+
+            return list;
+        }
+
         private void MakeRectList()
         {
-            double XSameLevelDiff = 45;
-            double XDiff = XSameLevelDiff/2; // trigonometry
-            double RectSize = 35;
 
-            double YDiff = RectSize + 5; // why 5?
+            // double YDiff = RectSize + 5; // why 5?
 
             double XStart = (DesignWidth / 2) - (RectSize / 2);
             double YStart = YDiff/2;
