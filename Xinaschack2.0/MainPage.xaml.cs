@@ -63,7 +63,7 @@ namespace Xinaschack2._0
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             StartScreen = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/background.PNG"));
-            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameFieldCentered.png"));
+            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/testbakgrund.png"));
             Earth = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/earth_mini34x34.png"));
         }
 
@@ -136,30 +136,27 @@ namespace Xinaschack2._0
 
         private void MakeRectList()
         {
-            double XDiff = 22.5;
-            double YDiff = 39;
-            double XStart = (DesignWidth / 2) +5;
-            double YStart = 28;
+            double XSameLevelDiff = 45;
+            double XDiff = XSameLevelDiff/2; // trigonometry
             double RectSize = 35;
+
+            double YDiff = RectSize + 5; // why 5?
+
+            double XStart = (DesignWidth / 2) - (RectSize / 2);
+            double YStart = YDiff/2;
 
             double XCurrent;
             double YCurrent;
 
-            double XSameLevelDiff = 45;
+
 
             int[] gameArray = new int[] { 1, 2, 3, 4, 13, 12, 11, 10, 9, 10, 11, 12, 13, 4, 3, 2, 1};
 
             for (int i = 0; i < gameArray.Length; i++)
             {
                 YCurrent = YStart + (YDiff * i);
-                if (i == 0)
-                {
-                    XCurrent = XStart - (RectSize/2);
-                }
-                else
-                {
-                    XCurrent = XStart - (XDiff * gameArray[i]);
-                }
+                XCurrent = XStart - (XDiff * (gameArray[i]-1));
+
 
                 
                 for (int j = 0; j < gameArray[i]; j++)
