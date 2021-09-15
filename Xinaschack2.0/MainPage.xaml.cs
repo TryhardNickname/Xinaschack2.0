@@ -132,40 +132,19 @@ namespace Xinaschack2._0
                     }
                 }
             }
-
-
-            //foreach (Rect rect in RectList.ToList())
-            //{
-            //    index++;
-            //    if (rect.Contains( e.GetCurrentPoint(null).Position))
-            //    {
-            //        RectSelected = index;
-            //        foreach (int position in PlayerPositions)
-            //        {
-            //            if (index == position)
-            //            {
-            //                PlanetSelected = index;
-            //            }
-            //        }
-
-            //        if ( PlanetSelected != RectSelected)
-            //        {
-            //            PlayerPositions.Find(PlanetSelected);
-            //        }
-            //    }
-            //}
         }
 
         private void MakeRectList()
         {
-            double XStart = DesignWidth / 2;
-            double YStart = 28;
-
-            double XCurrent = 621;
-            double YCurrent = 28;
-
             double XDiff = 22.5;
             double YDiff = 39;
+            double XStart = DesignWidth / 2;
+            double YStart = YDiff;
+            double RectSize = 35;
+
+            double XCurrent;
+            double YCurrent;
+
             double XSameLevelDiff = 45;
 
             int[] gameArray = new int[] { 1, 2, 3, 4, 13, 12, 11, 10, 9, 10, 11, 12, 13, 4, 3, 2, 1};
@@ -173,24 +152,24 @@ namespace Xinaschack2._0
             for (int i = 0; i < gameArray.Length; i++)
             {
                 YCurrent = YStart + (YDiff * i);
-                XCurrent = XStart - (XDiff * gameArray[i]);
+                if (i == 0)
+                {
+                    XCurrent = XStart - (RectSize/2);
+                }
+                else
+                {
+                    XCurrent = XStart - (XDiff * gameArray[i]);
+                }
+
                 
                 for (int j = 0; j < gameArray[i]; j++)
                 {
-                    Rect newRect = new Rect(XCurrent, YCurrent, 35, 35);
+                    Rect newRect = new Rect(XCurrent, YCurrent, RectSize, RectSize);
                     RectList.Add(newRect);
 
                     XCurrent += XSameLevelDiff;
                 }
             }
-
-            // ball size = 34x34
-            // middle of 1280 = 640
-            // bottom of board = 632
-            // top of board = 67
-            // Point middle_bottom_point = new Point(640, )
-            // RectList.Add(new Rect(new Point(6), new Size()));
         }
-
     }
 }
