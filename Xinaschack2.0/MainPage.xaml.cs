@@ -161,30 +161,35 @@ namespace Xinaschack2._0
                 Y = RectList[PlanetSelectedFlag].Y + YDiff
             });
 
+            //top right
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X + XDiff,
                 Y = RectList[PlanetSelectedFlag].Y + YDiff
             });
 
+            // right
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X + XSameLevelDiff,
                 Y = RectList[PlanetSelectedFlag].Y
             });
 
+            //bot right
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X + XDiff,
                 Y = RectList[PlanetSelectedFlag].Y - YDiff
             });
 
+            // bot left
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X - XDiff,
                 Y = RectList[PlanetSelectedFlag].Y - YDiff
             });
 
+            // left
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X - XSameLevelDiff,
@@ -194,11 +199,25 @@ namespace Xinaschack2._0
 
             for (int i = 0; i < RectList.Count; i++)
             {
-                foreach ( Point p in points )
+
+                for (int j = 0; j < points.Count; j++)
                 {
-                    if (RectList[i].Contains(p) && !PlayerPositions.Contains(i))
+
+                    if (RectList[i].Contains(points[j])) // && !PlayerPositions.Contains(i))
                     {
-                        list.Add(i);
+                        
+                        if (PlayerPositions.Contains(i))
+                        {
+                            //check if you can jump over this planet
+                            if (j == 0) // top left
+                            {
+
+                            }
+                        }
+                        else // empty box, 
+                        {
+                            list.Add(i);
+                        }
                     }
                 }
             }
@@ -208,8 +227,6 @@ namespace Xinaschack2._0
         private void MakeRectList()
         {
 
-            // double YDiff = RectSize + 5; // why 5?
-
             double XStart = (DesignWidth / 2) - (RectSize / 2);
             double YStart = YDiff/2;
 
@@ -217,15 +234,12 @@ namespace Xinaschack2._0
             double YCurrent;
 
 
-
             int[] gameArray = new int[] { 1, 2, 3, 4, 13, 12, 11, 10, 9, 10, 11, 12, 13, 4, 3, 2, 1};
 
             for (int i = 0; i < gameArray.Length; i++)
             {
                 YCurrent = YStart + (YDiff * i);
-                XCurrent = XStart - (XDiff * (gameArray[i]-1));
-
-
+                XCurrent = XStart - (XDiff * (gameArray[i]-1))
                 
                 for (int j = 0; j < gameArray[i]; j++)
                 {
