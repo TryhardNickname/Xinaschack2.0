@@ -131,18 +131,18 @@ namespace Xinaschack2._0
                 {
                     // check if move is OK
                     List<int> OKMoves = CheckOKMoves();
-                        // top left
                     
-
-                    // move planet
-                    for (int posIndex = 0; posIndex < PlayerPositions.Count; posIndex++)
+                    if ( OKMoves.Contains(RectSelected))
                     {
-                        if (PlayerPositions[posIndex] == PlanetSelectedFlag)
+                        // move planet
+                        for (int posIndex = 0; posIndex < PlayerPositions.Count; posIndex++)
                         {
-                            PlayerPositions[posIndex] = RectSelected;
+                            if (PlayerPositions[posIndex] == PlanetSelectedFlag)
+                            {
+                                PlayerPositions[posIndex] = RectSelected;
+                            }
                         }
                     }
-
                 }
                 PlanetSelectedFlag = -1;
             }
@@ -152,40 +152,56 @@ namespace Xinaschack2._0
         {
             // check which places you can move with PlanetSelectedFlag
             List<int> list = new List<int>();
+            List<Point> points = new List<Point>();
 
             // top left
-            // -xdiff, +ydiff
-            Point topleft = new Point
+            points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X - XDiff,
                 Y = RectList[PlanetSelectedFlag].Y + YDiff
-            };
+            });
 
-            Point topright = new Point
+            points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X + XDiff,
                 Y = RectList[PlanetSelectedFlag].Y + YDiff
-            };
+            });
+
+            points.Add(new Point
+            {
+                X = RectList[PlanetSelectedFlag].X + XSameLevelDiff,
+                Y = RectList[PlanetSelectedFlag].Y
+            });
+
+            points.Add(new Point
+            {
+                X = RectList[PlanetSelectedFlag].X + XDiff,
+                Y = RectList[PlanetSelectedFlag].Y - YDiff
+            });
+
+            points.Add(new Point
+            {
+                X = RectList[PlanetSelectedFlag].X - XDiff,
+                Y = RectList[PlanetSelectedFlag].Y - YDiff
+            });
+
+            points.Add(new Point
+            {
+                X = RectList[PlanetSelectedFlag].X - XSameLevelDiff,
+                Y = RectList[PlanetSelectedFlag].Y
+            });
 
 
             for (int i = 0; i < RectList.Count; i++)
             {
-                if (RectList[i].Contains(topleft) && !PlayerPositions.Contains(i))
+                foreach ( Point p in points )
                 {
-                    list.Add(i);
+                    if (RectList[i].Contains(p) && !PlayerPositions.Contains(i))
+                    {
+                        list.Add(i);
+                    }
                 }
-                else if (RectList[i].Contains(topright) && !PlayerPositions.Contains(i))
-                {
-
-                }
-
             }
-            
-
-            // top right
-
-
-
             return list;
         }
 
