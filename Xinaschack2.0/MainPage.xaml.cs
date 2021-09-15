@@ -116,7 +116,7 @@ namespace Xinaschack2._0
                     }
                     else
                     {
-                        if ( PlanetSelectedFlag > 0)
+                        if ( PlanetSelectedFlag >= 0)
                         {
                             // move planet
                             for (int posIndex = 0; posIndex < PlayerPositions.Count; posIndex++)
