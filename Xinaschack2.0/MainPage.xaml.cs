@@ -63,7 +63,7 @@ namespace Xinaschack2._0
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             StartScreen = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/background.PNG"));
-            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameFieldCentered.png"));
+            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/testbakgrund.png"));
             Earth = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/earth_mini34x34.png"));
         }
 
@@ -137,10 +137,11 @@ namespace Xinaschack2._0
         private void MakeRectList()
         {
             double XDiff = 22.5;
-            double YDiff = 39;
-            double XStart = (DesignWidth / 2) +5;
-            double YStart = 28;
+            double YDiff = 40;
             double RectSize = 35;
+            double XStart = (DesignWidth / 2) - (RectSize / 2);
+            double YStart = YDiff;
+
 
             double XCurrent;
             double YCurrent;
@@ -154,11 +155,11 @@ namespace Xinaschack2._0
                 YCurrent = YStart + (YDiff * i);
                 if (i == 0)
                 {
-                    XCurrent = XStart - (RectSize/2);
+                    XCurrent = XStart;
                 }
                 else
                 {
-                    XCurrent = XStart - (XDiff * gameArray[i]);
+                    XCurrent = XStart - (XDiff * gameArray[i-1]);
                 }
 
                 
