@@ -138,8 +138,8 @@ namespace Xinaschack2._0
         {
             double XDiff = 22.5;
             double YDiff = 39;
-            double XStart = DesignWidth / 2;
-            double YStart = YDiff;
+            double XStart = (DesignWidth / 2) +5;
+            double YStart = 28;
             double RectSize = 35;
 
             double XCurrent;
