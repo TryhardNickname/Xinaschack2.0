@@ -158,14 +158,14 @@ namespace Xinaschack2._0
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X - XDiff,
-                Y = RectList[PlanetSelectedFlag].Y + YDiff
+                Y = RectList[PlanetSelectedFlag].Y - YDiff
             });
 
             //top right
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X + XDiff,
-                Y = RectList[PlanetSelectedFlag].Y + YDiff
+                Y = RectList[PlanetSelectedFlag].Y - YDiff
             });
 
             // right
@@ -179,14 +179,14 @@ namespace Xinaschack2._0
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X + XDiff,
-                Y = RectList[PlanetSelectedFlag].Y - YDiff
+                Y = RectList[PlanetSelectedFlag].Y + YDiff
             });
 
             // bot left
             points.Add(new Point
             {
                 X = RectList[PlanetSelectedFlag].X - XDiff,
-                Y = RectList[PlanetSelectedFlag].Y - YDiff
+                Y = RectList[PlanetSelectedFlag].Y + YDiff
             });
 
             // left
@@ -208,11 +208,82 @@ namespace Xinaschack2._0
                         
                         if (PlayerPositions.Contains(i))
                         {
+                            Point jumpPoint = points[j];
                             //check if you can jump over this planet
-                            if (j == 0) // top left
+                            switch (j)
                             {
+                                case 0:
+                                    jumpPoint.X -= XDiff;
+                                    jumpPoint.Y -= YDiff;
 
-                            }
+                                    for (int k = i; k >= 0; k--)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPositions.Contains(k))
+                                        {
+                                            list.Add(k);
+                                        }
+                                    }
+                                    break;
+
+                                case 1:
+                                    jumpPoint.X += XDiff;
+                                    jumpPoint.Y -= YDiff;
+
+                                    for (int k = i; k >= 0; k--)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPositions.Contains(k))
+                                        {
+                                            list.Add(k);
+                                        }
+                                    }
+                                    break;
+                                case 2:
+                                    jumpPoint.X += XSameLevelDiff;
+
+                                    for (int k = i; k < RectList.Count; k++)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPositions.Contains(k))
+                                        {
+                                            list.Add(k);
+                                        }
+                                    }
+                                    break;
+                                case 3:
+                                    jumpPoint.X += XDiff;
+                                    jumpPoint.Y += YDiff;
+
+                                    for (int k = i; k < RectList.Count; k++)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPositions.Contains(k))
+                                        {
+                                            list.Add(k);
+                                        }
+                                    }
+                                    break;
+                                case 4:
+                                    jumpPoint.X -= XDiff;
+                                    jumpPoint.Y += YDiff;
+
+                                    for (int k = i; k < RectList.Count; k++)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPositions.Contains(k))
+                                        {
+                                            list.Add(k);
+                                        }
+                                    }
+                                    break;
+                                case 5:
+                                    jumpPoint.X -= XDiff;
+
+                                    for (int k = i; k >= 0; k--)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPositions.Contains(k))
+                                        {
+                                            list.Add(k);
+                                        }
+                                    }
+                                    break;
+                            }                             
                         }
                         else // empty box, 
                         {
@@ -239,7 +310,7 @@ namespace Xinaschack2._0
             for (int i = 0; i < gameArray.Length; i++)
             {
                 YCurrent = YStart + (YDiff * i);
-                XCurrent = XStart - (XDiff * (gameArray[i]-1))
+                XCurrent = XStart - (XDiff * (gameArray[i] - 1));
                 
                 for (int j = 0; j < gameArray[i]; j++)
                 {
