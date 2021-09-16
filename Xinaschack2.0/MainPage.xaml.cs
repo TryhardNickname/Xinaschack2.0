@@ -62,7 +62,9 @@ namespace Xinaschack2._0
             
 
         }
-
+        /// <summary>
+        /// Adds 10 indexes for where the planets start-positions is for the 2 players
+        /// </summary>
         private void InitPlayerPlanets()
         {
             Players.Add(new List<int>());
@@ -76,7 +78,11 @@ namespace Xinaschack2._0
                 Players[1].Add(i);
             }
         }
-
+        /// <summary>
+        /// Loads pictures into Bitmaps that can be used in the canvas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             StartScreen = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/background.PNG"));
@@ -90,15 +96,21 @@ namespace Xinaschack2._0
             args.TrackAsyncAction(CreateResourcesAsync(sender).AsAsyncAction());
         }
 
+        /// <summary>
+        /// Draws Rectangles from RectList ( which contains positions of all rectangles ) Also draws planets depending on Players (List of indexes)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             // args.DrawingSession.DrawImage(StartScreen);
             args.DrawingSession.DrawImage(Board);
 
-
+            // If a rectangle is selected, make it have a green border.
+            // Permanent red borders turned off for now. 
             for (int rectIndex = 0; rectIndex < RectList.Count; rectIndex++)
-            { 
-                if ( RectSelected == rectIndex)
+            {
+                if (RectSelected == rectIndex)
                 {
                     args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 0, 255, 0), 2);
                 }
@@ -108,6 +120,8 @@ namespace Xinaschack2._0
                 }
             }
 
+            // Loop through the Players list, which is a list of list of ints.
+            // Each player has a list of ints that represents where their planets lie. 
             for (int i = 0; i < Players.Count; i++)
             {
                 for (int posIndex = 0; posIndex < Players[i].Count; posIndex++)
@@ -126,21 +140,32 @@ namespace Xinaschack2._0
 
         }
 
+        /// <summary>
+        /// Every click on a rectangle, index in RectList is stored in RectSelected prop
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            // every cklick on a rectangle, it is stored in RectSelected prop
+            
             for (int rectIndex = 0; rectIndex < RectList.Count; rectIndex++)
             {
                 if (RectList[rectIndex].Contains(e.GetCurrentPoint(null).Position))
                 {
-                    CheckSelection(rectIndex);
+                    RectSelected = rectIndex;
+                    CheckSelection();
                 }
             }
         }
 
-        private void CheckSelection(int rectIndex)
+        /// <summary>
+        /// Checks if selection is planet or empty "rectangle". If previous click was on a  (PlanetSelectedFlag is >0 (where value is the index of which planet selected,
+        /// and this click is on empty rectange, check if the "move" is valid with CheckOKMoves()
+        /// </summary>
+        /// <param name="rectIndex"></param>
+        private void CheckSelection()
         {
-            RectSelected = rectIndex;
+            
 
             if (Players[0].Contains(RectSelected) || Players[1].Contains(RectSelected)) //rectangle contains a planet == planet is selected
             {
@@ -175,11 +200,18 @@ namespace Xinaschack2._0
             }
         }
 
+        /// <summary>
+        /// Check which places you can move with PlanetSelectedFlag. Looks at the 6 surrounding rectangles
+        /// If planet is next to PlanetSelected => check if jump is possible
+        /// </summary>
+        /// <returns></returns>
         private List<int> CheckOKMoves()
         {
-            // check which places you can move with PlanetSelectedFlag
+            
             List<int> list = new List<int>();
             List<Point> points = new List<Point>();
+
+            // Each point represents a jump to each direction available on each rectangle. 
 
             // top left
             points.Add(new Point
@@ -223,7 +255,8 @@ namespace Xinaschack2._0
                 Y = RectList[PlanetSelectedFlag].Y
             });
 
-
+            // Loop through each rectangle in gamefield to find the rectangles that contain a Point. 
+            // A Point is made by going one rectangle in each direction.
             for (int i = 0; i < RectList.Count; i++)
             {
 
@@ -234,6 +267,9 @@ namespace Xinaschack2._0
                     {
                         foreach (var player in Players)
                         {
+                            // If you have a planet that exists in the player list which contains indexes of positions of planets,
+                            // do the switch case which does an operation to find out if the rectangle behind the current
+                            // rectangle is available.
                             if (player.Contains(i))
                             {
                                 Point jumpPoint = points[j];
@@ -325,6 +361,11 @@ namespace Xinaschack2._0
             return list;
         }
 
+        /// <summary>
+        /// This methods draws rectangles so as to make a board that looks like the game field. 
+        /// Relative values found in paint.net and these help build the field by knowing the distance between each rectangle on the x-axis for example.
+        /// gameArray represents how many spots there are in each "level" of the field, from top to bottom.
+        /// </summary>
         private void MakeRectList()
         {
 
