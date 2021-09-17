@@ -119,6 +119,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\GameBoard.cs" />
+    <Compile Include="Classes\Player.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -130,6 +132,18 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\background.PNG" />
+    <Content Include="Assets\Images\earth_mini34x34.png" />
+    <Content Include="Assets\Images\GameFieldCentered.png" />
+    <Content Include="Assets\Images\jupiter.png" />
+    <Content Include="Assets\Images\mars.png" />
+    <Content Include="Assets\Images\mercury.png" />
+    <Content Include="Assets\Images\moon.png" />
+    <Content Include="Assets\Images\neptune.png" />
+    <Content Include="Assets\Images\spelplan2.png" />
+    <Content Include="Assets\Images\spelplan3.png" />
+    <Content Include="Assets\Images\testbakgrund.png" />
+    <Content Include="Assets\Images\venus.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
