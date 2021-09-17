@@ -119,6 +119,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\GameBoard.cs" />
+    <Compile Include="Classes\Player.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -135,7 +137,7 @@
     <Content Include="Assets\Images\GameFieldCentered.png" />
     <Content Include="Assets\Images\jupiter.png" />
     <Content Include="Assets\Images\mars.png" />
-    <Content Include="Assets\Images\merkurius.png" />
+    <Content Include="Assets\Images\mercury.png" />
     <Content Include="Assets\Images\moon.png" />
     <Content Include="Assets\Images\neptune.png" />
     <Content Include="Assets\Images\spelplan2.png" />
