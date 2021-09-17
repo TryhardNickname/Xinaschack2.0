@@ -172,9 +172,12 @@ namespace Xinaschack2._0.Classes
                 if (PlanetSelectedFlag >= 0) // if planet was selected last click AND new click is empty rect == move
                 {
                     // check if move is OK
-                    List<int> OKMoves = CheckOKMoves();
+                    List<int> doubleJumps = new List<int>();
+                    List<int> singleJumps = CheckOKMoves(ref doubleJumps);
+                    
 
-                    if (OKMoves.Contains(RectSelected))
+
+                    if (singleJumps.Contains(RectSelected))
                     {
                         // move planet
                         for (int i = 0; i < Players.Count; i++)
@@ -184,11 +187,30 @@ namespace Xinaschack2._0.Classes
                                 if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
                                 {
                                     Players[i].PlayerPositions[posIndex] = RectSelected;
+                                    // NEXT TURN
+                                    CurrentPlayerIndex++;
+                                    if (CurrentPlayerIndex >= Players.Count)
+                                        CurrentPlayerIndex = 0;
                                 }
                             }
                         }
                         RectSelected = -1;
                     }
+                    else if (doubleJumps.Contains(RectSelected))
+                    {
+                        for (int i = 0; i < Players.Count; i++)
+                        {
+                            for (int posIndex = 0; posIndex < 10; posIndex++)
+                            {
+                                if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
+                                {
+                                    Players[i].PlayerPositions[posIndex] = RectSelected;
+                                    //NYI DISABLE SINGLEJUMP NEXT CLICK
+                                }
+                            }
+                        }
+                    }
+                    RectSelected = -1;
                 }
                 PlanetSelectedFlag = -1;
             }
@@ -199,10 +221,10 @@ namespace Xinaschack2._0.Classes
         /// If planet is next to PlanetSelected => check if jump is possible
         /// </summary>
         /// <returns></returns>
-        private List<int> CheckOKMoves()
+        private List<int> CheckOKMoves(ref List<int> doubleJumps)
         {
 
-            List<int> list = new List<int>();
+            List<int> singleJumps = new List<int>();
             List<Point> points = new List<Point>();
 
             // Each point represents a jump to each direction available on each rectangle. 
@@ -251,21 +273,26 @@ namespace Xinaschack2._0.Classes
 
             // Loop through each rectangle in gamefield to find the rectangles that contain a Point. 
             // A Point is made by going one rectangle in each direction.
+            // If Rectangle is not occupied by another Planet -> add to list.
             for (int i = 0; i < RectList.Count; i++)
             {
 
                 for (int j = 0; j < points.Count; j++)
                 {
-
-                    if (RectList[i].Contains(points[j])) // && !Players[0].Contains(i))
+                    if (RectList[i].Contains(points[j]))
                     {
                         foreach (Player player in Players)
                         {
-                            // If you have a planet that exists in the player list which contains indexes of positions of planets,
-                            // do the switch case which does an operation to find out if the rectangle behind the current
-                            // rectangle is available.
-                            if (player.PlayerPositions.Contains(i))
+                            if (!player.PlayerPositions.Contains(i))
                             {
+                                singleJumps.Add(i);
+                            }
+                            else
+                            {
+                                // If you have a planet that exists in the player list which contains indexes of positions of planets,
+                                // do the switch case which does an operation to find out if the rectangle behind the current
+                                // rectangle is available.
+
                                 Point jumpPoint = points[j];
                                 //check if you can jump over this planet
                                 switch (j)
@@ -278,7 +305,7 @@ namespace Xinaschack2._0.Classes
                                         {
                                             if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
                                             {
-                                                list.Add(k);
+                                                doubleJumps.Add(k);
                                             }
                                         }
                                         break;
@@ -291,7 +318,7 @@ namespace Xinaschack2._0.Classes
                                         {
                                             if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
                                             {
-                                                list.Add(k);
+                                                doubleJumps.Add(k);
                                             }
                                         }
                                         break;
@@ -302,7 +329,7 @@ namespace Xinaschack2._0.Classes
                                         {
                                             if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
                                             {
-                                                list.Add(k);
+                                                doubleJumps.Add(k);
                                             }
                                         }
                                         break;
@@ -314,7 +341,7 @@ namespace Xinaschack2._0.Classes
                                         {
                                             if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
                                             {
-                                                list.Add(k);
+                                                doubleJumps.Add(k);
                                             }
                                         }
                                         break;
@@ -326,7 +353,7 @@ namespace Xinaschack2._0.Classes
                                         {
                                             if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
                                             {
-                                                list.Add(k);
+                                                doubleJumps.Add(k);
                                             }
                                         }
                                         break;
@@ -337,26 +364,22 @@ namespace Xinaschack2._0.Classes
                                         {
                                             if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
                                             {
-                                                list.Add(k);
+                                                doubleJumps.Add(k);
                                             }
                                         }
                                         break;
+
                                 }
                             }
-                            else // empty box, 
-                            {
-                                list.Add(i);
-                            }
                         }
-
                     }
                 }
             }
-            return list;
+            return singleJumps;
         }
-
-
     }
+
+
 
 }
 
