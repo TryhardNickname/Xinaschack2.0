@@ -10,9 +10,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+
         <Image>
             <Image.Source>
-                <BitmapImage x:Name="GifImage" UriSource="Assets/images/Background-08.gif" />
+                <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif" />
             </Image.Source>
         </Image>
 

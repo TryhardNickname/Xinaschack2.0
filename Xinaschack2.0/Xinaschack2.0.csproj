@@ -130,18 +130,22 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\Background-08.gif" />
     <Content Include="Assets\Images\background.PNG" />
     <Content Include="Assets\Images\earth_mini34x34.png" />
     <Content Include="Assets\Images\GameFieldCentered.png" />
+    <Content Include="Assets\Images\highscorebtn.png" />
     <Content Include="Assets\Images\jupiter.png" />
     <Content Include="Assets\Images\mars.png" />
+    <Content Include="Assets\Images\Menu-background-1280x720.gif" />
     <Content Include="Assets\Images\merkurius.png" />
     <Content Include="Assets\Images\moon.png" />
     <Content Include="Assets\Images\neptune.png" />
+    <Content Include="Assets\Images\playbtn.png" />
+    <Content Include="Assets\Images\quitbtn.png" />
     <Content Include="Assets\Images\spelplan2.png" />
     <Content Include="Assets\Images\spelplan3.png" />
     <Content Include="Assets\Images\testbakgrund.png" />
+    <Content Include="Assets\Images\tutorialbtn.png" />
     <Content Include="Assets\Images\venus.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
