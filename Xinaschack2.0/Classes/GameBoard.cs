@@ -17,6 +17,9 @@ namespace Xinaschack2._0.Classes
         private int PlanetSelectedFlag { get; set; }
         private int CurrentPlayerIndex { get; set; }
 
+        private List<int> doubleJumps;
+        private List<int> singleJumps;
+
         private readonly double XSameLevelDiff = 45;
         private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
         private readonly double YDiff = 40; // rectsize + 5?
@@ -27,6 +30,8 @@ namespace Xinaschack2._0.Classes
         {
             RectList = new List<Rect>();
             Players = new List<Player>();
+            doubleJumps = new List<int>();
+            singleJumps = new List<int>();
 
             MakeRectList(width, height);
             InitPlayerPlanets(amountOfPlayers);
@@ -121,6 +126,20 @@ namespace Xinaschack2._0.Classes
             }
         }
 
+        public void DrawOkayMoves(CanvasAnimatedDrawEventArgs args)
+        {
+            foreach (int index in singleJumps)
+            {
+                args.DrawingSession.DrawRectangle(RectList[index], Windows.UI.Color.FromArgb(255, 0, 255, 255), 2);
+            }
+
+            foreach (int index in doubleJumps)
+            {
+                args.DrawingSession.DrawRectangle(RectList[index], Windows.UI.Color.FromArgb(255, 0, 0, 255), 2);
+            }
+
+        }
+
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
             
@@ -150,9 +169,7 @@ namespace Xinaschack2._0.Classes
         /// </summary>
         /// <param name="rectIndex"></param>
         private void CheckSelection()
-        {
-
-            
+        {     
             if (Players[CurrentPlayerIndex].PlayerPositions.Contains(RectSelected)) //rectangle contains a planet == planet is selected
             {
                 if(PlanetSelectedFlag == RectSelected) // if doubleclick on same planet - move finished!
@@ -164,6 +181,8 @@ namespace Xinaschack2._0.Classes
                 else
                 {
                     PlanetSelectedFlag = RectSelected;
+                    doubleJumps = new List<int>();
+                    singleJumps = CheckOKMoves();
                 }
 
             }
@@ -172,10 +191,7 @@ namespace Xinaschack2._0.Classes
                 if (PlanetSelectedFlag >= 0) // if planet was selected last click AND new click is empty rect == move
                 {
                     // check if move is OK
-                    List<int> doubleJumps = new List<int>();
-                    List<int> singleJumps = CheckOKMoves(ref doubleJumps);
-                    
-
+             
 
                     if (singleJumps.Contains(RectSelected))
                     {
@@ -221,10 +237,10 @@ namespace Xinaschack2._0.Classes
         /// If planet is next to PlanetSelected => check if jump is possible
         /// </summary>
         /// <returns></returns>
-        private List<int> CheckOKMoves(ref List<int> doubleJumps)
+        private List<int> CheckOKMoves()
         {
 
-            List<int> singleJumps = new List<int>();
+            singleJumps = new List<int>();
             List<Point> points = new List<Point>();
 
             // Each point represents a jump to each direction available on each rectangle. 

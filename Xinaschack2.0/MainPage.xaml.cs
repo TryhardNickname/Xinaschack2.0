@@ -84,6 +84,8 @@ namespace Xinaschack2._0
 
             game.DrawPlayerPlanets(sender, args);
 
+            game.DrawOkayMoves(args);
+
             // NYI DrawPlayerTurn
             game.DrawPlayerTurn(args);
 
