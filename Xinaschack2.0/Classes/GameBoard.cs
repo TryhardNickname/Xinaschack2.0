@@ -1,9 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Input;
 
@@ -20,20 +16,26 @@ namespace Xinaschack2._0.Classes
         private int DoubleJumpSaved { get; set; }
         private List<int> DoubleJumps { get; set; }
         private List<int> SingleJumps { get; set; }
+        private Dictionary<int, List<int>> StartPosDict { get; set; }
+
 
         private readonly double XSameLevelDiff = 45;
         private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
         private readonly double YDiff = 40; // rectsize + 5?
         private readonly double RectSize = 35;
 
-
         public GameBoard(int width, int height, int amountOfPlayers)
         {
             RectList = new List<Rect>();
             Players = new List<Player>();
+
             DoubleJumps = new List<int>();
             SingleJumps = new List<int>();
 
+            StartPosDict = new Dictionary<int, List<int>>();
+
+
+            SetupPlayerPosDict();
             MakeRectList(width, height);
             InitPlayerPlanets(amountOfPlayers);
             CurrentPlayerIndex = 0;
@@ -72,28 +74,48 @@ namespace Xinaschack2._0.Classes
             }
         }
 
+        private void SetupPlayerPosDict()
+        {
+
+            StartPosDict.Add(0, new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+            StartPosDict.Add(1, new List<int>() { 19, 20, 21, 22, 32, 33, 34, 44, 45, 55 });
+            StartPosDict.Add(2, new List<int>() { 74, 84, 85, 95, 96, 97, 107, 108, 109, 110 });
+            StartPosDict.Add(3, new List<int>() { 111, 112, 113, 114, 115, 116, 117, 118, 119, 120 });
+            StartPosDict.Add(4, new List<int>() { 65, 75, 76, 86, 87, 88, 98, 99, 100, 101 });
+            StartPosDict.Add(5, new List<int>() { 10, 11, 12, 13, 23, 24, 25, 35, 36, 46 });
+        }
         /// <summary>
         /// Adds 10 indexes for where the planets start-positions is for the 2 players
         /// </summary>
         private void InitPlayerPlanets(int amountOfPlayers)
         {
-            // NYI dynamic choosing lpayers and planets
-            List<int> list = new List<int>();
-            for (int i = 0; i < 10; i++)
+            switch (amountOfPlayers)
             {
-                list.Add(i);
+                case 2:
+                    Players.Add(new Player(PlanetEnum.Earth, StartPosDict[0], StartPosDict[3]));
+                    Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[3], StartPosDict[0]));
+                    break;
+                case 3:
+                    Players.Add(new Player(PlanetEnum.Earth, StartPosDict[0], StartPosDict[3]));
+                    Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[2], StartPosDict[5]));
+                    Players.Add(new Player(PlanetEnum.Mars, StartPosDict[4], StartPosDict[1]));
+                    break;
+                case 4:
+                    Players.Add(new Player(PlanetEnum.Earth, StartPosDict[1], StartPosDict[4]));
+                    Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[2], StartPosDict[5]));
+                    Players.Add(new Player(PlanetEnum.Mars, StartPosDict[4], StartPosDict[1]));
+                    Players.Add(new Player(PlanetEnum.Mercury, StartPosDict[5], StartPosDict[2]));
+                    break;
+                case 6:
+                    Players.Add(new Player(PlanetEnum.Earth, StartPosDict[0], StartPosDict[3]));
+                    Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[1], StartPosDict[4]));
+                    Players.Add(new Player(PlanetEnum.Mars, StartPosDict[2], StartPosDict[5]));
+                    Players.Add(new Player(PlanetEnum.Mercury, StartPosDict[3], StartPosDict[0]));
+                    Players.Add(new Player(PlanetEnum.Neptune, StartPosDict[4], StartPosDict[1]));
+                    Players.Add(new Player(PlanetEnum.Venus, StartPosDict[5], StartPosDict[2]));
+                    break;
             }
-            Player p1 = new Player(PlanetEnum.Earth, list);
-            list.Clear();
-
-            for (int i = RectList.Count - 1; i >= RectList.Count - 10; i--)
-            {
-                list.Add(i);
-            }
-            Player p2 = new Player(PlanetEnum.Venus, list);
-            Players.Add(p1);
-            Players.Add(p2);
-
+                
         }
 
         internal void DebugText(CanvasAnimatedDrawEventArgs args)
@@ -121,6 +143,7 @@ namespace Xinaschack2._0.Classes
                 if (RectSelected == rectIndex)
                 {
                     args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 0, 255, 0), 2);
+                    args.DrawingSession.DrawText(rectIndex.ToString(), new System.Numerics.Vector2(100, 100), Windows.UI.Color.FromArgb(255, 0, 255, 0));
                 }
                 else
                 {
@@ -138,14 +161,7 @@ namespace Xinaschack2._0.Classes
             {
                 for (int posIndex = 0; posIndex < Players[i].PlayerPositions.Count; posIndex++)
                 {
-                    if (i == 0)
-                    {
-                        args.DrawingSession.DrawImage(Players[i].PlanetBitmap, RectList[Players[i].PlayerPositions[posIndex]]);
-                    }
-                    if (i == 1)
-                    {
-                        args.DrawingSession.DrawImage(Players[i].PlanetBitmap, RectList[Players[i].PlayerPositions[posIndex]]);
-                    }
+                    args.DrawingSession.DrawImage(Players[i].PlanetBitmap, RectList[Players[i].PlayerPositions[posIndex]]);
                 }
             }
         }
