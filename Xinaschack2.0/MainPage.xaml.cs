@@ -90,6 +90,8 @@ namespace Xinaschack2._0
             // NYI DrawPlayerTurn
             game.DrawPlayerTurn(args);
 
+            game.DebugText(args);
+
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)

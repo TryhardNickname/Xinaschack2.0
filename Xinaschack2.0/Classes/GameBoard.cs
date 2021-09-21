@@ -10,13 +10,14 @@ namespace Xinaschack2._0.Classes
         public List<Rect> RectList { get; set; }
         public List<Player> Players { get; set; }
         private int RectSelected { get; set; }
-        private int PlanetSelectedFlag { get; set; }
         private int CurrentPlayerIndex { get; set; }
-        private bool OnlyDoubleJump { get; set; }
+        private bool OnlyDoubleJump{ get; set; }
+        private int PlanetSelected { get; set; }
+        private int DoubleJumpSaved { get; set; }
+        private List<int> DoubleJumps { get; set; }
+        private List<int> SingleJumps { get; set; }
         private Dictionary<int, List<int>> StartPosDict { get; set; }
 
-        private List<int> doubleJumps;
-        private List<int> singleJumps;
 
         private readonly double XSameLevelDiff = 45;
         private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
@@ -27,16 +28,20 @@ namespace Xinaschack2._0.Classes
         {
             RectList = new List<Rect>();
             Players = new List<Player>();
-            doubleJumps = new List<int>();
-            singleJumps = new List<int>();
+
+            DoubleJumps = new List<int>();
+            SingleJumps = new List<int>();
+
             StartPosDict = new Dictionary<int, List<int>>();
+
 
             SetupPlayerPosDict();
             MakeRectList(width, height);
             InitPlayerPlanets(amountOfPlayers);
             CurrentPlayerIndex = 0;
-            PlanetSelectedFlag = -1;
             OnlyDoubleJump = false;
+            PlanetSelected = -1;
+            DoubleJumpSaved = -1;
         }
 
         /// <summary>
@@ -84,22 +89,6 @@ namespace Xinaschack2._0.Classes
         /// </summary>
         private void InitPlayerPlanets(int amountOfPlayers)
         {
-            //List<int> list = new List<int>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    list.Add(i);
-            //}
-            //Player p1 = new Player(PlanetEnum.Earth, list);
-            //list.Clear();
-
-            //for (int i = RectList.Count - 1; i >= RectList.Count - 10; i--)
-            //{
-            //    list.Add(i);
-            //}
-            //Player p2 = new Player(PlanetEnum.Venus, list);
-            //Players.Add(p1);
-            //Players.Add(p2);
-
             switch (amountOfPlayers)
             {
                 case 2:
@@ -127,7 +116,22 @@ namespace Xinaschack2._0.Classes
                     break;
             }
                 
+        }
 
+        internal void DebugText(CanvasAnimatedDrawEventArgs args)
+        {
+            if(PlanetSelected != -1)
+            {
+                args.DrawingSession.DrawText("PlanetSelected Position = " + Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected].ToString(), 50, 100, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            }
+
+            args.DrawingSession.DrawText("RectSelected = " + RectSelected.ToString(), 50, 120, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("PlanetSelected = " + PlanetSelected.ToString(), 50, 140, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("singleJumps = " + string.Join(" ", SingleJumps), 30, 170, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("doubleJumps = " + string.Join(" ", DoubleJumps), 30, 190, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            
+            args.DrawingSession.DrawText("Player1 Positions = " + string.Join(" ", Players[0].PlayerPositions), 30, 220, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("Player2 Positions = " + string.Join(" ", Players[1].PlayerPositions), 30, 240, Windows.UI.Color.FromArgb(255, 90, 255, 170));
         }
 
         public void DrawSelectedRect(CanvasAnimatedDrawEventArgs args)
@@ -164,22 +168,22 @@ namespace Xinaschack2._0.Classes
 
         public void DrawOkayMoves(CanvasAnimatedDrawEventArgs args)
         {
-            foreach (int index in singleJumps)
+
+            for (int i = 0; i < SingleJumps.Count; i++)
             {
-                args.DrawingSession.DrawRectangle(RectList[index], Windows.UI.Color.FromArgb(255, 0, 255, 255), 2);
+                args.DrawingSession.DrawRectangle(RectList[SingleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 255, 255), 2);
             }
 
-            foreach (int index in doubleJumps)
+            for (int i = 0; i < DoubleJumps.Count; i++)
             {
-                args.DrawingSession.DrawRectangle(RectList[index], Windows.UI.Color.FromArgb(255, 0, 0, 255), 2);
+                args.DrawingSession.DrawRectangle(RectList[DoubleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 0, 255), 2);
             }
-
         }
 
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
 
-            args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 10, 10, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 50, Windows.UI.Color.FromArgb(255, 255, 0, 0));
         }
 
         /// <summary>
@@ -200,79 +204,71 @@ namespace Xinaschack2._0.Classes
         }
 
         /// <summary>
-        /// Checks if selection is planet or empty "rectangle". If previous click was on a Planet (PlanetSelectedFlag is >0 (where value is the index of which planet selected,
+        /// Checks if selection is planet or empty "rectangle". If previous click was on a Planet (PlanetSelected is >0 (where value is the index of which planet selected,
         /// and this click is on empty rectange, check if the "move" is valid with CheckOKMoves()
         /// </summary>
-        /// <param name="rectIndex"></param>
         private void CheckSelection()
         {
             if (Players[CurrentPlayerIndex].PlayerPositions.Contains(RectSelected)) //rectangle contains a planet == planet is selected
             {
-                if (PlanetSelectedFlag == RectSelected) // if doubleclick on same planet - move finished!
-                {
 
+                if (PlanetSelected != -1 && Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] == RectSelected) // if doubleclick on same planet - move finished!
+                {
                     NextTurn();
                 }
                 else
                 {
-                    PlanetSelectedFlag = RectSelected;
-                    doubleJumps.Clear();
-                    singleJumps = CheckOKMoves();
+                    PlanetSelected = Players[CurrentPlayerIndex].PlayerPositions.IndexOf(RectSelected);
+                    CheckOKMoves();
                 }
 
             }
-            else
+            else // If rect is emtpy
             {
-                if (PlanetSelectedFlag >= 0) // if planet was selected last click AND new click is empty rect == move
+                if (PlanetSelected != -1) // AND if planet was selected last click 
                 {
-                    // check if move is OK
-
-                    MovePlanet();
-
+                    if (SingleJumps.Contains(RectSelected) || DoubleJumps.Contains(RectSelected)) // AND OKmove == move
+                    {
+                        MovePlanet();
+                    }
+                    else // random rect slected == deselect Planet
+                    {
+                        DoubleJumps.Clear();
+                        SingleJumps.Clear();
+                        PlanetSelected = -1;
+                    }
                 }
-                // PlanetSelectedFlag = -1;
             }
         }
 
         private void MovePlanet()
         {
 
-            if (singleJumps.Contains(RectSelected) && !OnlyDoubleJump)
+            if (SingleJumps.Contains(RectSelected))
             {
-                // move planet
-                for (int i = 0; i < Players.Count; i++)
-                {
-                    for (int posIndex = 0; posIndex < 10; posIndex++)
-                    {
-                        if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
-                        {
-                            Players[i].PlayerPositions[posIndex] = RectSelected;
-                            // NEXT TURN
-                            NextTurn();
-                        }
-                    }
-                }
-                RectSelected = -1;
+                Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
+                NextTurn();
             }
-            else if (doubleJumps.Contains(RectSelected))
+            else if (DoubleJumps.Contains(RectSelected))
             {
-                for (int i = 0; i < Players.Count; i++)
+                // refactor this?? 
+                if ( OnlyDoubleJump && PlanetSelected == DoubleJumpSaved ) // if onlydoublejump is tru, selected HAS to be == doublejump saved
                 {
-                    for (int posIndex = 0; posIndex < 10; posIndex++)
-                    {
-                        if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
-                        {
-                            Players[i].PlayerPositions[posIndex] = RectSelected;
-                            //NYI DISABLE SINGLEJUMP NEXT CLICK
-                            OnlyDoubleJump = true;
-                            singleJumps.Clear();
-                            doubleJumps.Clear();
+                    // disable selecting other planets
+                    Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
+                    DoubleJumpSaved = PlanetSelected;
+                    CheckOKMoves();
+                    
+                }
+                else if (!OnlyDoubleJump)
+                {
+                    Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
+                    DoubleJumpSaved = PlanetSelected;
+                    OnlyDoubleJump = true;
+                    CheckOKMoves();
+                }
 
-                        }
-                    }
-                }
             }
-            RectSelected = -1;
         }
 
         private void NextTurn()
@@ -283,23 +279,56 @@ namespace Xinaschack2._0.Classes
                 CurrentPlayerIndex = 0;
             }
 
-            singleJumps.Clear();
-            doubleJumps.Clear();
-            PlanetSelectedFlag = -1;
+            SingleJumps.Clear();
+            DoubleJumps.Clear();
             RectSelected = -1;
+            PlanetSelected = -1;
+            OnlyDoubleJump = false;
 
         }
 
         /// <summary>
-        /// Check which places you can move with PlanetSelectedFlag. Looks at the 6 surrounding rectangles
+        /// Check which places you can move with PlanetSelected. Looks at the 6 surrounding rectangles
         /// If planet is next to PlanetSelected => check if jump is possible
         /// </summary>
         /// <returns></returns>
-        private List<int> CheckOKMoves()
+        private void CheckOKMoves()
         {
+            DoubleJumps.Clear();
+            SingleJumps.Clear();
 
-            singleJumps = new List<int>();
-            List<Point> points = new List<Point>();
+            // Each point represents a jump to each direction available on each rectangle. 
+            List<Point> points = new List<Point> {
+                new Point // top left
+                {
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - XDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y - YDiff
+                },
+                new Point //top right
+                {
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + XDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y - YDiff
+                },
+                new Point // right
+                {
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + XSameLevelDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y
+                },
+                new Point //bot right
+                {
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + XDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y + YDiff
+                },
+                new Point // bot left
+                {
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - XDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y + YDiff
+                },
+                new Point // left
+                {
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - XSameLevelDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y
+                }};
 
             List<int> PlayerPos = new List<int>();
 
@@ -309,50 +338,6 @@ namespace Xinaschack2._0.Classes
             }
 
 
-            // Each point represents a jump to each direction available on each rectangle. 
-
-            // top left
-            points.Add(new Point
-            {
-                X = RectList[PlanetSelectedFlag].X - XDiff,
-                Y = RectList[PlanetSelectedFlag].Y - YDiff
-            });
-
-            //top right
-            points.Add(new Point
-            {
-                X = RectList[PlanetSelectedFlag].X + XDiff,
-                Y = RectList[PlanetSelectedFlag].Y - YDiff
-            });
-
-            // right
-            points.Add(new Point
-            {
-                X = RectList[PlanetSelectedFlag].X + XSameLevelDiff,
-                Y = RectList[PlanetSelectedFlag].Y
-            });
-
-            //bot right
-            points.Add(new Point
-            {
-                X = RectList[PlanetSelectedFlag].X + XDiff,
-                Y = RectList[PlanetSelectedFlag].Y + YDiff
-            });
-
-            // bot left
-            points.Add(new Point
-            {
-                X = RectList[PlanetSelectedFlag].X - XDiff,
-                Y = RectList[PlanetSelectedFlag].Y + YDiff
-            });
-
-            // left
-            points.Add(new Point
-            {
-                X = RectList[PlanetSelectedFlag].X - XSameLevelDiff,
-                Y = RectList[PlanetSelectedFlag].Y
-            });
-
             // Loop through each rectangle in gamefield to find the rectangles that contain a Point. 
             // A Point is made by going one rectangle in each direction.
             // If Rectangle is not occupied by another Planet -> add to list.
@@ -360,21 +345,21 @@ namespace Xinaschack2._0.Classes
             {
                 for (int j = 0; j < points.Count; j++)
                 {
-                    if (RectList[i].Contains(points[j])) // Finds index for the six positions closest to PLanetSelectedFlag
+                    if (RectList[i].Contains(points[j])) // Finds index for the six positions closest to PlanetSelected
                     {
-                        // RectList[i] is one of the six singlejump positions
+                        // if true -> RectList[i] is one of the six singlejump positions
 
                         if (!PlayerPos.Contains(i)) // checks if ANY planets are blocking
                         {
-                            singleJumps.Add(i);
+                            SingleJumps.Add(i);
                         }
                         else
                         {
-                            //     If you have a planet that exists in the player list which contains indexes of positions of planets,
+                            //     If you have a planet that exists in the PlayerPos list, which contains indexes of positions of planets,
                             //     do the switch case which does an operation to find out if the rectangle behind the current
-                            //     rectangle is available.
+                            //     rectangle is available. ( a jump pver the planet that is "blocking"
 
-                            Point jumpPoint = points[j];
+                            Point jumpPoint = points[j]; // by using "j" , we look in the same direction
                             // check if you can jump over this planet
                             switch (j)
                             {
@@ -386,7 +371,7 @@ namespace Xinaschack2._0.Classes
                                     {
                                         if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            doubleJumps.Add(k);
+                                            DoubleJumps.Add(k);
                                         }
                                     }
                                     break;
@@ -399,7 +384,7 @@ namespace Xinaschack2._0.Classes
                                     {
                                         if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            doubleJumps.Add(k);
+                                            DoubleJumps.Add(k);
                                         }
                                     }
                                     break;
@@ -410,7 +395,7 @@ namespace Xinaschack2._0.Classes
                                     {
                                         if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            doubleJumps.Add(k);
+                                            DoubleJumps.Add(k);
                                         }
                                     }
                                     break;
@@ -422,7 +407,7 @@ namespace Xinaschack2._0.Classes
                                     {
                                         if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            doubleJumps.Add(k);
+                                            DoubleJumps.Add(k);
                                         }
                                     }
                                     break;
@@ -434,7 +419,7 @@ namespace Xinaschack2._0.Classes
                                     {
                                         if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            doubleJumps.Add(k);
+                                            DoubleJumps.Add(k);
                                         }
                                     }
                                     break;
@@ -445,18 +430,28 @@ namespace Xinaschack2._0.Classes
                                     {
                                         if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            doubleJumps.Add(k);
+                                            DoubleJumps.Add(k);
                                         }
                                     }
                                     break;
-
+                                default:
+                                    break;
                             }
                         }
 
                     }
                 }
             }
-            return singleJumps;
+
+            if (OnlyDoubleJump) // show no singleJumps if only doublejumps
+            {
+                SingleJumps.Clear();
+                if (DoubleJumpSaved != PlanetSelected) // show no doublejumps if wrong planet selected
+                {
+                    DoubleJumps.Clear();
+                }
+            }
+
         }
     }
 
