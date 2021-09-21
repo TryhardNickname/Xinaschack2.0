@@ -3,6 +3,7 @@ using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
@@ -97,7 +98,23 @@ namespace Xinaschack2._0
             // foreach Player p in Players
             //     make move
 
-            //check if win
+            foreach (Player player in game.Players)
+            {
+                int correctPos = 0;
+                for (int i = 0; i < player.PlayerPositions.Count; i++)
+                {
+                    if (player.WinPositions.Contains(player.PlayerPositions[i]))
+                    {
+                        correctPos++;
+                    }
+                }
+
+                if (correctPos == 10)
+                {
+                    Debug.WriteLine($"{player.PlanetColor} won");
+                    correctPos++;
+                }
+            }
         }
 
         /// <summary>
