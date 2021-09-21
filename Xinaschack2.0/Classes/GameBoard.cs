@@ -16,6 +16,7 @@ namespace Xinaschack2._0.Classes
         private int RectSelected { get; set; }
         private int PlanetSelectedFlag { get; set; }
         private int CurrentPlayerIndex { get; set; }
+        private bool OnlyDoubleJump{ get; set; }
 
         private List<int> doubleJumps;
         private List<int> singleJumps;
@@ -37,6 +38,7 @@ namespace Xinaschack2._0.Classes
             InitPlayerPlanets(amountOfPlayers);
             CurrentPlayerIndex = 0;
             PlanetSelectedFlag = -1;
+            OnlyDoubleJump = false;
         }
 
         /// <summary>
@@ -142,8 +144,8 @@ namespace Xinaschack2._0.Classes
 
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
-            
-            args.DrawingSession.DrawText((CurrentPlayerIndex+1).ToString(), 10, 10, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+
+            args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 10, 10, Windows.UI.Color.FromArgb(255, 255, 0, 0));
         }
 
         /// <summary>
@@ -169,19 +171,18 @@ namespace Xinaschack2._0.Classes
         /// </summary>
         /// <param name="rectIndex"></param>
         private void CheckSelection()
-        {     
+        {
             if (Players[CurrentPlayerIndex].PlayerPositions.Contains(RectSelected)) //rectangle contains a planet == planet is selected
             {
-                if(PlanetSelectedFlag == RectSelected) // if doubleclick on same planet - move finished!
+                if (PlanetSelectedFlag == RectSelected) // if doubleclick on same planet - move finished!
                 {
-                    CurrentPlayerIndex++;
-                    if (CurrentPlayerIndex >= Players.Count)
-                        CurrentPlayerIndex = 0;
+
+                    NextTurn();
                 }
                 else
                 {
                     PlanetSelectedFlag = RectSelected;
-                    doubleJumps = new List<int>();
+                    doubleJumps.Clear();
                     singleJumps = CheckOKMoves();
                 }
 
@@ -191,45 +192,68 @@ namespace Xinaschack2._0.Classes
                 if (PlanetSelectedFlag >= 0) // if planet was selected last click AND new click is empty rect == move
                 {
                     // check if move is OK
-             
 
-                    if (singleJumps.Contains(RectSelected))
-                    {
-                        // move planet
-                        for (int i = 0; i < Players.Count; i++)
-                        {
-                            for (int posIndex = 0; posIndex < 10; posIndex++)
-                            {
-                                if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
-                                {
-                                    Players[i].PlayerPositions[posIndex] = RectSelected;
-                                    // NEXT TURN
-                                    CurrentPlayerIndex++;
-                                    if (CurrentPlayerIndex >= Players.Count)
-                                        CurrentPlayerIndex = 0;
-                                }
-                            }
-                        }
-                        RectSelected = -1;
-                    }
-                    else if (doubleJumps.Contains(RectSelected))
-                    {
-                        for (int i = 0; i < Players.Count; i++)
-                        {
-                            for (int posIndex = 0; posIndex < 10; posIndex++)
-                            {
-                                if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
-                                {
-                                    Players[i].PlayerPositions[posIndex] = RectSelected;
-                                    //NYI DISABLE SINGLEJUMP NEXT CLICK
-                                }
-                            }
-                        }
-                    }
-                    RectSelected = -1;
+                    MovePlanet();
+
                 }
-                PlanetSelectedFlag = -1;
+                // PlanetSelectedFlag = -1;
             }
+        }
+
+        private void MovePlanet()
+        {
+
+            if (singleJumps.Contains(RectSelected) && !OnlyDoubleJump)
+            {
+                // move planet
+                for (int i = 0; i < Players.Count; i++)
+                {
+                    for (int posIndex = 0; posIndex < 10; posIndex++)
+                    {
+                        if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
+                        {
+                            Players[i].PlayerPositions[posIndex] = RectSelected;
+                            // NEXT TURN
+                            NextTurn();
+                        }
+                    }
+                }
+                RectSelected = -1;
+            }
+            else if (doubleJumps.Contains(RectSelected))
+            {
+                for (int i = 0; i < Players.Count; i++)
+                {
+                    for (int posIndex = 0; posIndex < 10; posIndex++)
+                    {
+                        if (Players[i].PlayerPositions[posIndex] == PlanetSelectedFlag)
+                        {
+                            Players[i].PlayerPositions[posIndex] = RectSelected;
+                            //NYI DISABLE SINGLEJUMP NEXT CLICK
+                            OnlyDoubleJump = true;
+                            singleJumps.Clear();
+                            doubleJumps.Clear();
+
+                        }
+                    }
+                }
+            }
+            RectSelected = -1;
+        }
+
+        private void NextTurn()
+        {
+            CurrentPlayerIndex++;
+            if (CurrentPlayerIndex >= Players.Count)
+            {
+                CurrentPlayerIndex = 0;
+            }
+
+            singleJumps.Clear();
+            doubleJumps.Clear();
+            PlanetSelectedFlag = -1;
+            RectSelected = -1;
+
         }
 
         /// <summary>
@@ -242,6 +266,14 @@ namespace Xinaschack2._0.Classes
 
             singleJumps = new List<int>();
             List<Point> points = new List<Point>();
+
+            List<int> PlayerPos = new List<int>();
+
+            foreach (Player p in Players)
+            {
+                PlayerPos.AddRange(p.PlayerPositions);
+            }
+
 
             // Each point represents a jump to each direction available on each rectangle. 
 
@@ -292,102 +324,101 @@ namespace Xinaschack2._0.Classes
             // If Rectangle is not occupied by another Planet -> add to list.
             for (int i = 0; i < RectList.Count; i++)
             {
-
                 for (int j = 0; j < points.Count; j++)
                 {
-                    if (RectList[i].Contains(points[j]))
+                    if (RectList[i].Contains(points[j])) // Finds index for the six positions closest to PLanetSelectedFlag
                     {
-                        foreach (Player player in Players)
+                        // RectList[i] is one of the six singlejump positions
+
+                        if (!PlayerPos.Contains(i)) // checks if ANY planets are blocking
                         {
-                            if (!player.PlayerPositions.Contains(i))
+                            singleJumps.Add(i);
+                        }
+                        else
+                        {
+                            //     If you have a planet that exists in the player list which contains indexes of positions of planets,
+                            //     do the switch case which does an operation to find out if the rectangle behind the current
+                            //     rectangle is available.
+
+                            Point jumpPoint = points[j];
+                            // check if you can jump over this planet
+                            switch (j)
                             {
-                                singleJumps.Add(i);
-                            }
-                            else
-                            {
-                                // If you have a planet that exists in the player list which contains indexes of positions of planets,
-                                // do the switch case which does an operation to find out if the rectangle behind the current
-                                // rectangle is available.
+                                case 0:
+                                    jumpPoint.X -= XDiff;
+                                    jumpPoint.Y -= YDiff;
 
-                                Point jumpPoint = points[j];
-                                //check if you can jump over this planet
-                                switch (j)
-                                {
-                                    case 0:
-                                        jumpPoint.X -= XDiff;
-                                        jumpPoint.Y -= YDiff;
-
-                                        for (int k = i; k >= 0; k--)
+                                    for (int k = i; k >= 0; k--)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
-                                            {
-                                                doubleJumps.Add(k);
-                                            }
+                                            doubleJumps.Add(k);
                                         }
-                                        break;
+                                    }
+                                    break;
 
-                                    case 1:
-                                        jumpPoint.X += XDiff;
-                                        jumpPoint.Y -= YDiff;
+                                case 1:
+                                    jumpPoint.X += XDiff;
+                                    jumpPoint.Y -= YDiff;
 
-                                        for (int k = i; k >= 0; k--)
+                                    for (int k = i; k >= 0; k--)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
-                                            {
-                                                doubleJumps.Add(k);
-                                            }
+                                            doubleJumps.Add(k);
                                         }
-                                        break;
-                                    case 2:
-                                        jumpPoint.X += XSameLevelDiff;
+                                    }
+                                    break;
+                                case 2:
+                                    jumpPoint.X += XSameLevelDiff;
 
-                                        for (int k = i; k < RectList.Count; k++)
+                                    for (int k = i; k < RectList.Count; k++)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
-                                            {
-                                                doubleJumps.Add(k);
-                                            }
+                                            doubleJumps.Add(k);
                                         }
-                                        break;
-                                    case 3:
-                                        jumpPoint.X += XDiff;
-                                        jumpPoint.Y += YDiff;
+                                    }
+                                    break;
+                                case 3:
+                                    jumpPoint.X += XDiff;
+                                    jumpPoint.Y += YDiff;
 
-                                        for (int k = i; k < RectList.Count; k++)
+                                    for (int k = i; k < RectList.Count; k++)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
-                                            {
-                                                doubleJumps.Add(k);
-                                            }
+                                            doubleJumps.Add(k);
                                         }
-                                        break;
-                                    case 4:
-                                        jumpPoint.X -= XDiff;
-                                        jumpPoint.Y += YDiff;
+                                    }
+                                    break;
+                                case 4:
+                                    jumpPoint.X -= XDiff;
+                                    jumpPoint.Y += YDiff;
 
-                                        for (int k = i; k < RectList.Count; k++)
+                                    for (int k = i; k < RectList.Count; k++)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
-                                            {
-                                                doubleJumps.Add(k);
-                                            }
+                                            doubleJumps.Add(k);
                                         }
-                                        break;
-                                    case 5:
-                                        jumpPoint.X -= XDiff;
+                                    }
+                                    break;
+                                case 5:
+                                    jumpPoint.X -= XDiff;
 
-                                        for (int k = i; k >= 0; k--)
+                                    for (int k = i; k >= 0; k--)
+                                    {
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
                                         {
-                                            if (RectList[k].Contains(jumpPoint) && !player.PlayerPositions.Contains(k))
-                                            {
-                                                doubleJumps.Add(k);
-                                            }
+                                            doubleJumps.Add(k);
                                         }
-                                        break;
+                                    }
+                                    break;
 
-                                }
                             }
                         }
+
                     }
                 }
             }
