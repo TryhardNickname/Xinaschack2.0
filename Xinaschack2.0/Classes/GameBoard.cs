@@ -17,6 +17,7 @@ namespace Xinaschack2._0.Classes
         private int CurrentPlayerIndex { get; set; }
         private bool OnlyDoubleJump{ get; set; }
         private int PlanetSelected { get; set; }
+        private int DoubleJumpSaved { get; set; }
         private List<int> doubleJumps { get; set; }
         private List<int> singleJumps { get; set; }
 
@@ -38,6 +39,7 @@ namespace Xinaschack2._0.Classes
             CurrentPlayerIndex = 0;
             OnlyDoubleJump = false;
             PlanetSelected = -1;
+            DoubleJumpSaved = -1;
         }
 
         /// <summary>
@@ -96,7 +98,11 @@ namespace Xinaschack2._0.Classes
 
         internal void DebugText(CanvasAnimatedDrawEventArgs args)
         {
-            //args.DrawingSession.DrawText("PlanetSelected = " + PlanetSelected.ToString(), 50, 100, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            if(PlanetSelected != -1)
+            {
+                args.DrawingSession.DrawText("PlanetSelected Position = " + Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected].ToString(), 50, 100, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            }
+
             args.DrawingSession.DrawText("RectSelected = " + RectSelected.ToString(), 50, 120, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             args.DrawingSession.DrawText("PlanetSelected = " + PlanetSelected.ToString(), 50, 140, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             args.DrawingSession.DrawText("singleJumps = " + string.Join(" ", singleJumps), 30, 170, Windows.UI.Color.FromArgb(255, 90, 255, 170));
@@ -189,7 +195,7 @@ namespace Xinaschack2._0.Classes
         {
             if (Players[CurrentPlayerIndex].PlayerPositions.Contains(RectSelected)) //rectangle contains a planet == planet is selected
             {
-                
+
                 if (PlanetSelected != -1 && Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] == RectSelected) // if doubleclick on same planet - move finished!
                 {
                     NextTurn();
@@ -229,10 +235,23 @@ namespace Xinaschack2._0.Classes
             }
             else if (doubleJumps.Contains(RectSelected))
             {
-                Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
-                OnlyDoubleJump = true;
-                singleJumps.Clear();
-                doubleJumps.Clear();
+                // refactor this?? 
+                if ( OnlyDoubleJump && PlanetSelected == DoubleJumpSaved ) // if onlyd-jump is tru, selected HAS to be == doublejump saved
+                {
+                    // disable selecting other planets
+                    Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
+                    DoubleJumpSaved = PlanetSelected;
+                    CheckOKMoves();
+                    
+                }
+                else if (!OnlyDoubleJump)
+                {
+                    Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
+                    DoubleJumpSaved = PlanetSelected;
+                    OnlyDoubleJump = true;
+                    CheckOKMoves();
+                }
+
             }
         }
 
@@ -248,6 +267,7 @@ namespace Xinaschack2._0.Classes
             doubleJumps.Clear();
             RectSelected = -1;
             PlanetSelected = -1;
+            OnlyDoubleJump = false;
 
         }
 
@@ -405,6 +425,10 @@ namespace Xinaschack2._0.Classes
 
                     }
                 }
+            }
+            if ( OnlyDoubleJump ) // show no singleJumps if only doublejumps
+            {
+                singleJumps.Clear();
             }
         }
     }
