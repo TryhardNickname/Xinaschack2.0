@@ -228,7 +228,7 @@ namespace Xinaschack2._0.Classes
         private void MovePlanet()
         {
 
-            if (singleJumps.Contains(RectSelected) && !OnlyDoubleJump)
+            if (singleJumps.Contains(RectSelected))
             {
                 Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
                 NextTurn();
@@ -236,7 +236,7 @@ namespace Xinaschack2._0.Classes
             else if (doubleJumps.Contains(RectSelected))
             {
                 // refactor this?? 
-                if ( OnlyDoubleJump && PlanetSelected == DoubleJumpSaved ) // if onlyd-jump is tru, selected HAS to be == doublejump saved
+                if ( OnlyDoubleJump && PlanetSelected == DoubleJumpSaved ) // if onlydoublejump is tru, selected HAS to be == doublejump saved
                 {
                     // disable selecting other planets
                     Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
@@ -426,10 +426,15 @@ namespace Xinaschack2._0.Classes
                     }
                 }
             }
-            if ( OnlyDoubleJump ) // show no singleJumps if only doublejumps
+            if (OnlyDoubleJump) // show no singleJumps if only doublejumps
             {
                 singleJumps.Clear();
+                if (DoubleJumpSaved != PlanetSelected) // show no doublejumps if wrong planet selected
+                {
+                    doubleJumps.Clear();
+                }
             }
+
         }
     }
 
