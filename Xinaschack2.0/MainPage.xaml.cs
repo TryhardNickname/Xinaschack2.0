@@ -32,8 +32,8 @@ namespace Xinaschack2._0
         private CanvasBitmap Board { get; set; }
         private CanvasBitmap Earth { get; set; }
         private CanvasBitmap Mars { get; set; }
-        private readonly float DesignWidth = 1280;
-        private readonly float DesignHeight = 720;
+        private readonly float DesignWidth = 1920;
+        private readonly float DesignHeight = 1080;
         private List<Rect> RectList { get; set; }
         public List<List<int>> Players { get; set; }
         private int RectSelected { get; set; }
