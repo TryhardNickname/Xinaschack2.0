@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+using System;
 using System.Collections.Generic;
 using Windows.Foundation;
 using Windows.UI.Xaml.Input;
@@ -10,7 +11,7 @@ namespace Xinaschack2._0.Classes
         public List<Rect> RectList { get; set; }
         public List<Player> Players { get; set; }
         private int RectSelected { get; set; }
-        private int CurrentPlayerIndex { get; set; }
+        public int CurrentPlayerIndex { get; private set; }
         private bool OnlyDoubleJump{ get; set; }
         private int PlanetSelected { get; set; }
         private int DoubleJumpSaved { get; set; }
@@ -86,6 +87,28 @@ namespace Xinaschack2._0.Classes
             StartPosDict.Add(4, new List<int>() { 65, 75, 76, 86, 87, 88, 98, 99, 100, 101 });
             StartPosDict.Add(5, new List<int>() { 10, 11, 12, 13, 23, 24, 25, 35, 36, 46 });
         }
+
+        public bool CheckIfWin()
+        {
+            foreach (Player player in Players)
+            {
+                int correctPos = 0;
+                for (int i = 0; i < player.PlayerPositions.Count; i++)
+                {
+                    if (player.WinPositions.Contains(player.PlayerPositions[i]))
+                    {
+                        correctPos++;
+                    }
+                }
+
+                if (correctPos == 10)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Adds 10 indexes for where the planets start-positions is for the 2 players
         /// </summary>
@@ -156,11 +179,15 @@ namespace Xinaschack2._0.Classes
             }
         }
 
+        /// <summary>
+        /// Loop through the Players list, which is a list of list of ints.
+        /// Each player has a list of ints that represents where their planets lie. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         public void DrawPlayerPlanets(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
 
-            // Loop through the Players list, which is a list of list of ints.
-            // Each player has a list of ints that represents where their planets lie. 
             for (int i = 0; i < Players.Count; i++)
             {
                 for (int posIndex = 0; posIndex < Players[i].PlayerPositions.Count; posIndex++)

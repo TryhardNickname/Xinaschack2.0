@@ -96,27 +96,13 @@ namespace Xinaschack2._0
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            // NYI
-            // foreach Player p in Players
-            //     make move
-
-            foreach (Player player in game.Players)
+            if(game.CheckIfWin())
             {
-                int correctPos = 0;
-                for (int i = 0; i < player.PlayerPositions.Count; i++)
-                {
-                    if (player.WinPositions.Contains(player.PlayerPositions[i]))
-                    {
-                        correctPos++;
-                    }
-                }
-
-                if (correctPos == 10)
-                {
-                    Debug.WriteLine($"{player.PlanetColor} won");
-                    correctPos++;
-                }
+                Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
+
+            // if (planet moved)
+            //      draw move animation(moved planet)
         }
 
         /// <summary>
