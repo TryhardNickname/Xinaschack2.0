@@ -43,7 +43,7 @@ namespace Xinaschack2._0.Classes
             OnlyDoubleJump = false;
             PlanetSelected = -1;
             DoubleJumpSaved = -1;
-            SavedPosition = 0;
+            SavedPosition = -1;
         }
 
         /// <summary>
@@ -302,6 +302,7 @@ namespace Xinaschack2._0.Classes
             PlanetSelected = -1;
             OnlyDoubleJump = false;
             DoubleJumpSaved = -1;
+            SavedPosition = -1;
         }
 
         /// <summary>
