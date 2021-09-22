@@ -14,6 +14,7 @@ namespace Xinaschack2._0.Classes
         private bool OnlyDoubleJump{ get; set; }
         private int PlanetSelected { get; set; }
         private int DoubleJumpSaved { get; set; }
+        private int SavedPosition { get; set; }
         private List<int> DoubleJumps { get; set; }
         private List<int> SingleJumps { get; set; }
         private Dictionary<int, List<int>> StartPosDict { get; set; }
@@ -42,6 +43,7 @@ namespace Xinaschack2._0.Classes
             OnlyDoubleJump = false;
             PlanetSelected = -1;
             DoubleJumpSaved = -1;
+            SavedPosition = -1;
         }
 
         /// <summary>
@@ -114,11 +116,13 @@ namespace Xinaschack2._0.Classes
                     Players.Add(new Player(PlanetEnum.Neptune, StartPosDict[4], StartPosDict[1]));
                     Players.Add(new Player(PlanetEnum.Venus, StartPosDict[5], StartPosDict[2]));
                     break;
+                default:
+                    break;
             }
-                
+
         }
 
-        internal void DebugText(CanvasAnimatedDrawEventArgs args)
+        public void DebugText(CanvasAnimatedDrawEventArgs args)
         {
             if(PlanetSelected != -1)
             {
@@ -127,11 +131,12 @@ namespace Xinaschack2._0.Classes
 
             args.DrawingSession.DrawText("RectSelected = " + RectSelected.ToString(), 50, 120, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             args.DrawingSession.DrawText("PlanetSelected = " + PlanetSelected.ToString(), 50, 140, Windows.UI.Color.FromArgb(255, 90, 255, 170));
-            args.DrawingSession.DrawText("singleJumps = " + string.Join(" ", SingleJumps), 30, 170, Windows.UI.Color.FromArgb(255, 90, 255, 170));
-            args.DrawingSession.DrawText("doubleJumps = " + string.Join(" ", DoubleJumps), 30, 190, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("DoubleJumpSaved = " + DoubleJumpSaved.ToString(), 50, 160, Windows.UI.Color.FromArgb(255, 50, 50, 50));
+            args.DrawingSession.DrawText("singleJumps = " + string.Join(" ", SingleJumps), 30, 190, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("doubleJumps = " + string.Join(" ", DoubleJumps), 30, 210, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             
-            args.DrawingSession.DrawText("Player1 Positions = " + string.Join(" ", Players[0].PlayerPositions), 30, 220, Windows.UI.Color.FromArgb(255, 90, 255, 170));
-            args.DrawingSession.DrawText("Player2 Positions = " + string.Join(" ", Players[1].PlayerPositions), 30, 240, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("Player1 Positions = " + string.Join(" ", Players[0].PlayerPositions), 10, 230, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("Player2 Positions = " + string.Join(" ", Players[1].PlayerPositions), 10, 250, Windows.UI.Color.FromArgb(255, 90, 255, 170));
         }
 
         public void DrawSelectedRect(CanvasAnimatedDrawEventArgs args)
@@ -143,7 +148,6 @@ namespace Xinaschack2._0.Classes
                 if (RectSelected == rectIndex)
                 {
                     args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 0, 255, 0), 2);
-                    args.DrawingSession.DrawText(rectIndex.ToString(), new System.Numerics.Vector2(100, 100), Windows.UI.Color.FromArgb(255, 0, 255, 0));
                 }
                 else
                 {
@@ -214,7 +218,10 @@ namespace Xinaschack2._0.Classes
 
                 if (PlanetSelected != -1 && Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] == RectSelected) // if doubleclick on same planet - move finished!
                 {
-                    NextTurn();
+                    if (PlanetSelected == DoubleJumpSaved) // Only next turn if doubleclick on planet you moved
+                    {
+                        NextTurn();
+                    }
                 }
                 else
                 {
@@ -241,6 +248,10 @@ namespace Xinaschack2._0.Classes
             }
         }
 
+        /// <summary>
+        /// Checks in SingleJumps & DoubleJumps list if RectSelected exists in either of them. If singlejump -> Next turn
+        /// If doublejump -> disable SingleJumps
+        /// </summary>
         private void MovePlanet()
         {
 
@@ -251,26 +262,32 @@ namespace Xinaschack2._0.Classes
             }
             else if (DoubleJumps.Contains(RectSelected))
             {
-                // refactor this?? 
                 if ( OnlyDoubleJump && PlanetSelected == DoubleJumpSaved ) // if onlydoublejump is tru, selected HAS to be == doublejump saved
                 {
-                    // disable selecting other planets
                     Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
                     DoubleJumpSaved = PlanetSelected;
                     CheckOKMoves();
-                    
+
+                    if(RectSelected == SavedPosition) // Planet is back to start pos
+                    {
+                        DoubleJumpSaved = -1;
+                        OnlyDoubleJump = false;
+                    }
                 }
                 else if (!OnlyDoubleJump)
                 {
+                    SavedPosition = Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected];
                     Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
                     DoubleJumpSaved = PlanetSelected;
                     OnlyDoubleJump = true;
                     CheckOKMoves();
                 }
-
             }
         }
 
+        /// <summary>
+        /// Increases CurrentPlayerIndex and resets properties
+        /// </summary>
         private void NextTurn()
         {
             CurrentPlayerIndex++;
@@ -284,7 +301,8 @@ namespace Xinaschack2._0.Classes
             RectSelected = -1;
             PlanetSelected = -1;
             OnlyDoubleJump = false;
-
+            DoubleJumpSaved = -1;
+            SavedPosition = -1;
         }
 
         /// <summary>
