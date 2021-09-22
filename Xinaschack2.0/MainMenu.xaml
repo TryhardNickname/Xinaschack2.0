@@ -8,82 +8,17 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d" Background="Black">
 
-    <Grid Margin="10,10,10,10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="233*"/>
-            <ColumnDefinition Width="507*"/>
-        </Grid.ColumnDefinitions>
-
-        <Image Margin="-27,-10,-16,-49" Grid.ColumnSpan="2">
+    <Grid>
+        <Image>
             <Image.Source>
-                <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif" />
+                <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif"/>
             </Image.Source>
         </Image>
-        <Button x:Name="playbtn" Content="Play" Margin="133,309,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
-                RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
-                FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
-            <Button.Foreground>
-                <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Foreground>
 
+        <Grid Height="720" Width="1280" >
 
+            <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" Height="1080" Width="1920"/>
 
-        </Button>
-
-        <Button x:Name="Quitbtn" Content="Quit" Margin="133,827,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
-                RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
-                FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
-            <Button.Foreground>
-                <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Foreground>
-
-        </Button>
-        <Button Content="Options" Height="32" Width="69">
-            <Button.Flyout>
-                <MenuFlyout>
-                    <MenuFlyoutItem Text="Reset"/>
-                    <MenuFlyoutSeparator/>
-                    <ToggleMenuFlyoutItem Text="Repeat" IsChecked="True"/>
-                    <ToggleMenuFlyoutItem Text="Shuffle" IsChecked="True"/>
-                </MenuFlyout>
-            </Button.Flyout>
-        </Button>
-        <Button x:Name="tutorialbtn" Content="tutorial" Margin="30,654,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
-                RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
-                FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
-            <Button.Foreground>
-                <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Foreground>
-
-        </Button>
-
-        <Button x:Name="Scorebtn" Content="Score" Margin="87,474,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
-                RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
-                FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" >
-            <Button.Foreground>
-                <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01 ,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Foreground>
-
-        </Button>
-        <Image Source="Assets/images/chinese checkers.png" Margin="273,32,306,825" Grid.ColumnSpan="2"/>
-        <Image Source="/Assets/Images/space ver.xi.png" Margin="436,168,447,772" Grid.ColumnSpan="2"/>
-
-    </Grid>
-
+        </Grid>
+       </Grid>
 </Page>
