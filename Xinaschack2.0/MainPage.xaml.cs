@@ -38,5 +38,9 @@ namespace Xinaschack2._0
             this.Frame.Navigate(typeof(MainMenu), null);
         }
 
+        private void Quitbtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

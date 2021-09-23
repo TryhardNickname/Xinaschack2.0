@@ -17,7 +17,7 @@
 
         <Grid Height="720" Width="1280" >
 
-            <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" Height="1080" Width="1920"/>
+            <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" Margin="10,0,34,-83"/>
 
         </Grid>
        </Grid>

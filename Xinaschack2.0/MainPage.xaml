@@ -9,20 +9,20 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="Black">
 
-        <Grid Margin="10,10,10,10">
+        <Grid Margin="10,10,10,10" Background="Black">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="233*"/>
-                <ColumnDefinition Width="507*"/>
+                <ColumnDefinition Width="119*"/>
+                <ColumnDefinition Width="251*"/>
             </Grid.ColumnDefinitions>
 
-            <Image Margin="-27,-10,-16,-49" Grid.ColumnSpan="2">
+            <Image Margin="-27,3,-16,-62" Grid.ColumnSpan="2">
                 <Image.Source>
                     <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif" />
                 </Image.Source>
             </Image>
-            <Button x:Name="playbtn" Content="Play" Margin="133,309,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="playbtn" Content="Play" Margin="133,377,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
@@ -37,10 +37,10 @@
 
             </Button>
 
-            <Button x:Name="Quitbtn" Content="Quit" Margin="133,827,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Quitbtn" Content="Quit" Margin="133,806,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="Quitbtn_Click" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
                         <GradientStop Color="Black"/>
@@ -59,7 +59,7 @@
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
-            <Button x:Name="tutorialbtn" Content="tutorial" Margin="30,654,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="tutorialbtn" Content="tutorial" Margin="30,675,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
@@ -72,7 +72,7 @@
 
             </Button>
 
-            <Button x:Name="Scorebtn" Content="Score" Margin="87,474,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Scorebtn" Content="Score" Margin="87,540,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" >
@@ -84,8 +84,8 @@
                 </Button.Foreground>
 
             </Button>
-            <Image Source="Assets/images/chinese checkers.png" Margin="273,32,306,825" Grid.ColumnSpan="2"/>
-            <Image Source="/Assets/Images/space ver.xi.png" Margin="436,168,447,772" Grid.ColumnSpan="2"/>
+            <Image Source="Assets/images/chinese checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
+            <Image Source="/Assets/Images/space ver.xi.png" Margin="142,112,666,844" Grid.Column="1"/>
 
         </Grid>
 
