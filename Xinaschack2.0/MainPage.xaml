@@ -22,7 +22,7 @@
                     <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif" />
                 </Image.Source>
             </Image>
-            <Button x:Name="playbtn" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="playbtn" Click="play" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >

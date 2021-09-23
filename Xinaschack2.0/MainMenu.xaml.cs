@@ -385,5 +385,6 @@ namespace Xinaschack2._0
                 }
             }
         }
+       
     }
 }

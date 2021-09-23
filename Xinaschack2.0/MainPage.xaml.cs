@@ -33,9 +33,11 @@ namespace Xinaschack2._0
             InitializeComponent();
 
         }
-        private void Play(object sender, RoutedEventArgs e)
+        private void play(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainMenu), null);
+
+            Frame.Navigate(typeof(MainMenu), null);
+
         }
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
