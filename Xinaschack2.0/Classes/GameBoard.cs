@@ -193,6 +193,7 @@ namespace Xinaschack2._0.Classes
                 for (int posIndex = 0; posIndex < Players[i].PlayerPositions.Count; posIndex++)
                 {
                     args.DrawingSession.DrawImage(Players[i].PlanetBitmap, RectList[Players[i].PlayerPositions[posIndex]]);
+                    //sender.Invalidate();
                 }
             }
         }

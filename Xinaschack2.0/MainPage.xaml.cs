@@ -34,8 +34,8 @@ namespace Xinaschack2._0
 
         private readonly int DesignWidth = 1280;
         private readonly int DesignHeight = 720;
-
-        GameBoard game;
+        int debugint;
+        private GameBoard game { get; set; }
 
         public MainPage()
         {
@@ -47,6 +47,7 @@ namespace Xinaschack2._0
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
             game = new GameBoard(DesignWidth, DesignHeight, 2);
+            debugint = 0;
 
         }
 
@@ -63,12 +64,28 @@ namespace Xinaschack2._0
             {
                 await p.LoadBitmapAsync(sender).AsAsyncAction();
             }
+
+            CanvasCommandList cl = new CanvasCommandList(sender);
+
+            using (CanvasDrawingSession clds = cl.CreateDrawingSession())
+            {
+                clds.DrawImage(Board);
+                for (int i = 0; i < game.Players.Count; i++)
+                {
+                    for (int posIndex = 0; posIndex < game.Players[i].PlayerPositions.Count; posIndex++)
+                    {
+                        clds.DrawImage(game.Players[i].PlanetBitmap, game.RectList[game.Players[i].PlayerPositions[posIndex]]);
+                        //sender.Invalidate();
+                    }
+                }
+
+            }
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             args.TrackAsyncAction(CreateResourcesAsync(sender).AsAsyncAction());
-            
+            //await args.GetTrackedAction();
         }
 
         /// <summary>
@@ -79,11 +96,10 @@ namespace Xinaschack2._0
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             // args.DrawingSession.DrawImage(StartScreen);
-            args.DrawingSession.DrawImage(Board);
+            //args.DrawingSession.DrawImage(Board);
+            //game.DrawPlayerPlanets(sender, args);
 
             game.DrawSelectedRect(args);
-
-            game.DrawPlayerPlanets(sender, args);
 
             game.DrawOkayMoves(args);
 
@@ -92,14 +108,20 @@ namespace Xinaschack2._0
 
             game.DebugText(args);
 
+            //debugint++;
+            //if (debugint % 60 == 0)
+            //    Debug.WriteLine(debugint.ToString());
+
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
+
             if(game.CheckIfWin())
             {
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
+
 
             // if (planet moved)
             //      draw move animation(moved planet)
