@@ -22,7 +22,7 @@
                     <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif" />
                 </Image.Source>
             </Image>
-            <Button x:Name="playbtn" Content="Play" Margin="133,377,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="playbtn" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
@@ -37,7 +37,7 @@
 
             </Button>
 
-            <Button x:Name="Quitbtn" Content="Quit" Margin="133,806,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Quitbtn" Content="Quit" Margin="201,744,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="Quitbtn_Click" >
@@ -59,7 +59,7 @@
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
-            <Button x:Name="tutorialbtn" Content="tutorial" Margin="30,675,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="tutorialbtn" Content="Tutorial" Margin="106,603,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
@@ -72,7 +72,7 @@
 
             </Button>
 
-            <Button x:Name="Scorebtn" Content="Score" Margin="87,540,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Scorebtn" Content="Score" Margin="161,462,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" >
@@ -85,7 +85,7 @@
 
             </Button>
             <Image Source="Assets/images/chinese checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
-            <Image Source="/Assets/Images/space ver.xi.png" Margin="142,112,666,844" Grid.Column="1"/>
+            <Image Source="/Assets/Images/space ver.xi.png" Margin="40,128,768,828" Grid.Column="1"/>
 
         </Grid>
 
