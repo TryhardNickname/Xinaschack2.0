@@ -90,6 +90,11 @@ namespace Xinaschack2._0
             // NYI DrawPlayerTurn
             game.DrawPlayerTurn(args);
 
+            if (game.DidMove == true)
+            {
+                game.DrawAnimations(args);
+            }      
+
             game.DebugText(args);
 
         }
@@ -101,8 +106,14 @@ namespace Xinaschack2._0
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
 
-            // if (planet moved)
-            //      draw move animation(moved planet)
+            if (game.DidMove == true)
+            {
+                game.XDistance = game.NewPos.X - game.OldPos.X;
+                game.YDistance = game.NewPos.Y - game.OldPos.Y;
+
+                game.OldPos = new Point(game.OldPos.X + (game.XDistance / 20), game.OldPos.Y + (game.YDistance / 20));
+            }
+
         }
 
         /// <summary>
@@ -120,5 +131,6 @@ namespace Xinaschack2._0
             game.CheckIfRect_Pressed(e);
 
         }
+
     }
 }
