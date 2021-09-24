@@ -11,7 +11,7 @@ namespace Xinaschack2._0.Classes
     class Player
     {
         public List<int> PlayerPositions { get; set; }
-        public List<int> OldPlayerPositions { get; set; }
+        // public List<int> OldPlayerPositions { get; set; }
 
         public List<int> WinPositions { get; set; }
 
@@ -24,7 +24,7 @@ namespace Xinaschack2._0.Classes
             PlanetColor = color;
             PlayerPositions = new List<int>(startPos);
             WinPositions = new List<int>(winPos);
-            OldPlayerPositions = new List<int>();
+            //OldPlayerPositions = new List<int>();
         }
 
         public async Task LoadBitmapAsync(CanvasAnimatedControl sender)

@@ -34,6 +34,7 @@ namespace Xinaschack2._0
 
         private readonly int DesignWidth = 1280;
         private readonly int DesignHeight = 720;
+        private int PlayerAnimationIndex { get; set; }
 
         GameBoard game;
 
@@ -47,7 +48,7 @@ namespace Xinaschack2._0
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
             game = new GameBoard(DesignWidth, DesignHeight, 2);
-
+            PlayerAnimationIndex = game.CurrentPlayerIndex;
         }
 
         /// <summary>
@@ -90,10 +91,10 @@ namespace Xinaschack2._0
             // NYI DrawPlayerTurn
             game.DrawPlayerTurn(args);
 
-            if (game.DidMove == true)
+            if (game.DidMove)
             {
                 game.DrawAnimations(args);
-            }      
+            }
 
             game.DebugText(args);
 
@@ -106,14 +107,8 @@ namespace Xinaschack2._0
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
 
-            if (game.DidMove == true)
-            {
-                game.XDistance = game.NewPos.X - game.OldPos.X;
-                game.YDistance = game.NewPos.Y - game.OldPos.Y;
 
-                game.OldPos = new Point(game.OldPos.X + (game.XDistance / 20), game.OldPos.Y + (game.YDistance / 20));
-            }
-
+            game.UpdateAnimation();
         }
 
         /// <summary>

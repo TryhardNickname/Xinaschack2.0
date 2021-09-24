@@ -17,7 +17,6 @@ namespace Xinaschack2._0.Classes
         public double YDistance { get; set; }
         public Point NewPos { get; set; }
         public Point OldPos { get; set; }
-        public List<int> OldNewPos { get; set; }
         public int CurrentPlayerIndex { get; private set; }
         private bool OnlyDoubleJump { get; set; }
         private int PlanetSelected { get; set; }
@@ -42,8 +41,6 @@ namespace Xinaschack2._0.Classes
             SingleJumps = new List<int>();
 
             StartPosDict = new Dictionary<int, List<int>>();
-            OldNewPos = new List<int>();
-
 
             SetupPlayerPosDict();
             MakeRectList(width, height);
@@ -53,6 +50,7 @@ namespace Xinaschack2._0.Classes
             PlanetSelected = -1;
             DoubleJumpSaved = -1;
             SavedPosition = -1;
+            DidMove = false;
         }
 
         /// <summary>
@@ -96,26 +94,8 @@ namespace Xinaschack2._0.Classes
             StartPosDict.Add(5, new List<int>() { 10, 11, 12, 13, 23, 24, 25, 35, 36, 46 });
         }
 
-        public bool CheckIfWin()
-        {
-            foreach (Player player in Players)
-            {
-                int correctPos = 0;
-                for (int i = 0; i < player.PlayerPositions.Count; i++)
-                {
-                    if (player.WinPositions.Contains(player.PlayerPositions[i]))
-                    {
-                        correctPos++;
-                    }
-                }
 
-                if (correctPos == 10)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+
 
         /// <summary>
         /// Adds 10 indexes for where the planets start-positions is for the 2 players
@@ -155,7 +135,7 @@ namespace Xinaschack2._0.Classes
 
         public void DebugText(CanvasAnimatedDrawEventArgs args)
         {
-            if (PlanetSelected != -1)
+            if (PlanetSelected != -1 && PlanetSelected< Players[CurrentPlayerIndex].PlayerPositions.Count)
             {
                 args.DrawingSession.DrawText("PlanetSelected Position = " + Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected].ToString(), 50, 100, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             }
@@ -163,13 +143,17 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawText("RectSelected = " + RectSelected.ToString(), 50, 120, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             args.DrawingSession.DrawText("PlanetSelected = " + PlanetSelected.ToString(), 50, 140, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             args.DrawingSession.DrawText("DoubleJumpSaved = " + DoubleJumpSaved.ToString(), 50, 160, Windows.UI.Color.FromArgb(255, 50, 50, 50));
-            args.DrawingSession.DrawText("singleJumps = " + string.Join(" ", SingleJumps), 30, 190, Windows.UI.Color.FromArgb(255, 90, 255, 170));
-            args.DrawingSession.DrawText("doubleJumps = " + string.Join(" ", DoubleJumps), 30, 210, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("singleJumps = " + string.Join(" ", SingleJumps.ToArray()), 30, 190, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("doubleJumps = " + string.Join(" ", DoubleJumps.ToArray()), 30, 210, Windows.UI.Color.FromArgb(255, 90, 255, 170));
 
-            args.DrawingSession.DrawText("Player1 Positions = " + string.Join(" ", Players[0].PlayerPositions), 10, 230, Windows.UI.Color.FromArgb(255, 90, 255, 170));
-            args.DrawingSession.DrawText("Player2 Positions = " + string.Join(" ", Players[1].PlayerPositions), 10, 250, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("Player1 Positions = " + string.Join(" ", Players[0].PlayerPositions.ToArray()), 10, 230, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("Player2 Positions = " + string.Join(" ", Players[1].PlayerPositions.ToArray()), 10, 250, Windows.UI.Color.FromArgb(255, 90, 255, 170));
 
-            args.DrawingSession.DrawText("OldNewPos = " + string.Join(" ", OldNewPos), 10, 270, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("OldPos = " + OldPos.ToString(), 10, 270, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+            args.DrawingSession.DrawText("NewPos = " + NewPos.ToString(), 10, 290, Windows.UI.Color.FromArgb(255, 90, 255, 170));
+
+            args.DrawingSession.DrawText("XDistance = " + XDistance.ToString(), 10, 340, Windows.UI.Color.FromArgb(255, 50, 50, 50));
+            args.DrawingSession.DrawText("YDistance = " + YDistance.ToString(), 10, 360, Windows.UI.Color.FromArgb(255, 50, 50, 50));
         }
 
         public void DrawSelectedRect(CanvasAnimatedDrawEventArgs args)
@@ -227,12 +211,35 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 50, Windows.UI.Color.FromArgb(255, 255, 0, 0));
         }
 
-        internal void DrawAnimations(CanvasAnimatedDrawEventArgs args)
+        public void DrawAnimations(CanvasAnimatedDrawEventArgs args)
         {
-            NewPos = new Point(RectList[OldNewPos[OldNewPos.Count - 1]].X, RectList[OldNewPos[OldNewPos.Count - 1]].Y);
             Rect moveRect = new Rect(OldPos.X, OldPos.Y, RectSize, RectSize);
 
             args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
+            args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
+        }
+
+
+        double distance;
+        int speed = 20;
+        public void UpdateAnimation()
+        {
+            XDistance = NewPos.X - OldPos.X;
+            YDistance = NewPos.Y - OldPos.Y;
+            distance = Math.Sqrt((XDistance * XDistance) + (YDistance * YDistance));
+            if (distance > 1)
+            {
+                DidMove = true;
+                OldPos = new Point(OldPos.X + (XDistance / speed--), OldPos.Y + (YDistance / speed--)); ;
+            }
+            else
+            {
+                DidMove = false; // animation complete
+            }
+            if (speed < 5)
+            {
+                speed = 5;
+            }
 
         }
 
@@ -249,6 +256,7 @@ namespace Xinaschack2._0.Classes
                     // Save which Rect was pressed in prop
                     RectSelected = rectIndex;
                     CheckSelection();
+                    break;
                 }
             }
         }
@@ -300,31 +308,28 @@ namespace Xinaschack2._0.Classes
         /// </summary>
         private void MovePlanet()
         {
-            Players[CurrentPlayerIndex].OldPlayerPositions = new List<int>(Players[CurrentPlayerIndex].PlayerPositions);
-            
+            OldPos = new Point(
+                RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X,
+                RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y
+                );
 
             if (SingleJumps.Contains(RectSelected))
             {
-                Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
 
-                for (int i = 0; i < Players[CurrentPlayerIndex].PlayerPositions.Count; i++)
-                {
-                    if (Players[CurrentPlayerIndex].OldPlayerPositions[i] != Players[CurrentPlayerIndex].PlayerPositions[i])
-                    {
-                        OldNewPos.Add(Players[CurrentPlayerIndex].OldPlayerPositions[i]);
-                        OldNewPos.Add(Players[CurrentPlayerIndex].PlayerPositions[i]);
-                        OldPos = new Point(RectList[OldNewPos[OldNewPos.Count - 2]].X, RectList[OldNewPos[OldNewPos.Count - 2]].Y);
-                    }
-                }
+                NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
 
+                CheckIfAnimtaionComplete();
                 NextTurn();
             }
             else if (DoubleJumps.Contains(RectSelected))
             {
                 if (OnlyDoubleJump && PlanetSelected == DoubleJumpSaved) // if onlydoublejump is tru, selected HAS to be == doublejump saved
                 {
-                    Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
+                    NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
+
                     DoubleJumpSaved = PlanetSelected;
+
+                    CheckIfAnimtaionComplete();
                     CheckOKMoves();
 
                     if (RectSelected == SavedPosition) // Planet is back to start pos
@@ -335,10 +340,13 @@ namespace Xinaschack2._0.Classes
                 }
                 else if (!OnlyDoubleJump)
                 {
+                    NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
+                    
                     SavedPosition = Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected];
-                    Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected] = RectSelected;
                     DoubleJumpSaved = PlanetSelected;
                     OnlyDoubleJump = true;
+
+                    CheckIfAnimtaionComplete();
                     CheckOKMoves();
                 }
             }
@@ -362,7 +370,22 @@ namespace Xinaschack2._0.Classes
             OnlyDoubleJump = false;
             DoubleJumpSaved = -1;
             SavedPosition = -1;
-            DidMove = true;
+            DidMove = false;
+            speed = 20;
+        }
+
+        private void CheckIfAnimtaionComplete()
+        {
+            UpdateAnimation();
+            if (DidMove)
+            {
+                Players[CurrentPlayerIndex].PlayerPositions.RemoveAt(PlanetSelected);
+            }
+            while (DidMove)
+            {
+                // wait for animation
+            }
+            Players[CurrentPlayerIndex].PlayerPositions.Insert(PlanetSelected, RectSelected); //move!
         }
 
         /// <summary>
@@ -531,9 +554,28 @@ namespace Xinaschack2._0.Classes
             }
 
         }
+
+        public bool CheckIfWin()
+        {
+            foreach (Player player in Players)
+            {
+                int correctPos = 0;
+                for (int i = 0; i < player.PlayerPositions.Count; i++)
+                {
+                    if (player.WinPositions.Contains(player.PlayerPositions[i]))
+                    {
+                        correctPos++;
+                    }
+                }
+
+                if (correctPos == 10)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
-
-
 
 }
 
