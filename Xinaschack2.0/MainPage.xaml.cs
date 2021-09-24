@@ -41,16 +41,12 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
-
-
         GameBoard game;
        
 
         public MainPage()
         {
             InitializeComponent();
-
-
 
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
@@ -86,7 +82,6 @@ namespace Xinaschack2._0
         /// <param name="args"></param>
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            // args.DrawingSession.DrawImage(StartScreen);
             args.DrawingSession.DrawImage(Board, 320, 0);
 
             game.DrawSelectedRect(args);
@@ -94,9 +89,13 @@ namespace Xinaschack2._0
             game.DrawPlayerPlanets(sender, args);
 
             game.DrawOkayMoves(args);
-
-            // NYI DrawPlayerTurn
+            
             game.DrawPlayerTurn(args);
+
+            if (game.DidMove)
+            {
+                game.DrawAnimations(args);
+            }
 
             game.DebugText(args);
 
@@ -104,27 +103,13 @@ namespace Xinaschack2._0
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            // NYI
-            // foreach Player p in Players
-            //     make move
-
-            foreach (Player player in game.Players)
+            if(game.CheckIfWin())
             {
-                int correctPos = 0;
-                for (int i = 0; i < player.PlayerPositions.Count; i++)
-                {
-                    if (player.WinPositions.Contains(player.PlayerPositions[i]))
-                    {
-                        correctPos++;
-                    }
-                }
-
-                if (correctPos == 10)
-                {
-                    Debug.WriteLine($"{player.PlanetColor} won");
-                    correctPos++;
-                }
+                Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
+
+
+            game.UpdateAnimation();
         }
 
         /// <summary>
@@ -142,5 +127,6 @@ namespace Xinaschack2._0
             game.CheckIfRect_Pressed(e);
 
         }
+
     }
 }
