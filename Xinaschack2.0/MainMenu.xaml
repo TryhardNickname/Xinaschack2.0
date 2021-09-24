@@ -20,5 +20,5 @@
             <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" Margin="10,0,34,-83"/>
 
         </Grid>
-       </Grid>
+    </Grid>
 </Page>
