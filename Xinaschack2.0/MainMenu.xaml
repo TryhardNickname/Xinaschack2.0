@@ -14,11 +14,19 @@
                 <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif"/>
             </Image.Source>
         </Image>
+        
+            <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
+                </Button.Background>
+            </Button>
+        
 
         <Grid Height="720" Width="1280" >
 
             <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" Margin="10,0,34,-83"/>
 
         </Grid>
-       </Grid>
+        
+    </Grid>
 </Page>
