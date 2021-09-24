@@ -11,11 +11,8 @@ namespace Xinaschack2._0.Classes
     class Player
     {
         public List<int> PlayerPositions { get; set; }
-
         public List<int> WinPositions { get; set; }
-
         public PlanetEnum PlanetColor { get; set; }
-
         public CanvasBitmap PlanetBitmap{ get; set; }
 
         public Player(PlanetEnum color, List<int> startPos, List<int> winPos)
