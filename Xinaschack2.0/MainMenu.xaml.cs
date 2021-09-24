@@ -28,6 +28,7 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class MainMenu : Page
     {
+
         private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
         private CanvasBitmap Earth { get; set; }
@@ -38,6 +39,12 @@ namespace Xinaschack2._0
         public List<List<int>> Players { get; set; }
         private int RectSelected { get; set; }
         private int PlanetSelectedFlag { get; set; }
+        private void Back2menu(object sender, RoutedEventArgs e)
+        {
+
+            Frame.Navigate(typeof(MainPage), null);
+
+        }
 
 
         private readonly double XSameLevelDiff = 45;
@@ -47,6 +54,7 @@ namespace Xinaschack2._0
         public MainMenu()
         {
             InitializeComponent();
+
 
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
