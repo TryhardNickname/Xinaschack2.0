@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="251*"/>
             </Grid.ColumnDefinitions>
 
-            <Image Margin="-27,3,-16,-62" Grid.ColumnSpan="2">
+            <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2">
                 <Image.Source>
                     <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
                 </Image.Source>
