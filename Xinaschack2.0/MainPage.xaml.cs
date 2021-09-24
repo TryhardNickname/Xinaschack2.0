@@ -35,13 +35,12 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
+
         GameBoard game;
 
         public MainPage()
         {
             InitializeComponent();
-
-
 
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
@@ -98,7 +97,7 @@ namespace Xinaschack2._0
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            if (game.CheckIfWin())
+            if(game.CheckIfWin())
             {
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
@@ -122,5 +121,6 @@ namespace Xinaschack2._0
             game.CheckIfRect_Pressed(e);
 
         }
+
     }
 }

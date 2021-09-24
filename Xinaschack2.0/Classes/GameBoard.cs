@@ -135,7 +135,7 @@ namespace Xinaschack2._0.Classes
 
         public void DebugText(CanvasAnimatedDrawEventArgs args)
         {
-            if (PlanetSelected != -1 && PlanetSelected < Players[CurrentPlayerIndex].PlayerPositions.Count)
+            if (PlanetSelected != -1 && PlanetSelected< Players[CurrentPlayerIndex].PlayerPositions.Count)
             {
                 args.DrawingSession.DrawText("PlanetSelected Position = " + Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected].ToString(), 50, 100, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             }
@@ -341,7 +341,7 @@ namespace Xinaschack2._0.Classes
                 else if (!OnlyDoubleJump)
                 {
                     NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
-
+                    
                     SavedPosition = Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected];
                     DoubleJumpSaved = PlanetSelected;
                     OnlyDoubleJump = true;
