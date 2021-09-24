@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Xinaschack2._0.Classes;
@@ -29,13 +30,21 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private void Back2menu(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainMenu), null);
+        }
+
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
+
+
         GameBoard game;
+       
 
         public MainPage()
         {

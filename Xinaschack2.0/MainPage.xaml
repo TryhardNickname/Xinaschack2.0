@@ -8,14 +8,20 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid>
+    <Grid Background="Black">
         <Image>
             <Image.Source>
                 <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif"/>
             </Image.Source>
         </Image>
+        
         <Grid Height="1080" Width="1920" >
             <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" Height="1080" Width="1920"/>
         </Grid>
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>
