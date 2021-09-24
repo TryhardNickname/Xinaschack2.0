@@ -8,8 +8,14 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid Height="720" Width="1280">
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" Height="720" Width="1280" />
+    <Grid>
+        <Image>
+            <Image.Source>
+                <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif"/>
+            </Image.Source>
+        </Image>
+        <Grid Height="1080" Width="1920" >
+            <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" Height="1080" Width="1920"/>
+        </Grid>
     </Grid>
 </Page>

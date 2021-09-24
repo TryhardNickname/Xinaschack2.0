@@ -121,6 +121,9 @@
     </Compile>
     <Compile Include="Classes\GameBoard.cs" />
     <Compile Include="Classes\Player.cs" />
+    <Compile Include="MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -133,16 +136,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\background.PNG" />
+    <Content Include="Assets\Images\chinese-checkers.png" />
+    <Content Include="Assets\Images\doubleArrow.png" />
     <Content Include="Assets\Images\earth_mini34x34.png" />
     <Content Include="Assets\Images\GameFieldCentered.png" />
     <Content Include="Assets\Images\jupiter.png" />
     <Content Include="Assets\Images\mars.png" />
+    <Content Include="Assets\Images\Menu-background-1280x720.gif" />
     <Content Include="Assets\Images\mercury.png" />
     <Content Include="Assets\Images\moon.png" />
     <Content Include="Assets\Images\neptune.png" />
+    <Content Include="Assets\Images\space-ver.xi.png" />
     <Content Include="Assets\Images\spelplan2.png" />
     <Content Include="Assets\Images\spelplan3.png" />
-    <Content Include="Assets\Images\testbakgrund.png" />
     <Content Include="Assets\Images\venus.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -158,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
