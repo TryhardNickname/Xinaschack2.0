@@ -4,6 +4,7 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
@@ -40,13 +41,27 @@ namespace Xinaschack2._0
         public MainPage()
         {
             InitializeComponent();
-
+            PlayMusic();
 
 
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
             game = new GameBoard(DesignWidth, DesignHeight, 2);
 
+        }
+
+        private void PlayMusic()
+        {
+            MediaElement player = null; // get the media element from App resources
+            if (App.Current.Resources.ContainsKey("media"))
+            {
+                player = App.Current.Resources["media"] as MediaElement;
+            }
+            if (player != null)
+            {
+                player.Source = new Uri("ms-appx:///Assets/Music/SpaceSong.mp3");
+                player.Play();
+            }
         }
 
         /// <summary>
