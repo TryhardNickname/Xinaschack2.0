@@ -32,8 +32,8 @@ namespace Xinaschack2._0
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
 
-        private readonly int DesignWidth = 1280;
-        private readonly int DesignHeight = 720;
+        private readonly int DesignWidth = 1920;
+        private readonly int DesignHeight = 1080;
 
         GameBoard game;
 
@@ -41,8 +41,7 @@ namespace Xinaschack2._0
         {
             InitializeComponent();
 
-            ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
 
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
@@ -79,7 +78,7 @@ namespace Xinaschack2._0
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             // args.DrawingSession.DrawImage(StartScreen);
-            args.DrawingSession.DrawImage(Board);
+            args.DrawingSession.DrawImage(Board, 320, 0);
 
             game.DrawSelectedRect(args);
 
