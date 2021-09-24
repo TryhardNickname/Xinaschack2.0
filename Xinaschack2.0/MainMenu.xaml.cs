@@ -28,7 +28,6 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class MainMenu : Page
     {
-
         private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
         private CanvasBitmap Earth { get; set; }
