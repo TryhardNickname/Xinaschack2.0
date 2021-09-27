@@ -25,6 +25,9 @@ namespace Xinaschack2._0.Classes
         private List<int> DoubleJumps { get; set; }
         private List<int> SingleJumps { get; set; }
         private Dictionary<int, List<int>> StartPosDict { get; set; }
+        private int TurnCounter { get; set; }
+        private int EventTurn { get; set; }
+        public List<int> UnavailableRects { get; set; }
 
 
         private readonly double XSameLevelDiff = 45;
@@ -42,6 +45,8 @@ namespace Xinaschack2._0.Classes
 
             StartPosDict = new Dictionary<int, List<int>>();
 
+            UnavailableRects = new List<int>();
+
             SetupPlayerPosDict();
             MakeRectList(width, height);
             InitPlayerPlanets(amountOfPlayers);
@@ -51,6 +56,10 @@ namespace Xinaschack2._0.Classes
             DoubleJumpSaved = -1;
             SavedPosition = -1;
             DidMove = false;
+
+            TurnCounter = 0;
+            Random rnd = new Random();
+            EventTurn = rnd.Next(5, 6);
         }
 
         /// <summary>
@@ -82,6 +91,8 @@ namespace Xinaschack2._0.Classes
                 }
             }
         }
+
+
 
         private void SetupPlayerPosDict()
         {
@@ -217,6 +228,13 @@ namespace Xinaschack2._0.Classes
 
             args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
+        }
+        public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                args.DrawingSession.DrawRectangle(RectList[UnavailableRects[i]], Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
+            }
         }
 
 
@@ -372,6 +390,39 @@ namespace Xinaschack2._0.Classes
             SavedPosition = -1;
             DidMove = false;
             speed = 20;
+
+            TurnCounter++;
+
+            int[] _randomSpots;
+            if ( EventTurn == TurnCounter )
+            {
+                _randomSpots = GetRandomRect();
+
+                AnimateMeteor(_randomSpots);
+
+                //check collision
+                // if (PlayerPos.Contains(_randomSpots))
+                //      move those planets();
+
+                // draw blocking blocks
+
+                //make those rects unavailable (until next meteor??)
+
+            }
+        }
+
+        private void AnimateMeteor(int[] _randomSpots)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int[] GetRandomRect()
+        {
+            int[] result = new int[4];
+
+
+
+            return result;
         }
 
         private void CheckIfAnimtaionComplete()

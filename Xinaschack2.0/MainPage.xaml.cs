@@ -88,6 +88,8 @@ namespace Xinaschack2._0
 
             game.DrawPlayerPlanets(sender, args);
 
+            game.DrawUnavailableRects(args);
+
             game.DrawOkayMoves(args);
             
             game.DrawPlayerTurn(args);
