@@ -28,6 +28,7 @@ namespace Xinaschack2._0.Classes
         private int TurnCounter { get; set; }
         private int EventTurn { get; set; }
         public List<int> UnavailableRects { get; set; }
+        public bool MeteorStrike { get; set; }
 
 
         private readonly double XSameLevelDiff = 45;
@@ -60,6 +61,7 @@ namespace Xinaschack2._0.Classes
             TurnCounter = 0;
             Random rnd = new Random();
             EventTurn = rnd.Next(5, 6);
+            MeteorStrike = false;
         }
 
         /// <summary>
@@ -233,7 +235,8 @@ namespace Xinaschack2._0.Classes
         {
             for (int i = 0; i < 4; i++)
             {
-                args.DrawingSession.DrawRectangle(RectList[UnavailableRects[i]], Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
+                args.DrawingSession.FillRectangle(RectList[UnavailableRects[i]], Windows.UI.Color.FromArgb(255, 1, 1, 1));
+                // args.DrawingSession.DrawRectangle(RectList[UnavailableRects[i]], Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             }
         }
 
@@ -391,36 +394,49 @@ namespace Xinaschack2._0.Classes
             DidMove = false;
             speed = 20;
 
+
             TurnCounter++;
 
             int[] _randomSpots;
             if ( EventTurn == TurnCounter )
             {
+                MeteorStrike = true;
                 _randomSpots = GetRandomRect();
 
-                AnimateMeteor(_randomSpots);
+                // AnimateMeteor(_randomSpots);
 
-                //check collision
+                //check collision on planets layuing there
                 // if (PlayerPos.Contains(_randomSpots))
                 //      move those planets();
 
                 // draw blocking blocks
 
                 //make those rects unavailable (until next meteor??)
-
+                UnavailableRects.AddRange(_randomSpots);
             }
         }
 
         private void AnimateMeteor(int[] _randomSpots)
         {
-            throw new NotImplementedException();
+            bool animate = true;
+            // do something similar to U0pdateAnimation
+
+            //wait loop until animation complete
+
+            animate = false;
         }
 
         private int[] GetRandomRect()
         {
             int[] result = new int[4];
+            //ta hänsyn till placerade planeter?? testa oss fram
 
+            //
 
+            result[0] = 29;
+            result[1] = 40;
+            result[2] = 41;
+            result[3] = 51;
 
             return result;
         }
@@ -501,7 +517,7 @@ namespace Xinaschack2._0.Classes
                     {
                         // if true -> RectList[i] is one of the six singlejump positions
 
-                        if (!PlayerPos.Contains(i)) // checks if ANY planets are blocking
+                        if (!PlayerPos.Contains(i) && !UnavailableRects.Contains(i)) // checks if ANY planets are blocking OR meteorblocking
                         {
                             SingleJumps.Add(i);
                         }
@@ -521,7 +537,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k >= 0; k--)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -534,7 +550,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k >= 0; k--)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -545,7 +561,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -557,7 +573,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -569,7 +585,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -580,7 +596,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k >= 0; k--)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
                                         {
                                             DoubleJumps.Add(k);
                                         }
