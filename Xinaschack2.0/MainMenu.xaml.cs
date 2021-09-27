@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
@@ -45,12 +46,17 @@ namespace Xinaschack2._0
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
         {
-
+            CoreApplication.Exit();
         }
 
         private void Scorebtn_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Highscore), null);
+        }
+
+        private void tutorialbtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
