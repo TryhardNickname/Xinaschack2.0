@@ -9,6 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
+
+
         <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2">
             <Image.Source>
                 <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
@@ -20,6 +22,8 @@
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>
         </Button>
+
+        <Image Source="Assets/images/Highscore.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Page>

@@ -143,6 +143,7 @@
     <Content Include="Assets\Images\doubleArrow.png" />
     <Content Include="Assets\Images\earth_mini34x34.png" />
     <Content Include="Assets\Images\GameFieldCentered.png" />
+    <Content Include="Assets\Images\highscore.png" />
     <Content Include="Assets\Images\jupiter.png" />
     <Content Include="Assets\Images\mars.png" />
     <Content Include="Assets\Images\Menu-background-1280x720.gif" />
