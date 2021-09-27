@@ -48,6 +48,9 @@ namespace Xinaschack2._0
 
         }
 
-
+        private void Scorebtn_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Highscore), null);
+        }
     }
 }

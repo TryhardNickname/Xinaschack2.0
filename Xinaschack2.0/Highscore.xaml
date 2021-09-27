@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="Xinaschack2._0.Highscore"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Xinaschack2._0"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="Black">
+        <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2">
+            <Image.Source>
+                <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
+            </Image.Source>
+        </Image>
+
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</Page>

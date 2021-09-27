@@ -75,7 +75,7 @@
             <Button x:Name="Scorebtn" Content="Score" Margin="161,462,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" Click="Scorebtn_Click" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01 ,0">
                         <GradientStop Color="Black"/>
