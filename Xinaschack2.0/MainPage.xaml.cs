@@ -38,6 +38,7 @@ namespace Xinaschack2._0
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
         private CanvasBitmap Fire { get; set; }
+        private CanvasBitmap Comet { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -64,6 +65,7 @@ namespace Xinaschack2._0
         {
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
             Fire = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/firegif2.gif"));
+            Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
 
             foreach (Player p in game.Players)
             {
@@ -90,10 +92,13 @@ namespace Xinaschack2._0
 
             game.DrawPlayerPlanets(sender, args);
 
-            if( game.MeteorStrike)
+            if (game.MeteorStrike)
+            {
+                game.DrawMeteor(args, Comet); 
+            }
+            else
             {
                 game.DrawUnavailableRects(args, Fire);
-
             }
 
             game.DrawOkayMoves(args);
@@ -116,8 +121,12 @@ namespace Xinaschack2._0
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
 
-
+            if (game.MeteorStrike)
+            {
+                game.UpdateMeteor();
+            }
             game.UpdateAnimation();
+            
         }
 
         /// <summary>

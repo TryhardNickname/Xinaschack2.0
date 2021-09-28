@@ -2,6 +2,7 @@
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using Windows.Foundation;
 using Windows.UI.Xaml.Input;
@@ -18,6 +19,7 @@ namespace Xinaschack2._0.Classes
         public double YDistance { get; set; }
         public Point NewPos { get; set; }
         public Point OldPos { get; set; }
+        public Point OldPosMeteor { get; set; }
         public int CurrentPlayerIndex { get; private set; }
         private bool OnlyDoubleJump { get; set; }
         private int PlanetSelected { get; set; }
@@ -232,15 +234,22 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
         }
-        public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args, CanvasBitmap canvasBitmap)
+        public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args, CanvasBitmap fire)
         {
             for (int i = 0; i < UnavailableRects.Count; i++)
             {
-                args.DrawingSession.DrawImage(canvasBitmap, RectList[UnavailableRects[i]]);
+                args.DrawingSession.DrawImage(fire, RectList[UnavailableRects[i]]);
                 // args.DrawingSession.DrawRectangle(RectList[UnavailableRects[i]], Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             }
         }
 
+        public void DrawMeteor(CanvasAnimatedDrawEventArgs args, CanvasBitmap comet)
+        {
+            Rect moveRect = new Rect(OldPosMeteor.X, OldPosMeteor.Y, RectSize, RectSize);
+
+            args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1));
+            args.DrawingSession.DrawImage(comet, moveRect);
+        }
 
         double distance;
         int speed = 20;
@@ -398,12 +407,10 @@ namespace Xinaschack2._0.Classes
 
             TurnCounter++;
 
-            int[] _randomSpots;
             if (EventTurn == TurnCounter)
             {
-                UnavailableRects.Clear();
-
-                MeteorStrike = true;
+                
+                UnavailableRects.Clear();           
 
                 // AnimateMeteor(_randomSpots);
 
@@ -415,19 +422,35 @@ namespace Xinaschack2._0.Classes
 
                 //make those rects unavailable (until next meteor??)
                 UnavailableRects.AddRange(GetRandomRect());
+                OldPosMeteor = new Point(RectList[UnavailableRects[0]].X, RectList[UnavailableRects[0]].Y - 1000);
+                MeteorStrike = true;
+
                 EventTurn += 5;
             }
         }
 
-        private void AnimateMeteor(int[] _randomSpots)
+        public void UpdateMeteor()
         {
-            bool animate = true;
-            // do something similar to U0pdateAnimation
+            double XDistanceMeteor = RectList[UnavailableRects[0]].X;
+            double YDistanceMeteor = RectList[UnavailableRects[0]].Y - OldPosMeteor.Y;
+            double distanceMeteor = Math.Sqrt((XDistanceMeteor * XDistanceMeteor) + (YDistanceMeteor * YDistanceMeteor));
 
-            //wait loop until animation complete
+            if (distance != 0)
+            {              
+                OldPosMeteor = new Point(OldPosMeteor.X, OldPosMeteor.Y + (YDistanceMeteor / speed--)); ;
+                Debug.WriteLine(distanceMeteor);
+            }
+            else
+            {
+                MeteorStrike = false; // animation complete
+            }
+            if (speed < 5)
+            {
+                speed = 5;
+            }
 
-            animate = false;
         }
+
 
         private List<int> GetRandomRect()
         {
