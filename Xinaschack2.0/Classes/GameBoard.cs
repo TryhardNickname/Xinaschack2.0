@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -231,11 +232,11 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
         }
-        public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args)
+        public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args, CanvasBitmap canvasBitmap)
         {
             for (int i = 0; i < UnavailableRects.Count; i++)
             {
-                args.DrawingSession.FillRectangle(RectList[UnavailableRects[i]], Windows.UI.Color.FromArgb(255, 1, 1, 1));
+                args.DrawingSession.DrawImage(canvasBitmap, RectList[UnavailableRects[i]]);
                 // args.DrawingSession.DrawRectangle(RectList[UnavailableRects[i]], Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             }
         }
@@ -400,6 +401,8 @@ namespace Xinaschack2._0.Classes
             int[] _randomSpots;
             if (EventTurn == TurnCounter)
             {
+                UnavailableRects.Clear();
+
                 MeteorStrike = true;
 
                 // AnimateMeteor(_randomSpots);

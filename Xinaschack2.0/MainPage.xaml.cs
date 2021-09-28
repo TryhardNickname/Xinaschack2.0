@@ -37,6 +37,7 @@ namespace Xinaschack2._0
 
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
+        private CanvasBitmap Fire { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -62,6 +63,7 @@ namespace Xinaschack2._0
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
+            Fire = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/firegif2.gif"));
 
             foreach (Player p in game.Players)
             {
@@ -90,7 +92,7 @@ namespace Xinaschack2._0
 
             if( game.MeteorStrike)
             {
-                game.DrawUnavailableRects(args);
+                game.DrawUnavailableRects(args, Fire);
 
             }
 
