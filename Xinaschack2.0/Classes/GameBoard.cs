@@ -148,7 +148,7 @@ namespace Xinaschack2._0.Classes
 
         public void DebugText(CanvasAnimatedDrawEventArgs args)
         {
-            if (PlanetSelected != -1 && PlanetSelected< Players[CurrentPlayerIndex].PlayerPositions.Count)
+            if (PlanetSelected != -1 && PlanetSelected < Players[CurrentPlayerIndex].PlayerPositions.Count)
             {
                 args.DrawingSession.DrawText("PlanetSelected Position = " + Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected].ToString(), 50, 100, Windows.UI.Color.FromArgb(255, 90, 255, 170));
             }
@@ -362,7 +362,7 @@ namespace Xinaschack2._0.Classes
                 else if (!OnlyDoubleJump)
                 {
                     NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
-                    
+
                     SavedPosition = Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected];
                     DoubleJumpSaved = PlanetSelected;
                     OnlyDoubleJump = true;
@@ -398,7 +398,7 @@ namespace Xinaschack2._0.Classes
             TurnCounter++;
 
             int[] _randomSpots;
-            if ( EventTurn == TurnCounter )
+            if (EventTurn == TurnCounter)
             {
                 MeteorStrike = true;
 
@@ -412,6 +412,7 @@ namespace Xinaschack2._0.Classes
 
                 //make those rects unavailable (until next meteor??)
                 UnavailableRects.AddRange(GetRandomRect());
+                EventTurn += 5;
             }
         }
 
@@ -433,7 +434,7 @@ namespace Xinaschack2._0.Classes
             //ta hänsyn till placerade planeter?? testa oss fram
 
             int randomRectIndex = rnd.Next(0, 120);
-            
+
             foreach (List<int> list in StartPosDict.Values)
             {
                 StartPosExcluded.AddRange(list);
@@ -446,7 +447,18 @@ namespace Xinaschack2._0.Classes
 
             //leftmost planet
             result.Add(randomRectIndex);
-            CheckOKMovesMeteor(randomRectIndex, ref result);
+            while (!CheckOKMovesMeteor(randomRectIndex, ref result))
+            {
+                result.Clear();
+
+                randomRectIndex = rnd.Next(0, 120);
+                result.Add(randomRectIndex);
+
+                while (StartPosExcluded.Contains(randomRectIndex))
+                {
+                    randomRectIndex = rnd.Next(0, 120);
+                }
+            }
 
             return result;
         }
@@ -465,7 +477,7 @@ namespace Xinaschack2._0.Classes
             Players[CurrentPlayerIndex].PlayerPositions.Insert(PlanetSelected, RectSelected); //move!
         }
 
-        private void CheckOKMovesMeteor(int randomIndex, ref List<int> result)
+        private bool CheckOKMovesMeteor(int randomIndex, ref List<int> result)
         {
             List<Point> points = new List<Point> {
                 new Point //top right
@@ -494,6 +506,30 @@ namespace Xinaschack2._0.Classes
                     }
                 }
             }
+
+            List<int> PlayerPos = new List<int>();
+
+            foreach (Player p in Players)
+            {
+                PlayerPos.AddRange(p.PlayerPositions);
+            }
+
+            foreach (int i in result)
+            {
+                if (PlayerPos.Contains(i))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+            //for (int i = 0; i < result.Count; i++)
+            //{
+            //    if (PlayerPos.Contains(result[i]))
+            //    {
+
+            //    }
+            //}
 
         }
 
