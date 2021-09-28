@@ -9,6 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="589*"/>
+        </Grid.ColumnDefinitions>
 
         <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2">
             <Image.Source>
@@ -16,34 +20,34 @@
             </Image.Source>
         </Image>
 
-        <Button  Margin="888,299,0,0" VerticalAlignment="Top" Height="230" Width="230" >
+        <Button  Margin="728,299,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/3user.png"/>
             </Button.Background>
         </Button>
 
-        <Button  Margin="384,684,0,0" VerticalAlignment="Top" Height="230" Width="230" >
+        <Button  Margin="224,684,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/4user.png"/>
             </Button.Background>
         </Button>
 
-        <Button  Margin="384,293,0,0" VerticalAlignment="Top" Height="230" Width="230">
+        <Button  Margin="224,293,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/2users.png"/>
             </Button.Background>
         </Button>
 
-        <Button  Margin="888,684,0,0" VerticalAlignment="Top" Height="230" Width="230">
+        <Button  Margin="728,684,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/6user.png"/>
             </Button.Background>
         </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="384,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36"/>
-        <TextBlock HorizontalAlignment="Left" Margin="920,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36"/>
-        <TextBlock HorizontalAlignment="Left" Margin="416,604,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36"/>
-        <TextBlock HorizontalAlignment="Left" Margin="920,606,0,0" Text="5 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36"/>
-        <TextBlock HorizontalAlignment="Left" Margin="392,51,0,0" Text="PICK THE AMOUNT OF PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="107" Width="744" FontSize="72"/>
+        <TextBlock HorizontalAlignment="Left" Margin="224,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="256,604,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,606,0,0" Text="5 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="232,51,0,0" Text="PICK THE AMOUNT OF PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="107" Width="744" FontSize="72" Grid.Column="1"/>
 
     </Grid>
 </Page>
