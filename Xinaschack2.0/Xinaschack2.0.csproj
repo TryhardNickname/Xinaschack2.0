@@ -116,6 +116,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="amountofplayers.xaml.cs">
+      <DependentUpon>amountofplayers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\2users.png" />
+    <Content Include="Assets\Images\3user.png" />
+    <Content Include="Assets\Images\4user.png" />
+    <Content Include="Assets\Images\6user.png" />
     <Content Include="Assets\Images\background.PNG" />
     <Content Include="Assets\Images\chinese-checkers.png" />
     <Content Include="Assets\Images\doubleArrow.png" />
@@ -164,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="amountofplayers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
