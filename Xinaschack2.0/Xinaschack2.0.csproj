@@ -131,6 +131,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -150,6 +153,9 @@
     <Content Include="Assets\Images\mercury.png" />
     <Content Include="Assets\Images\moon.png" />
     <Content Include="Assets\Images\neptune.png" />
+    <Content Include="Assets\Images\Settings w.png" />
+    <Content Include="Assets\Images\settingsIcon.png" />
+    <Content Include="Assets\Images\Sound-On.png" />
     <Content Include="Assets\Images\space-ver.xi.png" />
     <Content Include="Assets\Images\spelplan2.png" />
     <Content Include="Assets\Images\spelplan3.png" />
@@ -179,6 +185,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

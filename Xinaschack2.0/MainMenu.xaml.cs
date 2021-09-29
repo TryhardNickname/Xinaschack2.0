@@ -58,5 +58,9 @@ namespace Xinaschack2._0
         {
 
         }
+        private void settings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Settings), null);
+        }
     }
 }
