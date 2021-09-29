@@ -17,6 +17,8 @@ namespace Xinaschack2._0.Classes
         public bool DidMove { get; set; }
         public double XDistance { get; set; }
         public double YDistance { get; set; }
+        private double distance;
+        private int speed = 20;
         public Point NewPos { get; set; }
         public Point OldPos { get; set; }
         public Point OldPosMeteor { get; set; }
@@ -251,8 +253,6 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawImage(comet, moveRect);
         }
 
-        double distance;
-        int speed = 20;
         public void UpdateAnimation()
         {
             XDistance = NewPos.X - OldPos.X;
@@ -422,7 +422,7 @@ namespace Xinaschack2._0.Classes
 
                 //make those rects unavailable (until next meteor??)
                 UnavailableRects.AddRange(GetRandomRect());
-                OldPosMeteor = new Point(RectList[UnavailableRects[0]].X, RectList[UnavailableRects[0]].Y - 1000);
+                OldPosMeteor = new Point(RectList[UnavailableRects[0]].X - 1000, RectList[UnavailableRects[0]].Y - 1000);
                 MeteorStrike = true;
 
                 EventTurn += 5;
@@ -431,24 +431,25 @@ namespace Xinaschack2._0.Classes
 
         public void UpdateMeteor()
         {
-            double XDistanceMeteor = RectList[UnavailableRects[0]].X;
+            //maybe not straight line but diagonal?
+            double XDistanceMeteor = RectList[UnavailableRects[0]].X - OldPosMeteor.X;
             double YDistanceMeteor = RectList[UnavailableRects[0]].Y - OldPosMeteor.Y;
             double distanceMeteor = Math.Sqrt((XDistanceMeteor * XDistanceMeteor) + (YDistanceMeteor * YDistanceMeteor));
 
-            if (distance != 0)
+            if (distanceMeteor > 1)
             {              
-                OldPosMeteor = new Point(OldPosMeteor.X, OldPosMeteor.Y + (YDistanceMeteor / speed--)); ;
+                OldPosMeteor = new Point(OldPosMeteor.X + (XDistanceMeteor / speed--), OldPosMeteor.Y + (YDistanceMeteor / speed--)); ;
                 Debug.WriteLine(distanceMeteor);
             }
             else
             {
                 MeteorStrike = false; // animation complete
+                Debug.WriteLine(MeteorStrike);
             }
             if (speed < 5)
             {
                 speed = 5;
             }
-
         }
 
 

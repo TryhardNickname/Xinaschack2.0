@@ -94,7 +94,7 @@ namespace Xinaschack2._0
 
             if (game.MeteorStrike)
             {
-                game.DrawMeteor(args, Comet); 
+                game.DrawMeteor(args, Comet);
             }
             else
             {
