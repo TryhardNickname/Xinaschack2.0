@@ -26,5 +26,28 @@ namespace Xinaschack2._0
         {
             this.InitializeComponent();
         }
+    
+
+      private void Twoplayers(object sender, RoutedEventArgs e)
+      {
+        Frame.Navigate(typeof(MainPage), 2);
+      }
+
+      private void threeplayers(object sender, RoutedEventArgs e)
+      {
+        Frame.Navigate(typeof(MainPage), 3);
+      }
+
+      private void fourplayers(object sender, RoutedEventArgs e)
+      {
+        Frame.Navigate(typeof(MainPage), 4);
+      }
+
+      private void sixplayers(object sender, RoutedEventArgs e)
+      {
+        Frame.Navigate(typeof(MainPage), 6);
+      }
+
     }
+
 }

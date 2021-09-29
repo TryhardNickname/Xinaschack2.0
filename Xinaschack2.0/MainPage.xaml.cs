@@ -10,6 +10,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using Xinaschack2._0.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -35,6 +36,8 @@ namespace Xinaschack2._0
             Frame.Navigate(typeof(MainMenu), null);
         }
 
+
+
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
 
@@ -53,6 +56,12 @@ namespace Xinaschack2._0
             game = new GameBoard(DesignWidth, DesignHeight, 2);
 
         }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
+            base.OnNavigatedTo(e);
+        }
+
 
         /// <summary>
         /// Loads pictures into Bitmaps that can be used in the canvas
@@ -110,6 +119,8 @@ namespace Xinaschack2._0
 
 
             game.UpdateAnimation();
+
+
         }
 
         /// <summary>
@@ -126,7 +137,11 @@ namespace Xinaschack2._0
 
             game.CheckIfRect_Pressed(e);
 
+
+
         }
+
+       
 
     }
 }

@@ -20,25 +20,25 @@
             </Image.Source>
         </Image>
 
-        <Button  Margin="728,299,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
+        <Button  Margin="728,299,0,0" Click="threeplayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/3user.png"/>
             </Button.Background>
         </Button>
 
-        <Button  Margin="224,684,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
+        <Button  Margin="224,684,0,0" Click="fourplayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/4user.png"/>
             </Button.Background>
         </Button>
 
-        <Button  Margin="224,293,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
+        <Button  Margin="224,293,0,0" Click="Twoplayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/2users.png"/>
             </Button.Background>
         </Button>
 
-        <Button  Margin="728,684,0,0" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
+        <Button  Margin="728,684,0,0" Click="sixplayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/6user.png"/>
             </Button.Background>
