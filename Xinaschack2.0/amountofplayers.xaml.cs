@@ -48,6 +48,11 @@ namespace Xinaschack2._0
         Frame.Navigate(typeof(MainPage), 6);
       }
 
+      private void Back2menu(object sender, RoutedEventArgs e)
+      {
+            Frame.Navigate(typeof(MainMenu), null);
+      }
+
     }
 
 }
