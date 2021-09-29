@@ -135,6 +135,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\alien.png" />
     <Content Include="Assets\Images\background.PNG" />
     <Content Include="Assets\Images\chinese-checkers.png" />
     <Content Include="Assets\Images\comet.png" />

@@ -39,6 +39,7 @@ namespace Xinaschack2._0
         private CanvasBitmap Board { get; set; }
         private CanvasBitmap Fire { get; set; }
         private CanvasBitmap Comet { get; set; }
+        private CanvasBitmap Alien { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -66,6 +67,7 @@ namespace Xinaschack2._0
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
             Fire = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/firegif2.gif"));
             Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
+            Alien = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/alien.png"));
 
             foreach (Player p in game.Players)
             {
@@ -111,7 +113,6 @@ namespace Xinaschack2._0
             }
 
             game.DebugText(args);
-
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
@@ -124,6 +125,11 @@ namespace Xinaschack2._0
             if (game.MeteorStrike)
             {
                 game.UpdateMeteor();
+            }
+
+            if (game.AlienEncounter)
+            {
+                game.UpdateAlien();
             }
             game.UpdateAnimation();
             

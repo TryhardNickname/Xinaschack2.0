@@ -23,6 +23,7 @@ namespace Xinaschack2._0.Classes
         public Point NewPos { get; set; }
         public Point OldPos { get; set; }
         public Point OldPosMeteor { get; set; }
+        public Point OldPosAlien { get; set; }
         public int CurrentPlayerIndex { get; private set; }
         private bool OnlyDoubleJump { get; set; }
         private int PlanetSelected { get; set; }
@@ -36,6 +37,7 @@ namespace Xinaschack2._0.Classes
         public List<int> UnavailableRects { get; set; }
         public bool MeteorStrike { get; set; }
         public int AlienCounter { get; set; }
+        public bool AlienEncounter { get; set; }
         private List<int> PlayerIDs { get; set; }
 
 
@@ -288,6 +290,31 @@ namespace Xinaschack2._0.Classes
             }
 
         }
+        
+        public void UpdateMeteor()
+        {
+            double XDistanceMeteor = RectList[UnavailableRects[0]].X - OldPosMeteor.X;
+            double YDistanceMeteor = RectList[UnavailableRects[0]].Y - OldPosMeteor.Y;
+            double distanceMeteor = Math.Sqrt((XDistanceMeteor * XDistanceMeteor) + (YDistanceMeteor * YDistanceMeteor));
+
+            if (distanceMeteor > 1)
+            {
+                OldPosMeteor = new Point(OldPosMeteor.X + (XDistanceMeteor / speed--), OldPosMeteor.Y + (YDistanceMeteor / speed--)); ;
+            }
+            else
+            {
+                MeteorStrike = false; // animation complete
+            }
+            if (speed < 5)
+            {
+                speed = 5;
+            }
+        }
+
+        public void UpdateAlien()
+        {
+
+        }
 
         /// <summary>
         /// Checks if mouse clicked on a Rectangle(On the game board)
@@ -442,7 +469,7 @@ namespace Xinaschack2._0.Classes
                 EventTurn += 5;
                 AlienCounter += 1;
             }
-            else if (AlienCounter == 2)
+            else if (AlienCounter == 4)
             {
                 AlienCounter = 0;
                 AlienMove();
@@ -463,11 +490,6 @@ namespace Xinaschack2._0.Classes
                 StartPosExcluded.AddRange(StartPosDict[PlayerIDs[whichPlayer]]);
             }
 
-            //foreach (int index in StartPosDict.Keys)
-            //{
-            //    StartPosExcluded.AddRange(StartPosDict[index]);
-            //}
-
             while (StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
                 whichPlanet = rnd.Next(0, 10);
@@ -481,27 +503,6 @@ namespace Xinaschack2._0.Classes
             Players[whichPlayer].PlayerPositions[whichPlanet] = whereToGoBack;
 
         }
-
-        public void UpdateMeteor()
-        {
-            double XDistanceMeteor = RectList[UnavailableRects[0]].X - OldPosMeteor.X;
-            double YDistanceMeteor = RectList[UnavailableRects[0]].Y - OldPosMeteor.Y;
-            double distanceMeteor = Math.Sqrt((XDistanceMeteor * XDistanceMeteor) + (YDistanceMeteor * YDistanceMeteor));
-
-            if (distanceMeteor > 1)
-            {              
-                OldPosMeteor = new Point(OldPosMeteor.X + (XDistanceMeteor / speed--), OldPosMeteor.Y + (YDistanceMeteor / speed--)); ;
-            }
-            else
-            {
-                MeteorStrike = false; // animation complete
-            }
-            if (speed < 5)
-            {
-                speed = 5;
-            }
-        }
-
 
         private List<int> GetRandomRect()
         {
