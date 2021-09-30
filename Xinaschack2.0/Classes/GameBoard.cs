@@ -36,8 +36,11 @@ namespace Xinaschack2._0.Classes
         private int EventTurn { get; set; }
         public List<int> UnavailableRects { get; set; }
         public bool MeteorStrike { get; set; }
-        public int AlienCounter { get; set; }
+        private int AlienCounter { get; set; }
         public bool AlienEncounter { get; set; }
+        public List<int> AlienInfoList { get; set; }
+        private int AlienAnimationCounter { get; set; }
+        private List<Point> travelPoints { get; set; }
         private List<int> PlayerIDs { get; set; }
 
 
@@ -270,6 +273,24 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawImage(comet, moveRect);
         }
 
+        public void DrawAlien(CanvasAnimatedDrawEventArgs args, CanvasBitmap alien)
+        {
+            Rect alienRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
+
+            args.DrawingSession.DrawRectangle(alienRect, Windows.UI.Color.FromArgb(255, 1, 1, 0));
+            args.DrawingSession.DrawImage(alien, alienRect);
+
+
+            if (AlienAnimationCounter > 2)
+            {
+                Rect ballRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
+
+                args.DrawingSession.DrawRectangle(ballRect, Windows.UI.Color.FromArgb(255, 1, 1, 0));
+                args.DrawingSession.DrawImage(Players[PlayerIDs[AlienInfoList[0]]].PlanetBitmap, ballRect);
+            }
+
+        }
+
         public void UpdateAnimation()
         {
             XDistance = NewPos.X - OldPos.X;
@@ -313,6 +334,112 @@ namespace Xinaschack2._0.Classes
 
         public void UpdateAlien()
         {
+            int speedAlien = 30;
+
+            if (AlienAnimationCounter == 0)
+            {
+                double XDistanceAlien = travelPoints[0].X - OldPosAlien.X;
+                double YDistanceAlien = travelPoints[0].Y - OldPosAlien.Y;
+                double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+
+                if (distanceAlien > 1)
+                {
+                    OldPosAlien = new Point(travelPoints[0].X + (XDistanceAlien / speedAlien--), travelPoints[0].Y + (YDistanceAlien / speedAlien--));               
+                }
+                else
+                {
+                    OldPosAlien = travelPoints[0];
+                    AlienAnimationCounter++;// animation complete
+                }
+                if (speedAlien < 5)
+                {
+                    speedAlien = 5;
+                }               
+            }
+            if (AlienAnimationCounter == 1)
+            {
+                double XDistanceAlien = travelPoints[1].X - OldPosAlien.X;
+                double YDistanceAlien = travelPoints[1].Y - OldPosAlien.Y;
+                double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+
+                if (distanceAlien > 1)
+                {
+                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                }
+                else
+                {
+                    OldPosAlien = travelPoints[1];
+                    AlienAnimationCounter++;// animation complete
+                }
+                if (speedAlien < 5)
+                {
+                    speedAlien = 5;
+                }                
+            }
+            if (AlienAnimationCounter == 2)
+            {
+                double XDistanceAlien = travelPoints[2].X - OldPosAlien.X;
+                double YDistanceAlien = travelPoints[2].Y - OldPosAlien.Y;
+                double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+
+                if (distanceAlien > 1)
+                {
+                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                }
+                else
+                {
+                    OldPosAlien = travelPoints[2];
+                    AlienAnimationCounter++;// animation complete
+                }
+                if (speedAlien < 5)
+                {
+                    speedAlien = 5;
+                }
+            }
+            if (AlienAnimationCounter == 3)
+            {
+                {
+                    double XDistanceAlien = travelPoints[3].X - OldPosAlien.X;
+                    double YDistanceAlien = travelPoints[3].Y - OldPosAlien.Y;
+                    double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+
+                    if (distanceAlien > 1)
+                    {
+                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                    }
+                    else
+                    {
+                        OldPosAlien = travelPoints[3];
+                        AlienAnimationCounter++;// animation complete
+                    }
+                    if (speedAlien < 5)
+                    {
+                        speedAlien = 5;
+                    }
+                }
+            }
+            if (AlienAnimationCounter == 4)
+            {
+                {
+                    double XDistanceAlien = travelPoints[4].X - OldPosAlien.X;
+                    double YDistanceAlien = travelPoints[4].Y - OldPosAlien.Y;
+                    double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+
+                    if (distanceAlien > 1)
+                    {
+                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                    }
+                    else
+                    {
+                        OldPosAlien = travelPoints[4];
+                        AlienAnimationCounter++;// animation complete
+                    }
+                    if (speedAlien < 5)
+                    {
+                        speedAlien = 5;
+                    }
+                }
+            }
 
         }
 
@@ -469,10 +596,13 @@ namespace Xinaschack2._0.Classes
                 EventTurn += 5;
                 AlienCounter += 1;
             }
-            else if (AlienCounter == 4)
+            else if (AlienCounter == 1)
             {
                 AlienCounter = 0;
                 AlienMove();
+                
+                // maybe this? OldPosAlien = new Point(RectList[AlienInfoList[1]].X, RectList[AlienInfoList[1]].Y);
+                AlienEncounter = true;
             }
             
         }
@@ -485,10 +615,7 @@ namespace Xinaschack2._0.Classes
             int whichPlanet = rnd.Next(0, 10);
             int whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
 
-            for (int i = 0; i < Players.Count; i++)
-            {
-                StartPosExcluded.AddRange(StartPosDict[PlayerIDs[whichPlayer]]);
-            }
+            StartPosExcluded.AddRange(StartPosDict[PlayerIDs[whichPlayer]]);
 
             while (StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
@@ -500,8 +627,17 @@ namespace Xinaschack2._0.Classes
                 whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
             }
 
-            Players[whichPlayer].PlayerPositions[whichPlanet] = whereToGoBack;
+            AlienInfoList = new List<int>() { whichPlayer, whichPlanet, whereToGoBack};
 
+            // Players[whichPlayer].PlayerPositions[whichPlanet] = whereToGoBack;
+            OldPosAlien = new Point(RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].X, RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].Y);
+
+            travelPoints = new List<Point>();
+            travelPoints.Add(new Point(0, 0));
+            travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y - 65));
+            travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y));
+            travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y - 65));
+            travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y));
         }
 
         private List<int> GetRandomRect()

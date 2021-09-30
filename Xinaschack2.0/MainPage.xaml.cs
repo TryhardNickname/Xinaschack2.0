@@ -103,6 +103,11 @@ namespace Xinaschack2._0
                 game.DrawUnavailableRects(args, Fire);
             }
 
+            if (game.AlienEncounter)
+            {
+                game.DrawAlien(args, Alien);
+            }
+
             game.DrawOkayMoves(args);
             
             game.DrawPlayerTurn(args);
