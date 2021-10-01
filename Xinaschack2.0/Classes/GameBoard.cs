@@ -458,6 +458,7 @@ namespace Xinaschack2._0.Classes
                     {
                         OldPosAlien = travelPoints[5];
                         AlienEncounter = false;
+                        AlienAnimationCounter = 0;
                     }
                     if (speedAlien < 5)
                     {
@@ -852,7 +853,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k >= 0; k--)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(k))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -865,7 +866,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k >= 0; k--)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(k))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -876,7 +877,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(k))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -888,7 +889,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(k))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -900,7 +901,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(k))
                                         {
                                             DoubleJumps.Add(k);
                                         }
@@ -911,7 +912,7 @@ namespace Xinaschack2._0.Classes
 
                                     for (int k = i; k >= 0; k--)
                                     {
-                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(i))
+                                        if (RectList[k].Contains(jumpPoint) && !PlayerPos.Contains(k) && !UnavailableRects.Contains(k))
                                         {
                                             DoubleJumps.Add(k);
                                         }
