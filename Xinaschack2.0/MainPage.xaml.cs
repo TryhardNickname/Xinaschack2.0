@@ -10,6 +10,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using Xinaschack2._0.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -45,7 +46,6 @@ namespace Xinaschack2._0
         private readonly int DesignHeight = 1080;
 
         GameBoard game;
-       
 
         public MainPage()
         {
@@ -53,9 +53,13 @@ namespace Xinaschack2._0
 
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
-            game = new GameBoard(DesignWidth, DesignHeight, 2);
-
         }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
+            base.OnNavigatedTo(e);
+        }
+
 
         /// <summary>
         /// Loads pictures into Bitmaps that can be used in the canvas
@@ -78,7 +82,6 @@ namespace Xinaschack2._0
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             args.TrackAsyncAction(CreateResourcesAsync(sender).AsAsyncAction());
-            
         }
 
         /// <summary>
@@ -89,11 +92,10 @@ namespace Xinaschack2._0
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             args.DrawingSession.DrawImage(Board, 320, 0);
-
             game.DrawSelectedRect(args);
-
             game.DrawPlayerPlanets(sender, args);
-
+            game.DrawOkayMoves(args);
+            game.DrawPlayerTurn(args);
             if (game.MeteorStrike)
             {
                 game.DrawMeteor(args, Comet);
@@ -107,26 +109,19 @@ namespace Xinaschack2._0
             {
                 game.DrawAlien(args, Alien);
             }
-
-            game.DrawOkayMoves(args);
-            
-            game.DrawPlayerTurn(args);
-
-            if (game.DidMove)
+            if (!game.AnimationComplete)
             {
                 game.DrawAnimations(args);
             }
-
             game.DebugText(args);
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            if(game.CheckIfWin())
+            if (game.CheckIfWin())
             {
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
-
             if (game.MeteorStrike)
             {
                 game.UpdateMeteor();
@@ -136,8 +131,22 @@ namespace Xinaschack2._0
             {
                 game.UpdateAlien();
             }
-            game.UpdateAnimation();
-            
+            if (!game.AnimationComplete)
+            {
+                game.UpdateAnimation();
+            }
+            if (game.AnimationComplete && game.TurnStarted)
+            {
+                game.MoveComplete();
+                if (!game.OnlyDoubleJump && game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
+                {
+                    game.NextTurn();
+                }
+                else
+                {
+                    game.CheckOKMoves();
+                }
+            }
         }
 
         /// <summary>
@@ -151,8 +160,14 @@ namespace Xinaschack2._0
             // check if click on buttons
             // if mute 
             // if give up 
+            if (game.AnimationComplete) // to prevent HAX by moving while animation happens???
+            {
+                game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
+            }
 
-            game.CheckIfRect_Pressed(e);
+
+
+
 
         }
 

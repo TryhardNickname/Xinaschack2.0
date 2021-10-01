@@ -40,7 +40,8 @@ namespace Xinaschack2._0
         }
         private void Playbtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage), null);
+            
+            Frame.Navigate(typeof(MainPage), 2);
         }
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
