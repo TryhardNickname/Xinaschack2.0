@@ -614,7 +614,7 @@ namespace Xinaschack2._0.Classes
                 // draw blocking blocks
 
                 //make those rects unavailable (until next meteor??)
-                UnavailableRects.AddRange(GetRandomRect());
+                UnavailableRects.AddRange(CheckOKMovesMeteor());
                 OldPosMeteor = new Point(RectList[UnavailableRects[0]].X - 1000, RectList[UnavailableRects[0]].Y - 1000);
                 MeteorStrike = true;
 
@@ -641,7 +641,7 @@ namespace Xinaschack2._0.Classes
             int whichPlanet = rnd.Next(0, 10);
             int whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
 
-            StartPosExcluded.AddRange(StartPosDict[PlayerIDs[whichPlayer]]);
+            StartPosExcluded.AddRange(StartPosDict[PlayerIDs[whichPlayer]]); // lägg till så den inte hämtar planeter som är safe i målet
 
             while (StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
@@ -673,98 +673,75 @@ namespace Xinaschack2._0.Classes
             travelPoints.Add(new Point(0, 0));
         }
 
-        private List<int> GetRandomRect()
-        {
-            List<int> result = new List<int>();
-            List<int> StartPosExcluded = new List<int>();
-            Random rnd = new Random();
-            //ta hänsyn till placerade planeter?? testa oss fram
 
-            int randomRectIndex = rnd.Next(0, 120);
-            
+        private List<int> CheckOKMovesMeteor() //, ref List<int> FirePositions)
+        {
+            List<int> FirePositions = new List<int>();
+            List<int> StartPosExcluded = new List<int>();
+            List<int> PlayerPos = new List<int>();
+            List<int> BlockingRects = new List<int>();
             foreach (List<int> list in StartPosDict.Values)
             {
                 StartPosExcluded.AddRange(list);
             }
 
-            while (StartPosExcluded.Contains(randomRectIndex))
-            {
-                randomRectIndex = rnd.Next(0, 120);
-            }
-
-            //leftmost planet
-            result.Add(randomRectIndex);
-            while (!CheckOKMovesMeteor(randomRectIndex, ref result))
-            {
-                result.Clear();
-
-                randomRectIndex = rnd.Next(0, 120);
-                result.Add(randomRectIndex);
-
-                while (StartPosExcluded.Contains(randomRectIndex))
-                {
-                    randomRectIndex = rnd.Next(0, 120);
-                }
-            }
-
-            return result;
-        }
-
-        private bool CheckOKMovesMeteor(int randomIndex, ref List<int> result)
-        {
-            List<Point> points = new List<Point> {
-                new Point //top right
-                {
-                    X = RectList[randomIndex].X + XDiff,
-                    Y = RectList[randomIndex].Y - YDiff
-                },
-                new Point // right
-                {
-                    X = RectList[randomIndex].X + XSameLevelDiff,
-                    Y = RectList[randomIndex].Y
-                },
-                new Point //bot right
-                {
-                    X = RectList[randomIndex].X + XDiff,
-                    Y = RectList[randomIndex].Y + YDiff
-                }};
-
-            for (int i = 0; i < RectList.Count; i++)
-            {
-                for (int j = 0; j < points.Count; j++)
-                {
-                    if (RectList[i].Contains(points[j]))
-                    {
-                        result.Add(i);
-                    }
-                }
-            }
-
-            List<int> PlayerPos = new List<int>();
-
             foreach (Player p in Players)
             {
                 PlayerPos.AddRange(p.PlayerPositions);
             }
+            BlockingRects.AddRange(StartPosExcluded);
+            BlockingRects.AddRange(PlayerPos);
 
-            foreach (int i in result)
+            Random rnd = new Random();
+
+            int randomMeteorPos;
+            bool _blocking = true;
+            while (_blocking)
             {
-                if (PlayerPos.Contains(i))
+                randomMeteorPos = rnd.Next(0, 120);
+                List<Point> points = new List<Point> {
+                new Point //top right
                 {
-                    return false;
+                    X = RectList[randomMeteorPos].X + XDiff,
+                    Y = RectList[randomMeteorPos].Y - YDiff
+                },
+                new Point // right
+                {
+                    X = RectList[randomMeteorPos].X + XSameLevelDiff,
+                    Y = RectList[randomMeteorPos].Y
+                },
+                new Point //bot right
+                {
+                    X = RectList[randomMeteorPos].X + XDiff,
+                    Y = RectList[randomMeteorPos].Y + YDiff
+                }};
+
+                FirePositions.Add(randomMeteorPos);
+                for (int i = 0; i < RectList.Count; i++)
+                {
+                    for (int j = 0; j < points.Count; j++)
+                    {
+                        if (RectList[i].Contains(points[j]))
+                        {
+                            FirePositions.Add(i);
+                        }
+                    }
+                }
+
+                if ( BlockingRects.Any(FirePositions.Contains))
+                {
+                    _blocking = true;
+                    FirePositions.Clear();
+                }
+                else
+                {
+                    _blocking = false;
                 }
             }
-
-            return true;
-            //for (int i = 0; i < result.Count; i++)
-            //{
-            //    if (PlayerPos.Contains(result[i]))
-            //    {
-
-            //    }
-            //}
+            return FirePositions;
 
         }
+
         public void MoveComplete()
         {
             if (Players[CurrentPlayerIndex].PlayerPositions.Count < 10)

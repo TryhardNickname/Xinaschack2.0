@@ -160,7 +160,7 @@ namespace Xinaschack2._0
             // check if click on buttons
             // if mute 
             // if give up 
-            if (game.AnimationComplete) // to prevent HAX by moving while animation happens???
+            if (game.AnimationComplete && !game.MeteorStrike && !game.AlienEncounter) // to prevent HAX by moving while animation happens???
             {
                 game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
             }
