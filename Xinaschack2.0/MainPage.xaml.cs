@@ -43,8 +43,6 @@ namespace Xinaschack2._0
         private readonly int DesignHeight = 1080;
 
         GameBoard game;
-        private bool OngoingAnimation { get; set; }
-        private bool CompletedAnimation { get; set; }
 
         public MainPage()
         {
@@ -52,8 +50,6 @@ namespace Xinaschack2._0
 
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
-            OngoingAnimation = false;
-            CompletedAnimation = false;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
