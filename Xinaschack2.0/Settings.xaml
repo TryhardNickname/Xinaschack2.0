@@ -28,7 +28,7 @@
         <Image Source="Assets/images/Settings w.png" Margin="404,44,404,889" Grid.ColumnSpan="2"/>
 
         <Image x:Name="Sound_on" Source="Assets/Images/Sound-On.png" Height="100" Width="100" Margin="457,331,10,569"/>
-        <Slider HorizontalAlignment="Left" Margin="0,413,0,0" VerticalAlignment="Top" Width="453" Height="80" Minimum="0" Maximum="100" Foreground="#5729ce" Background="#5729ce" FocusVisualPrimaryBrush="White" Grid.Column="1">
-        </Slider>
+        <!--<Slider HorizontalAlignment="Left" Margin="0,413,0,0" VerticalAlignment="Top" Width="453" Height="80" Minimum="0" Maximum="100" Foreground="#5729ce" Background="#5729ce" FocusVisualPrimaryBrush="White" Grid.Column="1" ValueChanged="Slider_ValueChanged">
+        </Slider>-->
     </Grid>
 </Page>

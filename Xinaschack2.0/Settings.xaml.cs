@@ -30,5 +30,10 @@ namespace Xinaschack2._0
         {
             Frame.Navigate(typeof(MainMenu), null);
         }
+        private void slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            string msg = String.Format("Current value: {0}", e.NewValue);
+            this.mediaPlayer = msg;
+        }
     }
 }

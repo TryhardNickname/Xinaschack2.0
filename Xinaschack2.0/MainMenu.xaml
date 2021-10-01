@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
-
+        <MediaPlayerElement x:Name="_mediaPlayerElement" AreTransportControlsEnabled="False" HorizontalAlignment="Stretch"  Grid.Row="0" AutoPlay="True"/>
         <Grid Margin="10,10,10,10" Background="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
@@ -32,9 +32,6 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Foreground>
-
-
-
             </Button>
 
             <Button x:Name="Quitbtn" Content="Quit" Margin="201,744,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
@@ -82,8 +79,8 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Foreground>
-
             </Button>
+            
             <Image Source="Assets/images/chinese-checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
             <Image Source="/Assets/Images/space-ver.xi.png" Margin="40,128,768,828" Grid.Column="1"/>
 

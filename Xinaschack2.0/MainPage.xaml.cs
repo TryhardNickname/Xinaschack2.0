@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -34,7 +36,6 @@ namespace Xinaschack2._0
         {
             Frame.Navigate(typeof(MainMenu), null);
         }
-
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
 
@@ -42,12 +43,10 @@ namespace Xinaschack2._0
         private readonly int DesignHeight = 1080;
 
         GameBoard game;
-       
 
         public MainPage()
         {
             InitializeComponent();
-
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
             game = new GameBoard(DesignWidth, DesignHeight, 2);
