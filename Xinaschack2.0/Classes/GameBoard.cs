@@ -275,19 +275,20 @@ namespace Xinaschack2._0.Classes
 
         public void DrawAlien(CanvasAnimatedDrawEventArgs args, CanvasBitmap alien)
         {
-            Rect alienRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
-
-            args.DrawingSession.DrawRectangle(alienRect, Windows.UI.Color.FromArgb(255, 1, 1, 0));
-            args.DrawingSession.DrawImage(alien, alienRect);
-
-
-            if (AlienAnimationCounter > 2)
+            if (AlienAnimationCounter > 2 && AlienAnimationCounter < 5)
             {
                 Rect ballRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
 
                 args.DrawingSession.DrawRectangle(ballRect, Windows.UI.Color.FromArgb(255, 1, 1, 0));
-                args.DrawingSession.DrawImage(Players[PlayerIDs[AlienInfoList[0]]].PlanetBitmap, ballRect);
+                //args.DrawingSession.DrawImage(Players[PlayerIDs[AlienInfoList[0]]].PlanetBitmap, ballRect);
+                args.DrawingSession.DrawImage(Players[AlienInfoList[0]].PlanetBitmap, ballRect);
+
             }
+
+            Rect alienRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
+
+            args.DrawingSession.DrawRectangle(alienRect, Windows.UI.Color.FromArgb(255, 1, 1, 0));
+            args.DrawingSession.DrawImage(alien, alienRect);
 
         }
 
@@ -369,7 +370,8 @@ namespace Xinaschack2._0.Classes
                 else
                 {
                     OldPosAlien = travelPoints[1];
-                    AlienAnimationCounter++;// animation complete
+                    AlienAnimationCounter++;// animation complete      
+                    
                 }
                 if (speedAlien < 5)
                 {
@@ -388,6 +390,7 @@ namespace Xinaschack2._0.Classes
                 }
                 else
                 {
+                    Players[AlienInfoList[0]].PlayerPositions.RemoveAt(AlienInfoList[1]);
                     OldPosAlien = travelPoints[2];
                     AlienAnimationCounter++;// animation complete
                 }
@@ -433,6 +436,29 @@ namespace Xinaschack2._0.Classes
                     {
                         OldPosAlien = travelPoints[4];
                         AlienAnimationCounter++;// animation complete
+                        Players[AlienInfoList[0]].PlayerPositions.Insert(AlienInfoList[1], AlienInfoList[2]);
+                    }
+                    if (speedAlien < 5)
+                    {
+                        speedAlien = 5;
+                    }
+                }
+            }
+            if (AlienAnimationCounter == 5)
+            {
+                {
+                    double XDistanceAlien = travelPoints[5].X - OldPosAlien.X;
+                    double YDistanceAlien = travelPoints[5].Y - OldPosAlien.Y;
+                    double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+
+                    if (distanceAlien > 1)
+                    {
+                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                    }
+                    else
+                    {
+                        OldPosAlien = travelPoints[5];
+                        AlienEncounter = false;
                     }
                     if (speedAlien < 5)
                     {
@@ -638,6 +664,7 @@ namespace Xinaschack2._0.Classes
             travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y));
             travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y - 65));
             travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y));
+            travelPoints.Add(new Point(0, 0));
         }
 
         private List<int> GetRandomRect()
