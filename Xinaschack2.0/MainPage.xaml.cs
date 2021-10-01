@@ -39,6 +39,9 @@ namespace Xinaschack2._0
         }
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
+        private CanvasBitmap Fire { get; set; }
+        private CanvasBitmap Comet { get; set; }
+        private CanvasBitmap Alien { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -50,8 +53,6 @@ namespace Xinaschack2._0
             InitializeComponent();
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
-            game = new GameBoard(DesignWidth, DesignHeight, 2);
-
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -68,6 +69,9 @@ namespace Xinaschack2._0
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
+            Fire = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/firegif2.gif"));
+            Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
+            Alien = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/alien.png"));
 
             foreach (Player p in game.Players)
             {
@@ -78,7 +82,6 @@ namespace Xinaschack2._0
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             args.TrackAsyncAction(CreateResourcesAsync(sender).AsAsyncAction());
-            
         }
 
         /// <summary>
@@ -89,35 +92,61 @@ namespace Xinaschack2._0
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             args.DrawingSession.DrawImage(Board, 320, 0);
-
             game.DrawSelectedRect(args);
-
             game.DrawPlayerPlanets(sender, args);
-
             game.DrawOkayMoves(args);
-            
             game.DrawPlayerTurn(args);
+            if (game.MeteorStrike)
+            {
+                game.DrawMeteor(args, Comet);
+            }
+            else
+            {
+                game.DrawUnavailableRects(args, Fire);
+            }
 
-            if (game.DidMove)
+            if (game.AlienEncounter)
+            {
+                game.DrawAlien(args, Alien);
+            }
+            if (!game.AnimationComplete)
             {
                 game.DrawAnimations(args);
             }
-
             game.DebugText(args);
-
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            if(game.CheckIfWin())
+            if (game.CheckIfWin())
             {
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
+            if (game.MeteorStrike)
+            {
+                game.UpdateMeteor();
+            }
 
-
-            game.UpdateAnimation();
-
-
+            if (game.AlienEncounter)
+            {
+                game.UpdateAlien();
+            }
+            if (!game.AnimationComplete)
+            {
+                game.UpdateAnimation();
+            }
+            if (game.AnimationComplete && game.TurnStarted)
+            {
+                game.MoveComplete();
+                if (!game.OnlyDoubleJump && game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
+                {
+                    game.NextTurn();
+                }
+                else
+                {
+                    game.CheckOKMoves();
+                }
+            }
         }
 
         /// <summary>
@@ -131,8 +160,14 @@ namespace Xinaschack2._0
             // check if click on buttons
             // if mute 
             // if give up 
+            if (game.AnimationComplete) // to prevent HAX by moving while animation happens???
+            {
+                game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
+            }
 
-            game.CheckIfRect_Pressed(e);
+
+
+
 
 
 
