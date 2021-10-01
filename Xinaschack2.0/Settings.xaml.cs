@@ -32,8 +32,8 @@ namespace Xinaschack2._0
         }
         private void slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            string msg = String.Format("Current value: {0}", e.NewValue);
-            this.mediaPlayer = msg;
+            //string msg = String.Format("Current value: {0}", e.NewValue);
+            //this.mediaPlayer = msg;
         }
     }
 }

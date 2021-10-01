@@ -124,9 +124,6 @@
     </Compile>
     <Compile Include="Classes\GameBoard.cs" />
     <Compile Include="Classes\Player.cs" />
-    <Compile Include="Highscore.xaml.cs">
-      <DependentUpon>Highscore.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
