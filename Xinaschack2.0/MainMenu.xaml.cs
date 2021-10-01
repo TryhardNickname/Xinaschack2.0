@@ -8,8 +8,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,10 +34,13 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
-
+        private MediaPlayer mediaPlayer;
         public MainMenu()
         {
             InitializeComponent();
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
+            mediaPlayer.Play();
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
@@ -45,9 +51,21 @@ namespace Xinaschack2._0
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
         {
-
+            CoreApplication.Exit();
         }
 
+        private void Scorebtn_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Highscore), null);
+        }
 
+        private void tutorialbtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void settings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Settings), null);
+        }
     }
 }

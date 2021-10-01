@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
-
+        <MediaPlayerElement x:Name="_mediaPlayerElement" AreTransportControlsEnabled="False" HorizontalAlignment="Stretch"  Grid.Row="0" AutoPlay="True"/>
         <Grid Margin="10,10,10,10" Background="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
@@ -32,9 +32,6 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Foreground>
-
-
-
             </Button>
 
             <Button x:Name="Quitbtn" Content="Quit" Margin="201,744,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
@@ -62,7 +59,7 @@
             <Button x:Name="tutorialbtn" Content="Tutorial" Margin="106,603,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="tutorialbtn_Click" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
                         <GradientStop Color="Black"/>
@@ -75,18 +72,35 @@
             <Button x:Name="Scorebtn" Content="Score" Margin="161,462,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" Click="Scorebtn_Click" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01 ,0">
                         <GradientStop Color="Black"/>
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.Foreground>
-
             </Button>
+            
             <Image Source="Assets/images/chinese-checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
             <Image Source="/Assets/Images/space-ver.xi.png" Margin="40,128,768,828" Grid.Column="1"/>
 
+            <Button x:Name="SettingsOption" Click="settings_Click" Margin="0,854,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png">
+                <Button.BorderBrush>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
+                </Button.BorderBrush>
+                <Button.FocusVisualPrimaryBrush>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
+                </Button.FocusVisualPrimaryBrush>
+                <Button.FocusVisualSecondaryBrush>
+                    <ImageBrush ImageSource="/Assets/Images/settingsIcon.png" Stretch="UniformToFill"/>
+                </Button.FocusVisualSecondaryBrush>
+                <Button.Foreground>
+                    <ImageBrush ImageSource="/Assets/Images/settingsIcon.png" Stretch="UniformToFill"/>
+                </Button.Foreground>
+                <Button.Background>
+                    <ImageBrush ImageSource="/Assets/Images/settingsIcon.png"  Stretch="UniformToFill"/>
+                </Button.Background>
+            </Button>
         </Grid>
 
     </Grid>
