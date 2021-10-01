@@ -334,7 +334,7 @@ namespace Xinaschack2._0.Classes
 
         public void UpdateAlien()
         {
-            int speedAlien = 30;
+            int speedAlien = 15;
 
             if (AlienAnimationCounter == 0)
             {
@@ -634,6 +634,7 @@ namespace Xinaschack2._0.Classes
 
         private void AlienMove()
         {
+            List<int> BothPlayerPositions = new List<int>();
             List<int> StartPosExcluded = new List<int>();
             Random rnd = new Random();
             int whichPlayer = rnd.Next(0, Players.Count);
@@ -647,7 +648,13 @@ namespace Xinaschack2._0.Classes
                 whichPlanet = rnd.Next(0, 10);
             }
 
-            while (Players[whichPlayer].PlayerPositions.Contains(whereToGoBack))
+            foreach (Player player in Players)
+            {
+                BothPlayerPositions.AddRange(player.PlayerPositions);
+            }
+
+            // while (Players[whichPlayer].PlayerPositions.Contains(whereToGoBack))
+            while (BothPlayerPositions.Contains(whereToGoBack))
             {
                 whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
             }
