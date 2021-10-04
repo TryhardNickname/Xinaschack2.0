@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,18 +23,25 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class Settings : Page
     {
+        public static double Volume { get; set; }
+
         public Settings()
         {
             this.InitializeComponent();
+            ElementSoundPlayer.State = ElementSoundPlayerState.On;
+            CVol.Value = ElementSoundPlayer.Volume;
+
         }
         private void Back2menu(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainMenu), null);
         }
-        private void slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            //string msg = String.Format("Current value: {0}", e.NewValue);
-            //this.mediaPlayer = msg;
+            Slider slider = sender as Slider;
+            double volumeLevel = slider.Value / 10;
+            ElementSoundPlayer.Volume = volumeLevel;
+
         }
     }
 }

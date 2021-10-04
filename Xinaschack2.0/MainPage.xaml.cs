@@ -47,12 +47,17 @@ namespace Xinaschack2._0
         private readonly int DesignHeight = 1080;
 
         GameBoard game;
-
+        private MediaPlayer mediaPlayer;
         public MainPage()
         {
             InitializeComponent();
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
+            mediaPlayer.Play();
+            ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
