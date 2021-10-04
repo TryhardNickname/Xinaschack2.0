@@ -261,15 +261,15 @@ namespace Xinaschack2._0.Classes
 
             for (int i = 0; i < UnavailableRects.Count; i++)
             {
-                if (MeteorTiming < 16.6 * 3)
+                if (MeteorTiming < 16.6 * 4)
                 {
                     args.DrawingSession.DrawImage(FireList[0], RectList[UnavailableRects[i]]);
                 }
-                else if (MeteorTiming < 33.3 * 3)
+                else if (MeteorTiming < 33.3 * 4)
                 {
                     args.DrawingSession.DrawImage(FireList[1], RectList[UnavailableRects[i]]);
                 }
-                else if (MeteorTiming < 49.9 * 3)
+                else if (MeteorTiming < 49.9 * 4)
                 {
                     args.DrawingSession.DrawImage(FireList[2], RectList[UnavailableRects[i]]);
                 }
@@ -279,7 +279,7 @@ namespace Xinaschack2._0.Classes
                 }
 
             }
-            if (MeteorTiming > 66.6 * 3)
+            if (MeteorTiming > 66.6 * 4)
             {
                 MeteorTiming = 0;
             }
