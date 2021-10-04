@@ -124,6 +124,9 @@
     </Compile>
     <Compile Include="Classes\GameBoard.cs" />
     <Compile Include="Classes\Player.cs" />
+    <Compile Include="Highscorepage.xaml.cs">
+      <DependentUpon>Highscorepage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="amountofplayers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Highscorepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
