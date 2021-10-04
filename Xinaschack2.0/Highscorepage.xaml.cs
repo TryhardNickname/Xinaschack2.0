@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -25,6 +22,11 @@ namespace Xinaschack2._0
         public Highscorepage()
         {
             this.InitializeComponent();
+        }
+
+        private void Back2menu(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainMenu), null);
         }
     }
 }
