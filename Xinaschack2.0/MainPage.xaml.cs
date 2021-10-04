@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -42,12 +43,14 @@ namespace Xinaschack2._0
         private List<CanvasBitmap> FireList { get; set; }
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
+        public MediaElement SoundEffects;
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
         GameBoard game;
         private MediaPlayer mediaPlayer;
+
         public MainPage()
         {
             InitializeComponent();
@@ -57,6 +60,9 @@ namespace Xinaschack2._0
             mediaPlayer = new MediaPlayer();
             mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
             mediaPlayer.Play();
+
+            SoundEffects = new MediaElement();
+
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
@@ -75,9 +81,9 @@ namespace Xinaschack2._0
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
-
             Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
             Alien = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/alien.png"));
+
             FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire1.png")));
             FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire2.png")));
             FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire3.png")));
@@ -87,6 +93,12 @@ namespace Xinaschack2._0
             {
                 await p.LoadBitmapAsync(sender).AsAsyncAction();
             }
+
+            StorageFolder Folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            Folder = await Folder.GetFolderAsync(@"Assets\sounds");
+            StorageFile sf = await Folder.GetFileAsync("ballmovesound.wav");
+            SoundEffects.SetSource(await sf.OpenAsync(FileAccessMode.Read), sf.ContentType);
+
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -148,6 +160,8 @@ namespace Xinaschack2._0
             if (game.AnimationComplete && game.TurnStarted)
             {
                 game.MoveComplete();
+                SoundEffects.Play();
+
                 if (!game.OnlyDoubleJump && game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
                 {
                     game.NextTurn();
