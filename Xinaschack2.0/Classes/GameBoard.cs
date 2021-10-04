@@ -36,6 +36,7 @@ namespace Xinaschack2._0.Classes
         private int EventTurn { get; set; }
         public List<int> UnavailableRects { get; set; }
         public bool MeteorStrike { get; set; }
+        private double MeteorTiming { get; set; }
         private int AlienCounter { get; set; }
         public bool AlienEncounter { get; set; }
         public List<int> AlienInfoList { get; set; }
@@ -254,12 +255,35 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
         }
-        public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args, CanvasBitmap fire)
+        public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args, List<CanvasBitmap> FireList)
         {
+            MeteorTiming += args.Timing.ElapsedTime.TotalMilliseconds;
+
             for (int i = 0; i < UnavailableRects.Count; i++)
             {
-                args.DrawingSession.DrawImage(fire, RectList[UnavailableRects[i]]);
+                if (MeteorTiming < 16.6 * 3)
+                {
+                    args.DrawingSession.DrawImage(FireList[0], RectList[UnavailableRects[i]]);
+                }
+                else if (MeteorTiming < 33.3 * 3)
+                {
+                    args.DrawingSession.DrawImage(FireList[1], RectList[UnavailableRects[i]]);
+                }
+                else if (MeteorTiming < 49.9 * 3)
+                {
+                    args.DrawingSession.DrawImage(FireList[2], RectList[UnavailableRects[i]]);
+                }
+                else
+                {
+                    args.DrawingSession.DrawImage(FireList[3], RectList[UnavailableRects[i]]);
+                }
+
             }
+            if (MeteorTiming > 66.6 * 3)
+            {
+                MeteorTiming = 0;
+            }
+
         }
 
         public void DrawMeteor(CanvasAnimatedDrawEventArgs args, CanvasBitmap comet)

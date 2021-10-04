@@ -39,7 +39,7 @@ namespace Xinaschack2._0
         }
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
-        private CanvasBitmap Fire { get; set; }
+        private List<CanvasBitmap> FireList { get; set; }
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
 
@@ -51,6 +51,7 @@ namespace Xinaschack2._0
         public MainPage()
         {
             InitializeComponent();
+            FireList = new List<CanvasBitmap>();
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
         }
@@ -69,9 +70,13 @@ namespace Xinaschack2._0
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
-            Fire = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/firegif2.gif"));
+
             Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
             Alien = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/alien.png"));
+            FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire1.png")));
+            FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire2.png")));
+            FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire3.png")));
+            FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire4.png")));
 
             foreach (Player p in game.Players)
             {
@@ -102,7 +107,7 @@ namespace Xinaschack2._0
             }
             else
             {
-                game.DrawUnavailableRects(args, Fire);
+                game.DrawUnavailableRects(args, FireList);
             }
 
             if (game.AlienEncounter)
