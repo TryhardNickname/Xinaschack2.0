@@ -9,10 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="189*"/>
-            <ColumnDefinition Width="311*"/>
-        </Grid.ColumnDefinitions>
+
         <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2">
             <Image.Source>
                 <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
@@ -27,8 +24,14 @@
 
         <Image Source="Assets/images/Settings w.png" Margin="404,44,404,889" Grid.ColumnSpan="2"/>
 
-        <Image x:Name="Sound_on" Source="Assets/Images/Sound-On.png" Height="100" Width="100" Margin="457,331,10,569"/>
-        <!--<Slider HorizontalAlignment="Left" Margin="0,413,0,0" VerticalAlignment="Top" Width="453" Height="80" Minimum="0" Maximum="100" Foreground="#5729ce" Background="#5729ce" FocusVisualPrimaryBrush="White" Grid.Column="1" ValueChanged="Slider_ValueChanged">
-        </Slider>-->
+        <Image x:Name="Sound_on" Source="Assets/Images/Sound-On.png" Height="100" Width="100" Margin="417,354,983,546"/>
+        <StackPanel>
+            <Slider Width="410" Height="80" Margin="600,354,983,546"
+                Maximum="10" TickFrequency="0.1" Foreground="#5729ce" Background="#5729ce" 
+                FocusVisualPrimaryBrush="White" ValueChanged="Slider_ValueChanged" x:Name="CVol"/>
+            <Button Content="ClickMe"/>
+
+        </StackPanel>
+
     </Grid>
 </Page>

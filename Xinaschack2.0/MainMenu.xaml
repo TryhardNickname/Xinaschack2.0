@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
-        <MediaPlayerElement x:Name="_mediaPlayerElement" AreTransportControlsEnabled="False" HorizontalAlignment="Stretch"  Grid.Row="0" AutoPlay="True"/>
+         
         <Grid Margin="10,10,10,10" Background="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
