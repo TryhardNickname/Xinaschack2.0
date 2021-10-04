@@ -154,7 +154,10 @@
     <Content Include="Assets\Images\comet.png" />
     <Content Include="Assets\Images\doubleArrow.png" />
     <Content Include="Assets\Images\earth_mini34x34.png" />
-    <Content Include="Assets\Images\firegif2.gif" />
+    <Content Include="Assets\Images\fire1.png" />
+    <Content Include="Assets\Images\fire2.png" />
+    <Content Include="Assets\Images\fire3.png" />
+    <Content Include="Assets\Images\fire4.png" />
     <Content Include="Assets\Images\GameFieldCentered.png" />
     <Content Include="Assets\Images\highscore.png" />
     <Content Include="Assets\Images\jupiter.png" />
