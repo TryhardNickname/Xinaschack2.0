@@ -61,7 +61,7 @@ namespace Xinaschack2._0
 
         private void tutorialbtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(Tutorial), null);
         }
         private void settings_Click(object sender, RoutedEventArgs e)
         {
