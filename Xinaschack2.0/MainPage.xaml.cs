@@ -9,6 +9,7 @@ using Windows.Foundation;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -44,6 +45,7 @@ namespace Xinaschack2._0
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
         public MediaElement SoundEffects;
+        private int SoundCounterPlop { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -156,11 +158,17 @@ namespace Xinaschack2._0
             if (!game.AnimationComplete)
             {
                 game.UpdateAnimation();
+
             }
             if (game.AnimationComplete && game.TurnStarted)
             {
                 game.MoveComplete();
-                SoundEffects.Play();
+                var playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    SoundEffects.Play();
+                });
+
+                SoundCounterPlop = 0;
 
                 if (!game.OnlyDoubleJump && game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
                 {
@@ -187,6 +195,14 @@ namespace Xinaschack2._0
             if (game.AnimationComplete && !game.MeteorStrike && !game.AlienEncounter) // to prevent HAX by moving while animation happens???
             {
                 game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
+                if (game.PlanetSelected != -1 && game.AnimationComplete == true)
+                {
+                    var playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        SoundEffects.Play();
+                    });
+
+                }
             }
 
 

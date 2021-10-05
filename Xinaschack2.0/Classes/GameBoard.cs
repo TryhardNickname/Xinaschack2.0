@@ -26,7 +26,7 @@ namespace Xinaschack2._0.Classes
         public Point OldPosAlien { get; set; }
         public int CurrentPlayerIndex { get; private set; }
         public bool OnlyDoubleJump { get; set; }
-        private int PlanetSelected { get; set; }
+        public int PlanetSelected { get; private set; }
         private int DoubleJumpSaved { get; set; }
         public int SavedPosition { get; set; }
         private List<int> DoubleJumps { get; set; }
