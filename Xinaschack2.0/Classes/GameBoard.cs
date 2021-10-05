@@ -245,7 +245,27 @@ namespace Xinaschack2._0.Classes
 
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            //args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            //var turn = 0;
+            //var player1Turns = true;
+
+            //while (true)
+            //{
+            //    turn++;
+            //    if (player1Turns)
+            //    {
+            //        //player ones turn
+            //        args.DrawingSession.DrawImage((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            //    }
+            //    else
+            //    {
+            //        //player two trun
+            //    }
+            //    if (turn % 3 == 0)
+            //    {
+            //        player1Turns = !player1Turns;
+            //    }
+            //}
         }
 
         public void DrawAnimations(CanvasAnimatedDrawEventArgs args)

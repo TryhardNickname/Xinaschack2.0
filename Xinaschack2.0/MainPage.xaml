@@ -15,11 +15,12 @@
                 <BitmapImage x:Name="GifImage" UriSource="Assets/images/Menu-background-1280x720.gif"/>
             </Image.Source>
         </Image>
-        
+
         <Grid Height="1080" Width="1920" >
             <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" Height="1080" Width="1920"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,15,0,0" Text="player" TextWrapping="Wrap" VerticalAlignment="Top" Height="56" Width="102" FontSize="36"/>
         </Grid>
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="4,873,0,0" Height="126" Width="143" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>
