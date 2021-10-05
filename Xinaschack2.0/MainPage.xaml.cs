@@ -137,7 +137,7 @@ namespace Xinaschack2._0
             {
                 game.DrawAnimations(args);
             }
-            game.DebugText(args);
+            // game.DebugText(args);
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)

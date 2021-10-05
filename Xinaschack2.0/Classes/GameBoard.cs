@@ -203,7 +203,8 @@ namespace Xinaschack2._0.Classes
             {
                 if (RectSelected == rectIndex)
                 {
-                    args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 0, 255, 0), 2);
+                    // args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 0, 255, 0), 2);
+                    args.DrawingSession.DrawCircle((float)(RectList[rectIndex].X + RectSize / 2), (float)(RectList[rectIndex].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 0), 5);
                 }
                 else
                 {
@@ -220,7 +221,6 @@ namespace Xinaschack2._0.Classes
         /// <param name="args"></param>
         public void DrawPlayerPlanets(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-
             for (int i = 0; i < Players.Count; i++)
             {
                 for (int posIndex = 0; posIndex < Players[i].PlayerPositions.Count; posIndex++)
@@ -234,12 +234,14 @@ namespace Xinaschack2._0.Classes
         {
             for (int i = 0; i < SingleJumps.Count; i++)
             {
-                args.DrawingSession.DrawRectangle(RectList[SingleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 255, 255), 2);
+                // args.DrawingSession.DrawRectangle(RectList[SingleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 255, 255), 2);
+                args.DrawingSession.DrawCircle((float)(RectList[SingleJumps[i]].X + RectSize / 2), (float)(RectList[SingleJumps[i]].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 255), 5);
             }
 
             for (int i = 0; i < DoubleJumps.Count; i++)
             {
-                args.DrawingSession.DrawRectangle(RectList[DoubleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 0, 255), 2);
+                // args.DrawingSession.DrawRectangle(RectList[DoubleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 0, 255), 2);
+                args.DrawingSession.DrawCircle((float)(RectList[DoubleJumps[i]].X + RectSize / 2), (float)(RectList[DoubleJumps[i]].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 0, 255), 5);
             }
         }
 
@@ -252,7 +254,7 @@ namespace Xinaschack2._0.Classes
         {
             Rect moveRect = new Rect(OldPos.X, OldPos.Y, RectSize, RectSize);
 
-            args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
+            // args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
         }
         public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args, List<CanvasBitmap> FireList)
@@ -290,26 +292,25 @@ namespace Xinaschack2._0.Classes
         {
             Rect moveRect = new Rect(OldPosMeteor.X, OldPosMeteor.Y, RectSize, RectSize);
 
-            args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1));
             args.DrawingSession.DrawImage(comet, moveRect);
         }
 
         public void DrawAlien(CanvasAnimatedDrawEventArgs args, CanvasBitmap alien)
         {
+            int YOffset = 20;
+
             //planet "under" alien
             if (AlienAnimationCounter > 2 && AlienAnimationCounter < 5)
             {
                 Rect ballRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
 
-                args.DrawingSession.DrawRectangle(ballRect, Windows.UI.Color.FromArgb(255, 1, 1, 0));
                 //args.DrawingSession.DrawImage(Players[PlayerIDs[AlienInfoList[0]]].PlanetBitmap, ballRect);
                 args.DrawingSession.DrawImage(Players[AlienInfoList[0]].PlanetBitmap, ballRect);
 
             }
 
-            Rect alienRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
+            Rect alienRect = new Rect(OldPosAlien.X, OldPosAlien.Y - YOffset, RectSize, RectSize);
 
-            args.DrawingSession.DrawRectangle(alienRect, Windows.UI.Color.FromArgb(255, 1, 1, 0));
             args.DrawingSession.DrawImage(alien, alienRect);
 
         }
@@ -332,7 +333,6 @@ namespace Xinaschack2._0.Classes
             {
                 speed = 5;
             }
-
         }
         
         public void UpdateMeteor()
