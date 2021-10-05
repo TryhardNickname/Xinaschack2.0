@@ -46,6 +46,8 @@ namespace Xinaschack2._0
         private CanvasBitmap Alien { get; set; }
         private MediaElement SoundEffectsPlop;
         private MediaElement SoundEffectsWoosh;
+        private MediaElement SoundEffectsBoom;
+        private EventHandler WooshEvent;
         private int SoundCounterPlop { get; set; }
         public int SoundCounterWoosh { get; set; }
 
@@ -67,6 +69,9 @@ namespace Xinaschack2._0
 
             SoundEffectsPlop = new MediaElement();
             SoundEffectsWoosh = new MediaElement();
+            SoundEffectsBoom = new MediaElement();
+
+            SoundEffectsWoosh.MediaEnded += HandleCustomEvent;
 
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -77,6 +82,10 @@ namespace Xinaschack2._0
             base.OnNavigatedTo(e);
         }
 
+        void HandleCustomEvent(object sender, RoutedEventArgs a)
+        {
+            Debug.WriteLine("hej");
+        }
 
         /// <summary>
         /// Loads pictures into Bitmaps that can be used in the canvas
@@ -111,7 +120,13 @@ namespace Xinaschack2._0
             FolderWoosh = await FolderWoosh.GetFolderAsync(@"Assets\sounds");
             StorageFile sfWoosh = await FolderWoosh.GetFileAsync("meteorsound.wav");
             SoundEffectsWoosh.SetSource(await sfWoosh.OpenAsync(FileAccessMode.Read), sfWoosh.ContentType);
-            
+
+            SoundEffectsBoom.AutoPlay = false;
+            StorageFolder FolderBoom = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            FolderBoom = await FolderBoom.GetFolderAsync(@"Assets\sounds");
+            StorageFile sfBoom = await FolderBoom.GetFileAsync("explosionsound.wav");
+            SoundEffectsBoom.SetSource(await sfBoom.OpenAsync(FileAccessMode.Read), sfBoom.ContentType);
+
 
         }
 
@@ -162,18 +177,16 @@ namespace Xinaschack2._0
             if (game.MeteorStrike)
             {
                 game.UpdateMeteor();
-                if (SoundCounterWoosh == 0)
+
+                var playSoundWoosh = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    var playSoundWoosh = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        SoundEffectsWoosh.Play();
-                    });
-                    
-                }
+                    SoundEffectsWoosh.Play();
+                });
+
             }
             else
             {
-                SoundCounterWoosh = 0;
+
             }
 
             if (game.AlienEncounter)
