@@ -28,9 +28,6 @@ namespace Xinaschack2._0
         public Settings()
         {
             this.InitializeComponent();
-            ElementSoundPlayer.State = ElementSoundPlayerState.On;
-            CVol.Value = ElementSoundPlayer.Volume;
-
         }
         private void Back2menu(object sender, RoutedEventArgs e)
         {
@@ -40,7 +37,7 @@ namespace Xinaschack2._0
         {
             Slider slider = sender as Slider;
             double volumeLevel = slider.Value / 10;
-            ElementSoundPlayer.Volume = volumeLevel;
+            MainMenu.MediaPlayer.Volume = volumeLevel;
 
         }
     }

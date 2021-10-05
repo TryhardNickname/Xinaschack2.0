@@ -34,15 +34,27 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
-        private MediaPlayer mediaPlayer;
+        public static MediaPlayer MediaPlayer;
         public MainMenu()
         {
             InitializeComponent();
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
-            mediaPlayer.Play();
+            MediaPlayer = new MediaPlayer();
+            MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
+
+
+            MediaPlayer.IsLoopingEnabled = true;
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
+            {
+                MediaPlayer.Play();
+                MediaPlayer.Volume = 0.1;
+            }
         }
         private void Playbtn_Click(object sender, RoutedEventArgs e)
         {
