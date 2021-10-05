@@ -44,8 +44,10 @@ namespace Xinaschack2._0
         private List<CanvasBitmap> FireList { get; set; }
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
-        public MediaElement SoundEffects;
+        private MediaElement SoundEffectsPlop;
+        private MediaElement SoundEffectsWoosh;
         private int SoundCounterPlop { get; set; }
+        public int SoundCounterWoosh { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -61,9 +63,10 @@ namespace Xinaschack2._0
             // GameBoard when the player presses PLAY
             mediaPlayer = new MediaPlayer();
             mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
-            mediaPlayer.Play();
+            // mediaPlayer.Play();
 
-            SoundEffects = new MediaElement();
+            SoundEffectsPlop = new MediaElement();
+            SoundEffectsWoosh = new MediaElement();
 
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -96,10 +99,19 @@ namespace Xinaschack2._0
                 await p.LoadBitmapAsync(sender).AsAsyncAction();
             }
 
-            StorageFolder Folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            Folder = await Folder.GetFolderAsync(@"Assets\sounds");
-            StorageFile sf = await Folder.GetFileAsync("ballmovesound.wav");
-            SoundEffects.SetSource(await sf.OpenAsync(FileAccessMode.Read), sf.ContentType);
+            SoundEffectsPlop.AutoPlay = false;
+            StorageFolder FolderPlop = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            FolderPlop = await FolderPlop.GetFolderAsync(@"Assets\sounds");
+            StorageFile sfPlop = await FolderPlop.GetFileAsync("ballmovesound.wav");
+            SoundEffectsPlop.SetSource(await sfPlop.OpenAsync(FileAccessMode.Read), sfPlop.ContentType);
+            
+
+            SoundEffectsWoosh.AutoPlay = false;
+            StorageFolder FolderWoosh = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            FolderWoosh = await FolderWoosh.GetFolderAsync(@"Assets\sounds");
+            StorageFile sfWoosh = await FolderWoosh.GetFileAsync("meteorsound.wav");
+            SoundEffectsWoosh.SetSource(await sfWoosh.OpenAsync(FileAccessMode.Read), sfWoosh.ContentType);
+            
 
         }
 
@@ -146,9 +158,22 @@ namespace Xinaschack2._0
             {
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
+
             if (game.MeteorStrike)
             {
                 game.UpdateMeteor();
+                if (SoundCounterWoosh == 0)
+                {
+                    var playSoundWoosh = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        SoundEffectsWoosh.Play();
+                    });
+                    
+                }
+            }
+            else
+            {
+                SoundCounterWoosh = 0;
             }
 
             if (game.AlienEncounter)
@@ -163,12 +188,10 @@ namespace Xinaschack2._0
             if (game.AnimationComplete && game.TurnStarted)
             {
                 game.MoveComplete();
-                var playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                var playSoundPlop = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    SoundEffects.Play();
+                    SoundEffectsPlop.Play();
                 });
-
-                SoundCounterPlop = 0;
 
                 if (!game.OnlyDoubleJump && game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
                 {
@@ -199,18 +222,11 @@ namespace Xinaschack2._0
                 {
                     var playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        SoundEffects.Play();
+                        SoundEffectsPlop.Play();
                     });
 
                 }
             }
-
-
-
-
-
-
-
         }
 
        
