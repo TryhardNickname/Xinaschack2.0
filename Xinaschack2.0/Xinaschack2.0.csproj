@@ -176,8 +176,6 @@
     <Content Include="Assets\sounds\aliensound.wav" />
     <Content Include="Assets\sounds\ballmovesound.wav" />
     <Content Include="Assets\sounds\meteorandboom.wav" />
-    <Content Include="Assets\sounds\SpaceSong.mp3" />
-    <Content Include="Assets\sounds\SpaceSongQuiet.mp3" />
     <Content Include="Assets\sounds\SpaceSongQuieter.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
