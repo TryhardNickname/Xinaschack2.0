@@ -62,9 +62,6 @@ namespace Xinaschack2._0
             FireList = new List<CanvasBitmap>();
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
-            mediaPlayer = new MediaPlayer();
-            
-            // mediaPlayer.Play();
 
             SoundEffectsPlop = new MediaElement();
             SoundEffectsMeteor = new MediaElement();
