@@ -56,7 +56,7 @@ namespace Xinaschack2._0
             {
                 
                 MediaPlayer.IsLoopingEnabled = true;
-                MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSongQuiter.mp3"));
+                MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSongQuieter.mp3"));
                 MediaPlayer.Play();
                 MediaPlayer.Volume = 0.1;
             }

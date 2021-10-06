@@ -96,21 +96,17 @@ namespace Xinaschack2._0
             }
 
             SoundEffectsPlop.AutoPlay = false;
-            StorageFolder FolderPlop = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            FolderPlop = await FolderPlop.GetFolderAsync(@"Assets\sounds");
-            StorageFile sfPlop = await FolderPlop.GetFileAsync("ballmovesound.wav");
+            StorageFolder Folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            Folder = await Folder.GetFolderAsync(@"Assets\sounds");
+            StorageFile sfPlop = await Folder.GetFileAsync("ballmovesound.wav");
             SoundEffectsPlop.SetSource(await sfPlop.OpenAsync(FileAccessMode.Read), sfPlop.ContentType);
             
             SoundEffectsMeteor.AutoPlay = false;
-            StorageFolder FolderMeteor = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            FolderMeteor = await FolderMeteor.GetFolderAsync(@"Assets\sounds");
-            StorageFile sfMeteor = await FolderMeteor.GetFileAsync("meteorandboom.wav");
+            StorageFile sfMeteor = await Folder.GetFileAsync("meteorandboom.wav");
             SoundEffectsMeteor.SetSource(await sfMeteor.OpenAsync(FileAccessMode.Read), sfMeteor.ContentType);
 
             SoundEffectsAlien.AutoPlay = false;
-            StorageFolder FolderAlien = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            FolderAlien = await FolderAlien.GetFolderAsync(@"Assets\sounds");
-            StorageFile sfAlien = await FolderAlien.GetFileAsync("aliensound.wav");
+            StorageFile sfAlien = await Folder.GetFileAsync("aliensound.wav");
             SoundEffectsAlien.SetSource(await sfAlien.OpenAsync(FileAccessMode.Read), sfAlien.ContentType);
         }
 
