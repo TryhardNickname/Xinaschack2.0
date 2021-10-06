@@ -38,6 +38,9 @@ namespace Xinaschack2._0
             Slider slider = sender as Slider;
             SliderValue = slider.Value / 100;
             MainMenu.MediaPlayer.Volume = SliderValue;
+            MainPage.SoundEffectsAlien.Volume = SliderValue;
+            MainPage.SoundEffectsMeteor.Volume = SliderValue;
+            MainPage.SoundEffectsPlop.Volume = SliderValue;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

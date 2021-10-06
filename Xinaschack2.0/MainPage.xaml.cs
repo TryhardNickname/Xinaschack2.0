@@ -42,9 +42,9 @@ namespace Xinaschack2._0
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
 
-        private MediaElement SoundEffectsPlop;
-        private MediaElement SoundEffectsMeteor;
-        private MediaElement SoundEffectsAlien;
+        public static MediaElement SoundEffectsPlop;
+        public static MediaElement SoundEffectsMeteor;
+        public static MediaElement SoundEffectsAlien;
         public int SoundCounterAlien { get; set; }
 
         private readonly int DesignWidth = 1920;
