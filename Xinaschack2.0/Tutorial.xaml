@@ -18,7 +18,6 @@
         <FlipView>
             <Image Source="/Assets/Images/F2.gif"></Image>
             <Image Source="/Assets/Images/A2.gif"></Image>
-
         </FlipView>
         <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
             <Button.Background>
