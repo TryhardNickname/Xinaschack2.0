@@ -35,10 +35,7 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private void Back2menu(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MainMenu), null);
-        }
+
         // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
         private List<CanvasBitmap> FireList { get; set; }
@@ -54,14 +51,10 @@ namespace Xinaschack2._0
         private readonly int DesignHeight = 1080;
 
         GameBoard game;
-        private MediaPlayer mediaPlayer;
-
         public MainPage()
         {
             InitializeComponent();
             FireList = new List<CanvasBitmap>();
-            // For now we create GameBoard here => After menu is made, we can create 
-            // GameBoard when the player presses PLAY
 
             SoundEffectsPlop = new MediaElement();
             SoundEffectsMeteor = new MediaElement();
@@ -74,6 +67,10 @@ namespace Xinaschack2._0
         {
             game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
             base.OnNavigatedTo(e);
+        }
+        private void Back2menu(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainMenu), null);
         }
 
 
@@ -160,7 +157,6 @@ namespace Xinaschack2._0
             {
                 Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
             }
-
             if (game.MeteorStrike)
             {
                 game.UpdateMeteor();
@@ -230,8 +226,5 @@ namespace Xinaschack2._0
                 }
             }
         }
-
-       
-
     }
 }

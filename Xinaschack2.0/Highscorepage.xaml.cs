@@ -31,13 +31,10 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class Highscorepage : Page
     {
-        private MediaPlayer mediaPlayer;
+        //private MediaPlayer mediaPlayer;
         public Highscorepage()
         {
             this.InitializeComponent();
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
-            mediaPlayer.Play();
         }
 
         private void Back2menu(object sender, RoutedEventArgs e)

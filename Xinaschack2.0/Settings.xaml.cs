@@ -23,14 +23,11 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class Settings : Page
     {
-        public static double Volume { get; set; }
+        private double SliderValue{ get; set; }
 
         public Settings()
         {
             this.InitializeComponent();
-            ElementSoundPlayer.State = ElementSoundPlayerState.On;
-            CVol.Value = ElementSoundPlayer.Volume;
-
         }
         private void Back2menu(object sender, RoutedEventArgs e)
         {
@@ -39,9 +36,14 @@ namespace Xinaschack2._0
         private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             Slider slider = sender as Slider;
-            double volumeLevel = slider.Value / 10;
-            ElementSoundPlayer.Volume = volumeLevel;
-
+            SliderValue = slider.Value / 100;
+            MainMenu.MediaPlayer.Volume = SliderValue;
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            SliderValue = MainMenu.MediaPlayer.Volume * 100;
+            VolumeSlider.Value = SliderValue;
+            base.OnNavigatedTo(e);
         }
     }
 }
