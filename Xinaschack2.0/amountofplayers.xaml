@@ -43,10 +43,10 @@
                 <ImageBrush ImageSource="/Assets/Images/6user.png"/>
             </Button.Background>
         </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="224,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="760,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="256,604,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="760,606,0,0" Text="6 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="224,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="256,604,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,606,0,0" Text="6 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1" Foreground="White"/>
         <TextBlock HorizontalAlignment="Left" Margin="232,51,0,0" Text="PICK THE AMOUNT OF PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="107" Width="744" FontSize="72" Grid.Column="1"/>
 
         <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
