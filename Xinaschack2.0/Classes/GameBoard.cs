@@ -658,8 +658,12 @@ namespace Xinaschack2._0.Classes
 
         private void AlienMove()
         {
+            // Some options. We can keep it totally random. We can maybe take turns? 1st player gets abducted, next time 2nd player, next time 3rd and so on.
+            // Maybe you randomize but just exclude the last person abducted?
+            // We can maybe create a weighing system, if you were abducted you have less of a chance to be abducted next time? 
+
             int TryCounter = 0;
-            List<int> BothPlayerPositions = new List<int>();
+            List<int> AllPlayerPositions = new List<int>();
             List<int> StartPosExcluded = new List<int>();
             Random rnd = new Random();
             int whichPlayer = rnd.Next(0, Players.Count);
@@ -685,16 +689,16 @@ namespace Xinaschack2._0.Classes
 
             foreach (Player player in Players)
             {
-                BothPlayerPositions.AddRange(player.PlayerPositions);
+                AllPlayerPositions.AddRange(player.PlayerPositions);
             }
 
             // while (Players[whichPlayer].PlayerPositions.Contains(whereToGoBack))
-            while (BothPlayerPositions.Contains(whereToGoBack))
+            while (AllPlayerPositions.Contains(whereToGoBack))
             {
                 whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
             }
 
-            AlienInfoList = new List<int>() { whichPlayer, whichPlanet, whereToGoBack};
+            AlienInfoList = new List<int>() { whichPlayer, whichPlanet, whereToGoBack };
 
             // Players[whichPlayer].PlayerPositions[whichPlanet] = whereToGoBack;
             OldPosAlien = new Point(RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].X, RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].Y);
