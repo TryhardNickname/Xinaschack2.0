@@ -665,7 +665,10 @@ namespace Xinaschack2._0.Classes
             int whichPlanet = rnd.Next(0, 10);
             int whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
 
-            StartPosExcluded.AddRange(StartPosDict[PlayerIDs[whichPlayer]]); // lägg till så den inte hämtar planeter som är safe i målet
+            foreach (int index in PlayerIDs)
+            {
+                StartPosExcluded.AddRange(StartPosDict[index]);
+            }
 
             while (StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
