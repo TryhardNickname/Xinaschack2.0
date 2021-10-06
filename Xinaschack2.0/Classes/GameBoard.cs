@@ -658,6 +658,7 @@ namespace Xinaschack2._0.Classes
 
         private void AlienMove()
         {
+            int TryCounter = 0;
             List<int> BothPlayerPositions = new List<int>();
             List<int> StartPosExcluded = new List<int>();
             Random rnd = new Random();
@@ -673,6 +674,13 @@ namespace Xinaschack2._0.Classes
             while (StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
                 whichPlanet = rnd.Next(0, 10);
+                TryCounter++;
+
+                if (TryCounter == 50)
+                {
+                    whichPlayer = rnd.Next(0, Players.Count);
+                    TryCounter = 0;
+                }
             }
 
             foreach (Player player in Players)
