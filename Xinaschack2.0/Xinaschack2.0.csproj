@@ -173,10 +173,12 @@
     <Content Include="Assets\Images\spelplan2.png" />
     <Content Include="Assets\Images\spelplan3.png" />
     <Content Include="Assets\Images\venus.png" />
+    <Content Include="Assets\sounds\aliensound.wav" />
     <Content Include="Assets\sounds\ballmovesound.wav" />
-    <Content Include="Assets\sounds\explosionsound.wav" />
-    <Content Include="Assets\sounds\meteorsound.wav" />
+    <Content Include="Assets\sounds\meteorandboom.wav" />
     <Content Include="Assets\sounds\SpaceSong.mp3" />
+    <Content Include="Assets\sounds\SpaceSongQuiet.mp3" />
+    <Content Include="Assets\sounds\SpaceSongQuieter.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

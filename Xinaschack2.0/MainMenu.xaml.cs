@@ -39,7 +39,7 @@ namespace Xinaschack2._0
         {
             InitializeComponent();
             mediaPlayer = new MediaPlayer();
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
+            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSongQuieter.mp3"));
             mediaPlayer.Play();
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;

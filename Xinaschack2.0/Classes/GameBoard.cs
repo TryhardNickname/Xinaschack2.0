@@ -358,7 +358,7 @@ namespace Xinaschack2._0.Classes
 
         public void UpdateAlien()
         {
-            int speedAlien = 15;
+            int speedAlien = 13;
 
             if (AlienAnimationCounter == 0)
             {

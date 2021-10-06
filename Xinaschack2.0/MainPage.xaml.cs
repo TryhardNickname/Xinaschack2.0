@@ -44,12 +44,11 @@ namespace Xinaschack2._0
         private List<CanvasBitmap> FireList { get; set; }
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
+
         private MediaElement SoundEffectsPlop;
-        private MediaElement SoundEffectsWoosh;
-        private MediaElement SoundEffectsBoom;
-        private EventHandler WooshEvent;
-        private int SoundCounterPlop { get; set; }
-        public int SoundCounterWoosh { get; set; }
+        private MediaElement SoundEffectsMeteor;
+        private MediaElement SoundEffectsAlien;
+        public int SoundCounterAlien { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -64,14 +63,12 @@ namespace Xinaschack2._0
             // For now we create GameBoard here => After menu is made, we can create 
             // GameBoard when the player presses PLAY
             mediaPlayer = new MediaPlayer();
-            mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
+            
             // mediaPlayer.Play();
 
             SoundEffectsPlop = new MediaElement();
-            SoundEffectsWoosh = new MediaElement();
-            SoundEffectsBoom = new MediaElement();
-
-            SoundEffectsWoosh.MediaEnded += HandleCustomEvent;
+            SoundEffectsMeteor = new MediaElement();
+            SoundEffectsAlien = new MediaElement();
 
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -82,10 +79,6 @@ namespace Xinaschack2._0
             base.OnNavigatedTo(e);
         }
 
-        void HandleCustomEvent(object sender, RoutedEventArgs a)
-        {
-            Debug.WriteLine("hej");
-        }
 
         /// <summary>
         /// Loads pictures into Bitmaps that can be used in the canvas
@@ -114,20 +107,17 @@ namespace Xinaschack2._0
             StorageFile sfPlop = await FolderPlop.GetFileAsync("ballmovesound.wav");
             SoundEffectsPlop.SetSource(await sfPlop.OpenAsync(FileAccessMode.Read), sfPlop.ContentType);
             
+            SoundEffectsMeteor.AutoPlay = false;
+            StorageFolder FolderMeteor = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            FolderMeteor = await FolderMeteor.GetFolderAsync(@"Assets\sounds");
+            StorageFile sfMeteor = await FolderMeteor.GetFileAsync("meteorandboom.wav");
+            SoundEffectsMeteor.SetSource(await sfMeteor.OpenAsync(FileAccessMode.Read), sfMeteor.ContentType);
 
-            SoundEffectsWoosh.AutoPlay = false;
-            StorageFolder FolderWoosh = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            FolderWoosh = await FolderWoosh.GetFolderAsync(@"Assets\sounds");
-            StorageFile sfWoosh = await FolderWoosh.GetFileAsync("meteorsound.wav");
-            SoundEffectsWoosh.SetSource(await sfWoosh.OpenAsync(FileAccessMode.Read), sfWoosh.ContentType);
-
-            SoundEffectsBoom.AutoPlay = false;
-            StorageFolder FolderBoom = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            FolderBoom = await FolderBoom.GetFolderAsync(@"Assets\sounds");
-            StorageFile sfBoom = await FolderBoom.GetFileAsync("explosionsound.wav");
-            SoundEffectsBoom.SetSource(await sfBoom.OpenAsync(FileAccessMode.Read), sfBoom.ContentType);
-
-
+            SoundEffectsAlien.AutoPlay = false;
+            StorageFolder FolderAlien = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            FolderAlien = await FolderAlien.GetFolderAsync(@"Assets\sounds");
+            StorageFile sfAlien = await FolderAlien.GetFileAsync("aliensound.wav");
+            SoundEffectsAlien.SetSource(await sfAlien.OpenAsync(FileAccessMode.Read), sfAlien.ContentType);
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -178,26 +168,28 @@ namespace Xinaschack2._0
             {
                 game.UpdateMeteor();
 
-                var playSoundWoosh = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                var playSoundMeteor = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    SoundEffectsWoosh.Play();
+                    SoundEffectsMeteor.Play();
                 });
-
-            }
-            else
-            {
 
             }
 
             if (game.AlienEncounter)
             {
                 game.UpdateAlien();
+                var playSoundAlien = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    SoundEffectsAlien.Play();
+                });
             }
+
             if (!game.AnimationComplete)
             {
                 game.UpdateAnimation();
 
             }
+
             if (game.AnimationComplete && game.TurnStarted)
             {
                 game.MoveComplete();
