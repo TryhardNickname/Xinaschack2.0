@@ -35,9 +35,6 @@ namespace Xinaschack2._0
         public Highscorepage()
         {
             this.InitializeComponent();
-            //mediaPlayer = new MediaPlayer();
-            //mediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
-            //mediaPlayer.Play();
         }
 
         private void Back2menu(object sender, RoutedEventArgs e)

@@ -37,12 +37,9 @@ namespace Xinaschack2._0
         public static MediaPlayer MediaPlayer;
         public MainMenu()
         {
+
             InitializeComponent();
-            MediaPlayer = new MediaPlayer();
-            MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
 
-
-            MediaPlayer.IsLoopingEnabled = true;
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
@@ -50,8 +47,16 @@ namespace Xinaschack2._0
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            if (MediaPlayer == null)
+            {
+                MediaPlayer = new MediaPlayer();
+            }
+            
             if (MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
             {
+                
+                MediaPlayer.IsLoopingEnabled = true;
+                MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSong.mp3"));
                 MediaPlayer.Play();
                 MediaPlayer.Volume = 0.1;
             }
