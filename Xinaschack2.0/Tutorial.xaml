@@ -15,7 +15,7 @@
                 <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
             </Image.Source>
         </Image>-->
-        <FlipView>
+        <FlipView Width="1050" Height="900">
             <Image Source="/Assets/Images/F2.gif"></Image>
             <Image Source="/Assets/Images/A2.gif"></Image>
         </FlipView>
