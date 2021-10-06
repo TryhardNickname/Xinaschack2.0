@@ -176,38 +176,16 @@ namespace Xinaschack2._0
             }
 
 
-
-
-
-
-
         }
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
             //args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
-            var turn = 0;
-            var player1Turns = true;
-            // x, y
-            Rect moveRect = new Rect(120, 20, 50, 50);
-            turn++;
-                if (player1Turns)
-                {
-                    args.DrawingSession.DrawImage(game.Players[0].PlanetBitmap,moveRect);
-
-                }
-                else
-                {
-                    args.DrawingSession.DrawImage(game.Players[1].PlanetBitmap, moveRect);
-
-                }
-                if (turn % 3 == 0)
-                {
-                    player1Turns = !player1Turns;
-                }
             
+            Rect moveRect = new Rect(135, 100, 66, 66);
+                               
+             args.DrawingSession.DrawImage(game.Players[game.CurrentPlayerIndex].PlanetBitmap,moveRect);
+
         }
-
-
 
     }
 }
