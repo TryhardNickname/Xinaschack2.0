@@ -90,7 +90,7 @@ namespace Xinaschack2._0
 /// <returns></returns>
 private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
-            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
+            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameFieldCropped.png"));
             Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
             Alien = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/alien.png"));
 
@@ -129,7 +129,7 @@ private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         /// <param name="args"></param>
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Board, 320, 0);
+            args.DrawingSession.DrawImage(Board, ((DesignWidth - Board.SizeInPixels.Width) / 2) - 3, ((DesignHeight - Board.SizeInPixels.Height) / 2) - 4);
             game.DrawSelectedRect(args);
             game.DrawPlayerPlanets(sender, args);
             game.DrawOkayMoves(args);

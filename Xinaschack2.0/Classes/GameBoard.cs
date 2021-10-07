@@ -89,7 +89,7 @@ namespace Xinaschack2._0.Classes
         private void MakeRectList(int width, int height)
         {
             double XStart = (width / 2) - (RectSize / 2);
-            double YStart = YDiff / 2;
+            double YStart = 200;
 
             double XCurrent;
             double YCurrent;
@@ -208,7 +208,7 @@ namespace Xinaschack2._0.Classes
                 }
                 else
                 {
-                    args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 255, 0, 0), 0);
+                    args.DrawingSession.DrawCircle((float)(RectList[rectIndex].X + RectSize / 2), (float)(RectList[rectIndex].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 255, 0, 0), 0);
                 }
             }
         }
