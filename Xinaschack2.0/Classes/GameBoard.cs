@@ -76,7 +76,7 @@ namespace Xinaschack2._0.Classes
 
             TurnCounter = 0;
             Random rnd = new Random();
-            EventTurn = rnd.Next(10, 11);
+            EventTurn = rnd.Next(10, 10);
             MeteorStrike = false;
             SetupPlayerID();
             AnimationComplete = true;
@@ -674,7 +674,7 @@ namespace Xinaschack2._0.Classes
         private void AlienMove()
         {
             int TryCounter = 0;
-            List<int> BothPlayerPositions = new List<int>();
+            List<int> AllPlayerPositions = new List<int>();
             List<int> StartPosExcluded = new List<int>();
             Random rnd = new Random();
             int whichPlayer = AlienWhosTurn;
@@ -686,28 +686,34 @@ namespace Xinaschack2._0.Classes
                 StartPosExcluded.AddRange(StartPosDict[index]);
             }
 
+            if (Players[whichPlayer].PlayerPositions.All(position => StartPosExcluded.Contains(position)))
+            {
+                return;
+            }
+
             while (StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
                 whichPlanet = rnd.Next(0, 10);
-                TryCounter++;
+                //TryCounter++;
 
-                if (TryCounter == 100)
-                {
-                    Debug.WriteLine("hello");
-                    TryCounter = 0;
-                    break;                
-                }
+                //if (TryCounter == 100)
+                //{
+                //    Debug.WriteLine("hello");
+                //    TryCounter = 0;
+                //    break;                
+                //}
             }
 
+            // This 
             if (!StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
                 foreach (Player player in Players)
                 {
-                    BothPlayerPositions.AddRange(player.PlayerPositions);
+                    AllPlayerPositions.AddRange(player.PlayerPositions);
                 }
 
                 // while (Players[whichPlayer].PlayerPositions.Contains(whereToGoBack))
-                while (BothPlayerPositions.Contains(whereToGoBack))
+                while (AllPlayerPositions.Contains(whereToGoBack))
                 {
                     whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
                 }
