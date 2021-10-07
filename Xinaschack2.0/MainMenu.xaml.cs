@@ -40,8 +40,9 @@ namespace Xinaschack2._0
 
             InitializeComponent();
 
-            ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+            //ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
+            //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -76,11 +77,11 @@ namespace Xinaschack2._0
             Frame.Navigate(typeof(Highscorepage), null);
         }
 
-        private void tutorialbtn_Click(object sender, RoutedEventArgs e)
+        private void Tutorialbtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
-        private void settings_Click(object sender, RoutedEventArgs e)
+        private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Settings), "Menu");
         }

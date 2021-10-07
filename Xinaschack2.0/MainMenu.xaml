@@ -59,7 +59,7 @@
             <Button x:Name="tutorialbtn" Content="Tutorial" Margin="106,603,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="tutorialbtn_Click" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="Tutorialbtn_Click" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
                         <GradientStop Color="Black"/>
@@ -84,7 +84,7 @@
             <Image Source="Assets/images/chinese-checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
             <Image Source="/Assets/Images/space-ver.xi.png" Margin="40,128,768,828" Grid.Column="1"/>
 
-            <Button x:Name="SettingsOption" Click="settings_Click" Margin="0,854,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png">
+            <Button x:Name="SettingsOption" Click="Settings_Click" Margin="0,854,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png">
                 <Button.BorderBrush>
                     <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
                 </Button.BorderBrush>

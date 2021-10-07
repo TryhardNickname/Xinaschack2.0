@@ -23,7 +23,7 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class Settings : Page
     {
-        private double SliderValue{ get; set; }
+        private double SliderValue { get; set; }
         private string ReturnTo { get; set; }
 
         public Settings()

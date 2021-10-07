@@ -50,7 +50,7 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
-        GameBoard game;
+        private GameBoard game { get; set; }
         public MainPage()
         {
             InitializeComponent();
@@ -59,9 +59,6 @@ namespace Xinaschack2._0
             SoundEffectsPlop = new MediaPlayer();
             SoundEffectsMeteor = new MediaPlayer();
             SoundEffectsAlien = new MediaPlayer();
-
-            ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -75,13 +72,23 @@ namespace Xinaschack2._0
             Frame.Navigate(typeof(MainMenu),null);
         }
 
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Settings), "Game");
+        }
 
-        /// <summary>
-        /// Loads pictures into Bitmaps that can be used in the canvas
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns></returns>
-        private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.GameCanvas.RemoveFromVisualTree();
+            this.GameCanvas = null;
+        }
+
+/// <summary>
+/// Loads pictures into Bitmaps that can be used in the canvas
+/// </summary>
+/// <param name="sender"></param>
+/// <returns></returns>
+private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
             Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
@@ -144,7 +151,6 @@ namespace Xinaschack2._0
             {
                 game.DrawAnimations(args);
             }
-            // game.DebugText(args);
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
@@ -205,10 +211,6 @@ namespace Xinaschack2._0
         /// <param name="e"></param>
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            // NYI
-            // check if click on buttons
-            // if mute 
-            // if give up 
             if (game.AnimationComplete && !game.MeteorStrike && !game.AlienEncounter) // to prevent HAX by moving while animation happens???
             {
                 game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
@@ -221,13 +223,7 @@ namespace Xinaschack2._0
 
                 }
             }
-
-            Debug.WriteLine(SoundEffectsAlien.Volume);
         }
 
-        private void settings_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(Settings), "Game");
-        }
     }
 }
