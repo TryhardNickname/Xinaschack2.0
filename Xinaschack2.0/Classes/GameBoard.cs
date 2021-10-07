@@ -41,6 +41,7 @@ namespace Xinaschack2._0.Classes
         public bool AlienEncounter { get; set; }
         public List<int> AlienInfoList { get; set; }
         private int AlienAnimationCounter { get; set; }
+        private int AlienWhosTurn {get; set; }
         private List<Point> travelPoints { get; set; } // fix capital letter
         private List<int> PlayerIDs { get; set; }
         public bool AnimationComplete { get; private set; }
@@ -657,13 +658,15 @@ namespace Xinaschack2._0.Classes
                 EventTurn += rnd.Next(10, 11);
                 AlienCounter += 1;
             }
-            else if (AlienCounter == 1)
+            else if (AlienCounter == 2)
             {
+                if (AlienWhosTurn == Players.Count)
+                {
+                    AlienWhosTurn = 0;
+                }
                 AlienCounter = 0;
                 AlienMove();
-                
-                
-                AlienEncounter = true;
+                AlienWhosTurn++;              
             }
             
         }
@@ -674,7 +677,7 @@ namespace Xinaschack2._0.Classes
             List<int> BothPlayerPositions = new List<int>();
             List<int> StartPosExcluded = new List<int>();
             Random rnd = new Random();
-            int whichPlayer = rnd.Next(0, Players.Count);
+            int whichPlayer = AlienWhosTurn;
             int whichPlanet = rnd.Next(0, 10);
             int whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
 
@@ -688,36 +691,47 @@ namespace Xinaschack2._0.Classes
                 whichPlanet = rnd.Next(0, 10);
                 TryCounter++;
 
-                if (TryCounter == 50)
+                if (TryCounter == 100)
                 {
-                    whichPlayer = rnd.Next(0, Players.Count);
+                    Debug.WriteLine("hello");
                     TryCounter = 0;
+                    break;                
                 }
             }
 
-            foreach (Player player in Players)
+            if (!StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
-                BothPlayerPositions.AddRange(player.PlayerPositions);
+                foreach (Player player in Players)
+                {
+                    BothPlayerPositions.AddRange(player.PlayerPositions);
+                }
+
+                // while (Players[whichPlayer].PlayerPositions.Contains(whereToGoBack))
+                while (BothPlayerPositions.Contains(whereToGoBack))
+                {
+                    whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
+                }
+
+                AlienInfoList = new List<int>() { whichPlayer, whichPlanet, whereToGoBack };
+
+                // Players[whichPlayer].PlayerPositions[whichPlanet] = whereToGoBack;
+                OldPosAlien = new Point(RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].X, RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].Y);
+
+                travelPoints = new List<Point>();
+                travelPoints.Add(new Point(0, 0));
+                travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y - 65));
+                travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y));
+                travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y - 65));
+                travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y));
+                travelPoints.Add(new Point(0, 0));
+
+                AlienEncounter = true;
+            }
+            else
+            {
+                AlienEncounter = false;
             }
 
-            // while (Players[whichPlayer].PlayerPositions.Contains(whereToGoBack))
-            while (BothPlayerPositions.Contains(whereToGoBack))
-            {
-                whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
-            }
-
-            AlienInfoList = new List<int>() { whichPlayer, whichPlanet, whereToGoBack};
-
-            // Players[whichPlayer].PlayerPositions[whichPlanet] = whereToGoBack;
-            OldPosAlien = new Point(RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].X, RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].Y);
-
-            travelPoints = new List<Point>();
-            travelPoints.Add(new Point(0, 0));
-            travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y - 65));
-            travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y));
-            travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y - 65));
-            travelPoints.Add(new Point(RectList[AlienInfoList[2]].X, RectList[AlienInfoList[2]].Y));
-            travelPoints.Add(new Point(0, 0));
         }
 
 
