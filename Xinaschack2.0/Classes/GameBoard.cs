@@ -41,6 +41,7 @@ namespace Xinaschack2._0.Classes
         public bool AlienEncounter { get; set; }
         public List<int> AlienInfoList { get; set; }
         private int AlienAnimationCounter { get; set; }
+        private int AlienWhosTurn { get; set; }
         private List<Point> travelPoints { get; set; }
         private List<int> PlayerIDs { get; set; }
         public bool AnimationComplete { get; private set; }
@@ -647,26 +648,32 @@ namespace Xinaschack2._0.Classes
             }
             else if (AlienCounter == 1)
             {
+                if (AlienWhosTurn == Players.Count)
+                {
+                    AlienWhosTurn = 0;
+                }
+
                 AlienCounter = 0;
                 AlienMove();
-                
+                AlienWhosTurn++;
+
                 // maybe this? OldPosAlien = new Point(RectList[AlienInfoList[1]].X, RectList[AlienInfoList[1]].Y);
                 AlienEncounter = true;
+
             }
             
         }
 
         private void AlienMove()
         {
-            // Some options. We can keep it totally random. We can maybe take turns? 1st player gets abducted, next time 2nd player, next time 3rd and so on.
-            // Maybe you randomize but just exclude the last person abducted?
-            // We can maybe create a weighing system, if you were abducted you have less of a chance to be abducted next time? 
+
+
 
             int TryCounter = 0;
             List<int> AllPlayerPositions = new List<int>();
             List<int> StartPosExcluded = new List<int>();
             Random rnd = new Random();
-            int whichPlayer = rnd.Next(0, Players.Count);
+            int whichPlayer = AlienWhosTurn;
             int whichPlanet = rnd.Next(0, 10);
             int whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
 
