@@ -44,13 +44,14 @@
             </Button.Background>
         </Button>
 
-        <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="224,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas" SelectionChanged="TextBlock_SelectionChanged"/>
-        <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="760,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="256,606,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="81" Width="181" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="760,606,0,0" Text="6 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="224,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="256,606,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="81" Width="181" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,606,0,0" Text="6 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
         <Image Source="/Assets/Images/amountofplayers.png" Grid.Column="1" Margin="4,-423,327,423"/>
 
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,866,0,0" Height="126" Width="143" VerticalAlignment="Top">
+
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="50,866,0,0" Height="126" Width="143" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>

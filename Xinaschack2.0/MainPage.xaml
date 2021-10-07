@@ -20,7 +20,7 @@
             <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" Height="1080" Width="1920"/>
             <TextBlock HorizontalAlignment="Left" Margin="24,15,0,0" Text="Current player" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="47" Width="342" FontSize="36" FontFamily="Consolas"   />
         </Grid>
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="16,873,0,0" Height="126" Width="143" VerticalAlignment="Top" FontFamily="Lenovo Do Bold">
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="50,866,0,0" Height="126" Width="143" VerticalAlignment="Top" FontFamily="Lenovo Do Bold">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>
