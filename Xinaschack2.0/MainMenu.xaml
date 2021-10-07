@@ -22,7 +22,7 @@
                     <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
                 </Image.Source>
             </Image>
-            <Button x:Name="playbtn" Click="Playbtn_Click" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="playbtn" Click="Playbtn_Click" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
@@ -34,7 +34,7 @@
                 </Button.Foreground>
             </Button>
 
-            <Button x:Name="Quitbtn" Content="Quit" Margin="201,744,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Quitbtn" Content="Quit" Margin="201,744,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="Quitbtn_Click" >
@@ -56,7 +56,7 @@
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
-            <Button x:Name="tutorialbtn" Content="Tutorial" Margin="106,603,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="tutorialbtn" Content="Tutorial" Margin="106,603,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="tutorialbtn_Click" >
@@ -69,7 +69,7 @@
 
             </Button>
 
-            <Button x:Name="Scorebtn" Content="Score" Margin="161,462,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Scorebtn" Content="Score" Margin="161,462,0,0" Height="88" Width="306" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" Click="Scorebtn_Click" >

@@ -10,8 +10,8 @@
 
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="161*"/>
-            <ColumnDefinition Width="589*"/>
+            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition Width="239*"/>
         </Grid.ColumnDefinitions>
 
         <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2">
@@ -43,13 +43,13 @@
                 <ImageBrush ImageSource="/Assets/Images/6user.png"/>
             </Button.Background>
         </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="224,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="760,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="256,604,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="760,606,0,0" Text="6 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="173" FontSize="36" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="232,51,0,0" Text="PICK THE AMOUNT OF PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="107" Width="744" FontSize="72" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="224,219,0,0" Text="2 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,219,0,0" Text="3 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="256,606,0,0" Text="4 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="81" Width="181" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="760,606,0,0" Text="6 PLAYERS" TextWrapping="Wrap" VerticalAlignment="Top" Height="83" Width="179" FontSize="36" Grid.Column="1" FontFamily="Consolas"/>
+        <Image Source="/Assets/Images/amountofplayers.png" Grid.Column="1" Margin="4,-423,327,423"/>
 
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,866,0,0" Height="126" Width="143" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>
