@@ -30,5 +30,6 @@ namespace Xinaschack2._0
         {
             Frame.Navigate(typeof(MainMenu), null);
         }
+
     }
 }

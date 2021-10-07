@@ -16,8 +16,13 @@
             </Image.Source>
         </Image>-->
         <FlipView Width="1050" Height="900">
-            <Image Source="/Assets/Images/F2.gif"></Image>
-            <Image Source="/Assets/Images/A2.gif"></Image>
+            <Image Source="/Assets/Images/1.gif"></Image>
+            <Image Source="/Assets/Images/2.gif"></Image>
+            <Image Source="/Assets/Images/3.gif"></Image>
+            <Image Source="/Assets/Images/4.gif"></Image>
+            <Image Source="/Assets/Images/5.gif"></Image>
+            <Image Source="/Assets/Images/6.gif"></Image>
+        
         </FlipView>
         <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
             <Button.Background>

@@ -147,17 +147,21 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\1.gif" />
+    <Content Include="Assets\Images\2.gif" />
     <Content Include="Assets\Images\2users.png" />
+    <Content Include="Assets\Images\3.gif" />
     <Content Include="Assets\Images\3user.png" />
+    <Content Include="Assets\Images\4.gif" />
     <Content Include="Assets\Images\4user.png" />
+    <Content Include="Assets\Images\5.gif" />
+    <Content Include="Assets\Images\6.gif" />
     <Content Include="Assets\Images\6user.png" />
-    <Content Include="Assets\Images\A2.gif" />
     <Content Include="Assets\Images\alien.png" />
     <Content Include="Assets\Images\chinese-checkers.png" />
     <Content Include="Assets\Images\comet.png" />
     <Content Include="Assets\Images\doubleArrow.png" />
     <Content Include="Assets\Images\earth_mini34x34.png" />
-    <Content Include="Assets\Images\F2.gif" />
     <Content Include="Assets\Images\fire1.png" />
     <Content Include="Assets\Images\fire2.png" />
     <Content Include="Assets\Images\fire3.png" />
