@@ -24,6 +24,7 @@ namespace Xinaschack2._0
     public sealed partial class Settings : Page
     {
         private double SliderValue{ get; set; }
+        private string ReturnTo { get; set; }
 
         public Settings()
         {
@@ -31,22 +32,40 @@ namespace Xinaschack2._0
         }
         private void Back2menu(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainMenu), null);
+            if (ReturnTo == "Menu")
+            {
+                Frame.Navigate(typeof(MainMenu), null);
+            }
+            if (ReturnTo == "Game")
+            {
+                Frame.Navigate(typeof(MainPage), null); 
+            }
+
         }
         private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
+
+
             Slider slider = sender as Slider;
             SliderValue = slider.Value / 100;
             MainMenu.MediaPlayer.Volume = SliderValue;
-            MainPage.SoundEffectsAlien.Volume = SliderValue;
-            MainPage.SoundEffectsMeteor.Volume = SliderValue;
-            MainPage.SoundEffectsPlop.Volume = SliderValue;
+
+            if (MainPage.SoundEffectsAlien != null)
+            {
+                MainPage.SoundEffectsAlien.Volume = SliderValue;
+                MainPage.SoundEffectsMeteor.Volume = SliderValue;
+                MainPage.SoundEffectsPlop.Volume = SliderValue;
+            }
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            ReturnTo = e.Parameter.ToString();
             SliderValue = MainMenu.MediaPlayer.Volume * 100;
             VolumeSlider.Value = SliderValue;
+
             base.OnNavigatedTo(e);
+
+
         }
     }
 }

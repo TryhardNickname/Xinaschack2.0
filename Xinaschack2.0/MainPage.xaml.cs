@@ -42,9 +42,9 @@ namespace Xinaschack2._0
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
 
-        public static MediaElement SoundEffectsPlop;
-        public static MediaElement SoundEffectsMeteor;
-        public static MediaElement SoundEffectsAlien;
+        public static MediaPlayer SoundEffectsPlop;
+        public static MediaPlayer SoundEffectsMeteor;
+        public static MediaPlayer SoundEffectsAlien;
         public int SoundCounterAlien { get; set; }
 
         private readonly int DesignWidth = 1920;
@@ -56,21 +56,23 @@ namespace Xinaschack2._0
             InitializeComponent();
             FireList = new List<CanvasBitmap>();
 
-            SoundEffectsPlop = new MediaElement();
-            SoundEffectsMeteor = new MediaElement();
-            SoundEffectsAlien = new MediaElement();
+            SoundEffectsPlop = new MediaPlayer();
+            SoundEffectsMeteor = new MediaPlayer();
+            SoundEffectsAlien = new MediaPlayer();
 
             ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
+            if (game == null)
+                game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
+
             base.OnNavigatedTo(e);
         }
         private void Back2menu(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainMenu), null);
+            Frame.Navigate(typeof(MainMenu),null);
         }
 
 
@@ -95,19 +97,17 @@ namespace Xinaschack2._0
                 await p.LoadBitmapAsync(sender).AsAsyncAction();
             }
 
+            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
             SoundEffectsPlop.AutoPlay = false;
-            StorageFolder Folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            Folder = await Folder.GetFolderAsync(@"Assets\sounds");
-            StorageFile sfPlop = await Folder.GetFileAsync("ballmovesound.wav");
-            SoundEffectsPlop.SetSource(await sfPlop.OpenAsync(FileAccessMode.Read), sfPlop.ContentType);
-            
-            SoundEffectsMeteor.AutoPlay = false;
-            StorageFile sfMeteor = await Folder.GetFileAsync("meteorandboom.wav");
-            SoundEffectsMeteor.SetSource(await sfMeteor.OpenAsync(FileAccessMode.Read), sfMeteor.ContentType);
+            SoundEffectsPlop.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/ballmovesound.wav"));
 
+            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
+            SoundEffectsMeteor.AutoPlay = false;
+            SoundEffectsMeteor.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/meteorandboom.wav"));
+
+            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
             SoundEffectsAlien.AutoPlay = false;
-            StorageFile sfAlien = await Folder.GetFileAsync("aliensound.wav");
-            SoundEffectsAlien.SetSource(await sfAlien.OpenAsync(FileAccessMode.Read), sfAlien.ContentType);
+            SoundEffectsAlien.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/aliensound.wav"));
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -221,6 +221,13 @@ namespace Xinaschack2._0
 
                 }
             }
+
+            Debug.WriteLine(SoundEffectsAlien.Volume);
+        }
+
+        private void settings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Settings), "Game");
         }
     }
 }

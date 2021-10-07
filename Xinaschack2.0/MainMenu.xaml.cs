@@ -58,7 +58,7 @@ namespace Xinaschack2._0
                 MediaPlayer.IsLoopingEnabled = true;
                 MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSongQuieter.mp3"));
                 MediaPlayer.Play();
-                MediaPlayer.Volume = 0.1;
+                MediaPlayer.Volume = 0.5;
             }
         }
         private void Playbtn_Click(object sender, RoutedEventArgs e)
@@ -82,7 +82,7 @@ namespace Xinaschack2._0
         }
         private void settings_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Settings), null);
+            Frame.Navigate(typeof(Settings), "Menu");
         }
     }
 }

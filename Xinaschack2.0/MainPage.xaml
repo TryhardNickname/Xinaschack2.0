@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Required">
     <Grid Background="Black">
         <Image Margin="-175,-73,-142,-59">
             <Image.Source>
@@ -21,6 +22,23 @@
         <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="SettingsOption" Click="settings_Click" Margin="0,854,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png">
+            <Button.BorderBrush>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
+            </Button.BorderBrush>
+            <Button.FocusVisualPrimaryBrush>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
+            </Button.FocusVisualPrimaryBrush>
+            <Button.FocusVisualSecondaryBrush>
+                <ImageBrush ImageSource="/Assets/Images/settingsIcon.png" Stretch="UniformToFill"/>
+            </Button.FocusVisualSecondaryBrush>
+            <Button.Foreground>
+                <ImageBrush ImageSource="/Assets/Images/settingsIcon.png" Stretch="UniformToFill"/>
+            </Button.Foreground>
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Images/settingsIcon.png"  Stretch="UniformToFill"/>
             </Button.Background>
         </Button>
     </Grid>
