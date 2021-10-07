@@ -222,7 +222,7 @@ namespace Xinaschack2._0
             
             Rect moveRect = new Rect(135, 100, 66, 66);
                                
-             args.DrawingSession.DrawImage(game.Players[game.CurrentPlayerIndex].PlanetBitmap,moveRect);
+             args.DrawingSession.DrawImage(Game.Players[Game.CurrentPlayerIndex].PlanetBitmap,moveRect);
 
         }
 
