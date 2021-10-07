@@ -149,6 +149,7 @@
     <Content Include="Assets\Images\4user.png" />
     <Content Include="Assets\Images\6user.png" />
     <Content Include="Assets\Images\alien.png" />
+    <Content Include="Assets\Images\amountofplayers.png" />
     <Content Include="Assets\Images\background.PNG" />
     <Content Include="Assets\Images\chinese-checkers.png" />
     <Content Include="Assets\Images\comet.png" />

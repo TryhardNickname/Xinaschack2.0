@@ -213,5 +213,18 @@ namespace Xinaschack2._0
                 }
             }
         }
+              
+
+       
+        public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
+        {
+            //args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            
+            Rect moveRect = new Rect(135, 100, 66, 66);
+                               
+             args.DrawingSession.DrawImage(game.Players[game.CurrentPlayerIndex].PlanetBitmap,moveRect);
+
+        }
+
     }
 }
