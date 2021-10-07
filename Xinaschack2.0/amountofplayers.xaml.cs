@@ -52,6 +52,10 @@ namespace Xinaschack2._0
             Frame.Navigate(typeof(MainMenu), null);
       }
 
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

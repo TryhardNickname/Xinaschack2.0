@@ -20,18 +20,18 @@
             </Image.Source>
         </Image>
 
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,869,0,0" Height="126" Width="143" VerticalAlignment="Top">
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="16,873,0,0" Height="126" Width="143" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>
         </Button>
 
         <Image Source="Assets/images/Highscore.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,231,0,0" Text="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,768,0,0" Text="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,622,0,0" Text="4" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,493,0,0" Text="3" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,364,0,0" Text="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="124,231,0,0" Text="1" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="124,768,0,0" Text="5" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="124,622,0,0" Text="4" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="124,493,0,0" Text="3" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="124,364,0,0" Text="2" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
 
     </Grid>
 </Page>

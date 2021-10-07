@@ -126,7 +126,7 @@ namespace Xinaschack2._0
             Game.DrawSelectedRect(args);
             Game.DrawPlayerPlanets(sender, args);
             Game.DrawOkayMoves(args);
-            Game.DrawPlayerTurn(args);
+            DrawPlayerTurn(args);
             if (Game.MeteorStrike)
             {
                 Game.DrawMeteor(args, Comet);

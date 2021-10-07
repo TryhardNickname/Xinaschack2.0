@@ -16,7 +16,7 @@
             </Image.Source>
         </Image>
 
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="16,873,0,0" Height="126" Width="143" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>
