@@ -41,7 +41,7 @@ namespace Xinaschack2._0.Classes
         public bool AlienEncounter { get; set; }
         public List<int> AlienInfoList { get; set; }
         private int AlienAnimationCounter { get; set; }
-        private int AlienWhosTurn {get; set; }
+        private int AlienWhosTurn { get; set; }
         private List<Point> travelPoints { get; set; } // fix capital letter
         private List<int> PlayerIDs { get; set; }
         public bool AnimationComplete { get; private set; }
@@ -445,71 +445,71 @@ namespace Xinaschack2._0.Classes
             }
             if (AlienAnimationCounter == 3)
             {
-                {
-                    double XDistanceAlien = travelPoints[3].X - OldPosAlien.X;
-                    double YDistanceAlien = travelPoints[3].Y - OldPosAlien.Y;
-                    double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+                
+                double XDistanceAlien = travelPoints[3].X - OldPosAlien.X;
+                double YDistanceAlien = travelPoints[3].Y - OldPosAlien.Y;
+                double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
 
-                    if (distanceAlien > 1)
-                    {
-                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
-                    }
-                    else
-                    {
-                        OldPosAlien = travelPoints[3];
-                        AlienAnimationCounter++;// animation complete
-                    }
-                    if (speedAlien < 5)
-                    {
-                        speedAlien = 5;
-                    }
+                if (distanceAlien > 1)
+                {
+                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
                 }
+                else
+                {
+                    OldPosAlien = travelPoints[3];
+                    AlienAnimationCounter++;// animation complete
+                }
+                if (speedAlien < 5)
+                {
+                    speedAlien = 5;
+                }
+                
             }
             if (AlienAnimationCounter == 4)
             {
-                {
-                    double XDistanceAlien = travelPoints[4].X - OldPosAlien.X;
-                    double YDistanceAlien = travelPoints[4].Y - OldPosAlien.Y;
-                    double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+                
+                double XDistanceAlien = travelPoints[4].X - OldPosAlien.X;
+                double YDistanceAlien = travelPoints[4].Y - OldPosAlien.Y;
+                double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
 
-                    if (distanceAlien > 1)
-                    {
-                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
-                    }
-                    else
-                    {
-                        OldPosAlien = travelPoints[4];
-                        AlienAnimationCounter++;// animation complete
-                        Players[AlienInfoList[0]].PlayerPositions.Insert(AlienInfoList[1], AlienInfoList[2]);
-                    }
-                    if (speedAlien < 5)
-                    {
-                        speedAlien = 5;
-                    }
+                if (distanceAlien > 1)
+                {
+                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
                 }
+                else
+                {
+                    OldPosAlien = travelPoints[4];
+                    AlienAnimationCounter++;// animation complete
+                    Players[AlienInfoList[0]].PlayerPositions.Insert(AlienInfoList[1], AlienInfoList[2]);
+                }
+                if (speedAlien < 5)
+                {
+                    speedAlien = 5;
+                }
+                
             }
             if (AlienAnimationCounter == 5)
             {
-                {
-                    double XDistanceAlien = travelPoints[5].X - OldPosAlien.X;
-                    double YDistanceAlien = travelPoints[5].Y - OldPosAlien.Y;
-                    double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
+                
+                double XDistanceAlien = travelPoints[5].X - OldPosAlien.X;
+                double YDistanceAlien = travelPoints[5].Y - OldPosAlien.Y;
+                double distanceAlien = Math.Sqrt((XDistanceAlien * XDistanceAlien) + (YDistanceAlien * YDistanceAlien));
 
-                    if (distanceAlien > 1)
-                    {
-                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
-                    }
-                    else
-                    {
-                        OldPosAlien = travelPoints[5];
-                        AlienEncounter = false;
-                        AlienAnimationCounter = 0;
-                    }
-                    if (speedAlien < 5)
-                    {
-                        speedAlien = 5;
-                    }
+                if (distanceAlien > 1)
+                {
+                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
                 }
+                else
+                {
+                    OldPosAlien = travelPoints[5];
+                    AlienEncounter = false;
+                    AlienAnimationCounter = 0;
+                }
+                if (speedAlien < 5)
+                {
+                    speedAlien = 5;
+                }
+                
             }
 
         }
@@ -681,6 +681,7 @@ namespace Xinaschack2._0.Classes
             int whichPlanet = rnd.Next(0, 10);
             int whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
 
+            
             foreach (int index in PlayerIDs)
             {
                 StartPosExcluded.AddRange(StartPosDict[index]);
@@ -694,35 +695,36 @@ namespace Xinaschack2._0.Classes
             while (StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
                 whichPlanet = rnd.Next(0, 10);
-                //TryCounter++;
+                TryCounter++;
 
-                //if (TryCounter == 100)
-                //{
-                //    Debug.WriteLine("hello");
-                //    TryCounter = 0;
-                //    break;                
-                //}
+                if (TryCounter == 100)
+                {
+                    TryCounter = 0;
+                    break;
+                }
             }
 
-            // This 
+            // This whole block runs if the spawn bases do not contain the chosen planet to move. 
             if (!StartPosExcluded.Contains(Players[whichPlayer].PlayerPositions[whichPlanet]))
             {
+                // Add playerpositions to a list.
                 foreach (Player player in Players)
                 {
                     AllPlayerPositions.AddRange(player.PlayerPositions);
                 }
 
-                // while (Players[whichPlayer].PlayerPositions.Contains(whereToGoBack))
+                // Choose a new point until you hit an empty rectangle
                 while (AllPlayerPositions.Contains(whereToGoBack))
                 {
                     whereToGoBack = StartPosDict[PlayerIDs[whichPlayer]][rnd.Next(0, 10)];
                 }
 
+                // This is used in other places, such as in DrawAlien and UpdateAlien
                 AlienInfoList = new List<int>() { whichPlayer, whichPlanet, whereToGoBack };
 
-                // Players[whichPlayer].PlayerPositions[whichPlanet] = whereToGoBack;
                 OldPosAlien = new Point(RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].X, RectList[Players[AlienInfoList[0]].PlayerPositions[AlienInfoList[1]]].Y);
 
+                // Points for the alien to go through when it picks up and drops a planet
                 travelPoints = new List<Point>();
                 travelPoints.Add(new Point(0, 0));
                 travelPoints.Add(new Point(OldPosAlien.X, OldPosAlien.Y - 65));
