@@ -48,7 +48,7 @@ namespace Xinaschack2._0.Classes
         private readonly double XSameLevelDiff = 45;
         private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
         private readonly double YDiff = 40; // rectsize + 5?
-        private readonly double RectSize = 35;
+        private readonly double RectSize = 36;
 
         public GameBoard(int width, int height, int amountOfPlayers)
         {
@@ -75,7 +75,7 @@ namespace Xinaschack2._0.Classes
 
             TurnCounter = 0;
             Random rnd = new Random();
-            EventTurn = rnd.Next(5, 6);
+            EventTurn = rnd.Next(10, 11);
             MeteorStrike = false;
             SetupPlayerID();
             AnimationComplete = true;
@@ -156,13 +156,13 @@ namespace Xinaschack2._0.Classes
                     Players.Add(new Player(PlanetEnum.Earth, StartPosDict[1], StartPosDict[4]));
                     Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[2], StartPosDict[5]));
                     Players.Add(new Player(PlanetEnum.Mars, StartPosDict[4], StartPosDict[1]));
-                    Players.Add(new Player(PlanetEnum.Mercury, StartPosDict[5], StartPosDict[2]));
+                    Players.Add(new Player(PlanetEnum.Moon, StartPosDict[5], StartPosDict[2]));
                     break;
                 case 6:
                     Players.Add(new Player(PlanetEnum.Earth, StartPosDict[0], StartPosDict[3]));
                     Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[1], StartPosDict[4]));
                     Players.Add(new Player(PlanetEnum.Mars, StartPosDict[2], StartPosDict[5]));
-                    Players.Add(new Player(PlanetEnum.Mercury, StartPosDict[3], StartPosDict[0]));
+                    Players.Add(new Player(PlanetEnum.Moon, StartPosDict[3], StartPosDict[0]));
                     Players.Add(new Player(PlanetEnum.Neptune, StartPosDict[4], StartPosDict[1]));
                     Players.Add(new Player(PlanetEnum.Venus, StartPosDict[5], StartPosDict[2]));
                     break;
@@ -629,20 +629,12 @@ namespace Xinaschack2._0.Classes
             {                
                 UnavailableRects.Clear();           
 
-                // AnimateMeteor(_randomSpots);
-
-                //check collision on planets layuing there
-                // if (PlayerPos.Contains(_randomSpots))
-                //      move those planets();
-
-                // draw blocking blocks
-
-                //make those rects unavailable (until next meteor??)
                 UnavailableRects.AddRange(CheckOKMovesMeteor());
                 OldPosMeteor = new Point(RectList[UnavailableRects[0]].X - 1000, RectList[UnavailableRects[0]].Y - 1000);
                 MeteorStrike = true;
 
-                EventTurn += 5;
+                Random rnd = new Random();
+                EventTurn += rnd.Next(10, 11);
                 AlienCounter += 1;
             }
             else if (AlienCounter == 1)
@@ -650,7 +642,7 @@ namespace Xinaschack2._0.Classes
                 AlienCounter = 0;
                 AlienMove();
                 
-                // maybe this? OldPosAlien = new Point(RectList[AlienInfoList[1]].X, RectList[AlienInfoList[1]].Y);
+                
                 AlienEncounter = true;
             }
             

@@ -27,7 +27,6 @@ namespace Xinaschack2._0
             this.InitializeComponent();
         }
     
-
       private void Twoplayers(object sender, RoutedEventArgs e)
       {
         Frame.Navigate(typeof(MainPage), 2);

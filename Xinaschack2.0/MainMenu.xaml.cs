@@ -31,18 +31,12 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class MainMenu : Page
     {
-        private readonly int DesignWidth = 1920;
-        private readonly int DesignHeight = 1080;
 
         public static MediaPlayer MediaPlayer;
         public MainMenu()
         {
-
             InitializeComponent();
-
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
-            //ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
-            //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

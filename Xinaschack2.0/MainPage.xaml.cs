@@ -26,7 +26,7 @@ namespace Xinaschack2._0
         Earth,
         Venus,
         Mars,
-        Mercury,
+        Moon,
         Jupiter,
         Neptune
     }
@@ -35,8 +35,6 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
-        // private CanvasBitmap StartScreen { get; set; }
         private CanvasBitmap Board { get; set; }
         private List<CanvasBitmap> FireList { get; set; }
         private CanvasBitmap Comet { get; set; }
@@ -49,7 +47,7 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
-        private GameBoard game { get; set; }
+        private GameBoard Game { get; set; }
         public MainPage()
         {
             InitializeComponent();
@@ -61,9 +59,10 @@ namespace Xinaschack2._0
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (game == null)
-                game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
-
+            if (Game == null)
+            {
+                Game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
+            }
             base.OnNavigatedTo(e);
         }
         private void Back2menu(object sender, RoutedEventArgs e)
@@ -78,7 +77,7 @@ namespace Xinaschack2._0
 
 
         /// <summary>
-        /// Loads pictures into Bitmaps that can be used in the canvas
+        /// Loads pictures into Bitmaps that can be used in the canvas. And loads SoundEffects.
         /// </summary>
         /// <param name="sender"></param>
         /// <returns></returns>
@@ -93,7 +92,7 @@ namespace Xinaschack2._0
             FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire3.png")));
             FireList.Add(await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/fire4.png")));
 
-            foreach (Player p in game.Players)
+            foreach (Player p in Game.Players)
             {
                 await p.LoadBitmapAsync(sender).AsAsyncAction();
             }
@@ -124,71 +123,71 @@ namespace Xinaschack2._0
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             args.DrawingSession.DrawImage(Board, ((DesignWidth - Board.SizeInPixels.Width) / 2) - 3, ((DesignHeight - Board.SizeInPixels.Height) / 2) - 4);
-            game.DrawSelectedRect(args);
-            game.DrawPlayerPlanets(sender, args);
-            game.DrawOkayMoves(args);
-            game.DrawPlayerTurn(args);
-            if (game.MeteorStrike)
+            Game.DrawSelectedRect(args);
+            Game.DrawPlayerPlanets(sender, args);
+            Game.DrawOkayMoves(args);
+            Game.DrawPlayerTurn(args);
+            if (Game.MeteorStrike)
             {
-                game.DrawMeteor(args, Comet);
+                Game.DrawMeteor(args, Comet);
             }
             else
             {
-                game.DrawUnavailableRects(args, FireList);
+                Game.DrawUnavailableRects(args, FireList);
             }
-            if (game.AlienEncounter)
+            if (Game.AlienEncounter)
             {
-                game.DrawAlien(args, Alien);
+                Game.DrawAlien(args, Alien);
             }
-            if (!game.AnimationComplete)
+            if (!Game.AnimationComplete)
             {
-                game.DrawAnimations(args);
+                Game.DrawAnimations(args);
             }
         }
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            if (game.CheckIfWin())
+            if (Game.CheckIfWin())
             {
-                Debug.WriteLine($"{game.Players[game.CurrentPlayerIndex].PlanetColor} won");
+                Debug.WriteLine($"{Game.Players[Game.CurrentPlayerIndex].PlanetColor} won");
             }
-            if (game.MeteorStrike)
+            if (Game.MeteorStrike)
             {
-                game.UpdateMeteor();
+                Game.UpdateMeteor();
 
                 var playSoundMeteor = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SoundEffectsMeteor.Play();
                 });
             }
-            if (game.AlienEncounter)
+            if (Game.AlienEncounter)
             {
-                game.UpdateAlien();
+                Game.UpdateAlien();
                 var playSoundAlien = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SoundEffectsAlien.Play();
                 });
             }
-            if (!game.AnimationComplete)
+            if (!Game.AnimationComplete)
             {
-                game.UpdateAnimation();
+                Game.UpdateAnimation();
 
             }
-            if (game.AnimationComplete && game.TurnStarted)
+            if (Game.AnimationComplete && Game.TurnStarted)
             {
-                game.MoveComplete();
+                Game.MoveComplete();
                 var playSoundPlop = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SoundEffectsPlop.Play();
                 });
 
-                if (!game.OnlyDoubleJump && game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
+                if (!Game.OnlyDoubleJump && Game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
                 {
-                    game.NextTurn();
+                    Game.NextTurn();
                 }
                 else
                 {
-                    game.CheckOKMoves();
+                    Game.CheckOKMoves();
                 }
             }
         }
@@ -200,10 +199,11 @@ namespace Xinaschack2._0
         /// <param name="e"></param>
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (game.AnimationComplete && !game.MeteorStrike && !game.AlienEncounter) // to prevent HAX by moving while animation happens???
+            if (Game.AnimationComplete && !Game.MeteorStrike && !Game.AlienEncounter) // to prevent HAX by moving while animation happens???
             {
-                game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
-                if (game.PlanetSelected != -1 && game.AnimationComplete == true)
+                Game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
+
+                if (Game.PlanetSelected != -1 && Game.AnimationComplete)
                 {
                     var playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
