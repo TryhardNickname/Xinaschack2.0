@@ -41,7 +41,7 @@ namespace Xinaschack2._0.Classes
         public bool AlienEncounter { get; set; }
         public List<int> AlienInfoList { get; set; }
         private int AlienAnimationCounter { get; set; }
-        private List<Point> travelPoints { get; set; }
+        private List<Point> travelPoints { get; set; } // fix capital letter
         private List<int> PlayerIDs { get; set; }
         public bool AnimationComplete { get; private set; }
 

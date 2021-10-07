@@ -45,7 +45,6 @@ namespace Xinaschack2._0
         public static MediaPlayer SoundEffectsPlop;
         public static MediaPlayer SoundEffectsMeteor;
         public static MediaPlayer SoundEffectsAlien;
-        public int SoundCounterAlien { get; set; }
 
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
@@ -69,7 +68,7 @@ namespace Xinaschack2._0
         }
         private void Back2menu(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainMenu),null);
+            Frame.Navigate(typeof(MainMenu), null);
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -77,18 +76,13 @@ namespace Xinaschack2._0
             Frame.Navigate(typeof(Settings), "Game");
         }
 
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {
-            this.GameCanvas.RemoveFromVisualTree();
-            this.GameCanvas = null;
-        }
 
-/// <summary>
-/// Loads pictures into Bitmaps that can be used in the canvas
-/// </summary>
-/// <param name="sender"></param>
-/// <returns></returns>
-private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
+        /// <summary>
+        /// Loads pictures into Bitmaps that can be used in the canvas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns></returns>
+        private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
             Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/spelplan3.png"));
             Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
@@ -142,7 +136,6 @@ private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
             {
                 game.DrawUnavailableRects(args, FireList);
             }
-
             if (game.AlienEncounter)
             {
                 game.DrawAlien(args, Alien);
@@ -167,9 +160,7 @@ private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
                 {
                     SoundEffectsMeteor.Play();
                 });
-
             }
-
             if (game.AlienEncounter)
             {
                 game.UpdateAlien();
@@ -178,13 +169,11 @@ private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
                     SoundEffectsAlien.Play();
                 });
             }
-
             if (!game.AnimationComplete)
             {
                 game.UpdateAnimation();
 
             }
-
             if (game.AnimationComplete && game.TurnStarted)
             {
                 game.MoveComplete();
@@ -224,6 +213,5 @@ private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
                 }
             }
         }
-
     }
 }

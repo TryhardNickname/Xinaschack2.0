@@ -68,7 +68,7 @@ namespace Xinaschack2._0
         }
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
-        {
+        {           
             CoreApplication.Exit();
         }
 

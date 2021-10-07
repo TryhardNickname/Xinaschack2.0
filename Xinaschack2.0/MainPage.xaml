@@ -8,8 +8,7 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    NavigationCacheMode="Required"
-    Unloaded="Page_Unloaded">
+    NavigationCacheMode="Required">
     <Grid Background="Black">
         <Image Margin="-175,-73,-142,-59">
             <Image.Source>
