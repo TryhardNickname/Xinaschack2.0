@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
-         
+
         <Grid Margin="10,10,10,10" Background="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
@@ -22,10 +22,10 @@
                     <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
                 </Image.Source>
             </Image>
-            <Button x:Name="playbtn" Click="Playbtn_Click" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="playbtn" Click="Playbtn_Click" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0"  Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
                         <GradientStop Color="Black"/>
@@ -34,7 +34,7 @@
                 </Button.Foreground>
             </Button>
 
-            <Button x:Name="Quitbtn" Content="Quit" Margin="201,744,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Quitbtn" Content="Quit" Margin="201,744,0,0" VerticalAlignment="Top" Height="88" Width="214" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="Quitbtn_Click" >
@@ -56,10 +56,10 @@
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
-            <Button x:Name="tutorialbtn" Content="Tutorial" Margin="106,603,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="tutorialbtn" Content="Tutorial" Margin="106,603,0,0" VerticalAlignment="Top" Height="88" Width="420" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="tutorialbtn_Click" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" Click="Tutorialbtn_Click" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
                         <GradientStop Color="Black"/>
@@ -69,7 +69,7 @@
 
             </Button>
 
-            <Button x:Name="Scorebtn" Content="Score" Margin="161,462,0,0" Height="88" Width="306" FontFamily="OmegaCentauri" FontSize="85"
+            <Button x:Name="Scorebtn" Content="Score" Margin="161,462,0,0" Height="88" Width="306" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
                 RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" VerticalAlignment="Top" Grid.Column="1" Click="Scorebtn_Click" >
@@ -80,11 +80,11 @@
                     </LinearGradientBrush>
                 </Button.Foreground>
             </Button>
-            
-            <Image Source="Assets/images/chinese-checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
-            <Image Source="/Assets/Images/space-ver.xi.png" Margin="40,128,768,828" Grid.Column="1"/>
 
-            <Button x:Name="SettingsOption" Click="settings_Click" Margin="0,854,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png">
+            <Image Source="Assets/images/chinese-checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
+            <Image Source="/Assets/Images/space-ver.xi.png" Margin="40,143,768,813" Grid.Column="1"/>
+
+            <Button x:Name="SettingsOption" Click="Settings_Click" Margin="1080,873,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png" Grid.Column="1">
                 <Button.BorderBrush>
                     <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
                 </Button.BorderBrush>

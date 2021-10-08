@@ -27,7 +27,6 @@ namespace Xinaschack2._0
             this.InitializeComponent();
         }
     
-
       private void Twoplayers(object sender, RoutedEventArgs e)
       {
         Frame.Navigate(typeof(MainPage), 2);
@@ -53,6 +52,10 @@ namespace Xinaschack2._0
             Frame.Navigate(typeof(MainMenu), null);
       }
 
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

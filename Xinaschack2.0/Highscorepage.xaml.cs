@@ -31,7 +31,6 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class Highscorepage : Page
     {
-        //private MediaPlayer mediaPlayer;
         public Highscorepage()
         {
             this.InitializeComponent();

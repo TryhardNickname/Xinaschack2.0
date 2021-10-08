@@ -137,9 +137,6 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tutorial.xaml.cs">
-      <DependentUpon>Tutorial.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -147,17 +144,13 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\1.gif" />
-    <Content Include="Assets\Images\2.gif" />
     <Content Include="Assets\Images\2users.png" />
-    <Content Include="Assets\Images\3.gif" />
     <Content Include="Assets\Images\3user.png" />
-    <Content Include="Assets\Images\4.gif" />
     <Content Include="Assets\Images\4user.png" />
-    <Content Include="Assets\Images\5.gif" />
-    <Content Include="Assets\Images\6.gif" />
     <Content Include="Assets\Images\6user.png" />
     <Content Include="Assets\Images\alien.png" />
+    <Content Include="Assets\Images\amountofplayers.png" />
+    <Content Include="Assets\Images\background.PNG" />
     <Content Include="Assets\Images\chinese-checkers.png" />
     <Content Include="Assets\Images\comet.png" />
     <Content Include="Assets\Images\doubleArrow.png" />
@@ -167,6 +160,7 @@
     <Content Include="Assets\Images\fire3.png" />
     <Content Include="Assets\Images\fire4.png" />
     <Content Include="Assets\Images\GameFieldCentered.png" />
+    <Content Include="Assets\Images\GameFieldCropped.png" />
     <Content Include="Assets\Images\highscore.png" />
     <Content Include="Assets\Images\jupiter.png" />
     <Content Include="Assets\Images\mars.png" />
@@ -216,10 +210,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Settings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Tutorial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

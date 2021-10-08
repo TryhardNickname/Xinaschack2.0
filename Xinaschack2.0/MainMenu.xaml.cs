@@ -31,17 +31,12 @@ namespace Xinaschack2._0
     /// </summary>
     public sealed partial class MainMenu : Page
     {
-        private readonly int DesignWidth = 1920;
-        private readonly int DesignHeight = 1080;
 
         public static MediaPlayer MediaPlayer;
         public MainMenu()
         {
-
             InitializeComponent();
-
-            ApplicationView.PreferredLaunchViewSize = new Size(DesignWidth, DesignHeight);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -58,7 +53,7 @@ namespace Xinaschack2._0
                 MediaPlayer.IsLoopingEnabled = true;
                 MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSongQuieter.mp3"));
                 MediaPlayer.Play();
-                MediaPlayer.Volume = 0.1;
+                MediaPlayer.Volume = 0.5;
             }
         }
         private void Playbtn_Click(object sender, RoutedEventArgs e)
@@ -67,7 +62,7 @@ namespace Xinaschack2._0
         }
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
-        {
+        {           
             CoreApplication.Exit();
         }
 
@@ -76,13 +71,13 @@ namespace Xinaschack2._0
             Frame.Navigate(typeof(Highscorepage), null);
         }
 
-        private void tutorialbtn_Click(object sender, RoutedEventArgs e)
+        private void Tutorialbtn_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Tutorial), null);
         }
-        private void settings_Click(object sender, RoutedEventArgs e)
+        private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Settings), null);
+            Frame.Navigate(typeof(Settings), "Menu");
         }
     }
 }

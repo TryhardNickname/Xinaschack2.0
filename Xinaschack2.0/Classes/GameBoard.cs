@@ -41,14 +41,14 @@ namespace Xinaschack2._0.Classes
         public bool AlienEncounter { get; set; }
         public List<int> AlienInfoList { get; set; }
         private int AlienAnimationCounter { get; set; }
-        private List<Point> travelPoints { get; set; }
+        private List<Point> travelPoints { get; set; } // fix capital letter
         private List<int> PlayerIDs { get; set; }
         public bool AnimationComplete { get; private set; }
 
         private readonly double XSameLevelDiff = 45;
         private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
         private readonly double YDiff = 40; // rectsize + 5?
-        private readonly double RectSize = 35;
+        private readonly double RectSize = 36;
 
         public GameBoard(int width, int height, int amountOfPlayers)
         {
@@ -75,7 +75,7 @@ namespace Xinaschack2._0.Classes
 
             TurnCounter = 0;
             Random rnd = new Random();
-            EventTurn = rnd.Next(5, 6);
+            EventTurn = rnd.Next(10, 11);
             MeteorStrike = false;
             SetupPlayerID();
             AnimationComplete = true;
@@ -89,7 +89,7 @@ namespace Xinaschack2._0.Classes
         private void MakeRectList(int width, int height)
         {
             double XStart = (width / 2) - (RectSize / 2);
-            double YStart = YDiff / 2;
+            double YStart = 200;
 
             double XCurrent;
             double YCurrent;
@@ -156,13 +156,13 @@ namespace Xinaschack2._0.Classes
                     Players.Add(new Player(PlanetEnum.Earth, StartPosDict[1], StartPosDict[4]));
                     Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[2], StartPosDict[5]));
                     Players.Add(new Player(PlanetEnum.Mars, StartPosDict[4], StartPosDict[1]));
-                    Players.Add(new Player(PlanetEnum.Mercury, StartPosDict[5], StartPosDict[2]));
+                    Players.Add(new Player(PlanetEnum.Moon, StartPosDict[5], StartPosDict[2]));
                     break;
                 case 6:
                     Players.Add(new Player(PlanetEnum.Earth, StartPosDict[0], StartPosDict[3]));
                     Players.Add(new Player(PlanetEnum.Jupiter, StartPosDict[1], StartPosDict[4]));
                     Players.Add(new Player(PlanetEnum.Mars, StartPosDict[2], StartPosDict[5]));
-                    Players.Add(new Player(PlanetEnum.Mercury, StartPosDict[3], StartPosDict[0]));
+                    Players.Add(new Player(PlanetEnum.Moon, StartPosDict[3], StartPosDict[0]));
                     Players.Add(new Player(PlanetEnum.Neptune, StartPosDict[4], StartPosDict[1]));
                     Players.Add(new Player(PlanetEnum.Venus, StartPosDict[5], StartPosDict[2]));
                     break;
@@ -208,7 +208,7 @@ namespace Xinaschack2._0.Classes
                 }
                 else
                 {
-                    args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 255, 0, 0), 0);
+                    args.DrawingSession.DrawCircle((float)(RectList[rectIndex].X + RectSize / 2), (float)(RectList[rectIndex].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 255, 0, 0), 0);
                 }
             }
         }
@@ -247,7 +247,27 @@ namespace Xinaschack2._0.Classes
 
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            //args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            //var turn = 0;
+            //var player1Turns = true;
+
+            //while (true)
+            //{
+            //    turn++;
+            //    if (player1Turns)
+            //    {
+            //        //player ones turn
+            //        args.DrawingSession.DrawImage((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
+            //    }
+            //    else
+            //    {
+            //        //player two trun
+            //    }
+            //    if (turn % 3 == 0)
+            //    {
+            //        player1Turns = !player1Turns;
+            //    }
+            //}
         }
 
         public void DrawAnimations(CanvasAnimatedDrawEventArgs args)
@@ -629,20 +649,12 @@ namespace Xinaschack2._0.Classes
             {                
                 UnavailableRects.Clear();           
 
-                // AnimateMeteor(_randomSpots);
-
-                //check collision on planets layuing there
-                // if (PlayerPos.Contains(_randomSpots))
-                //      move those planets();
-
-                // draw blocking blocks
-
-                //make those rects unavailable (until next meteor??)
                 UnavailableRects.AddRange(CheckOKMovesMeteor());
                 OldPosMeteor = new Point(RectList[UnavailableRects[0]].X - 1000, RectList[UnavailableRects[0]].Y - 1000);
                 MeteorStrike = true;
 
-                EventTurn += 5;
+                Random rnd = new Random();
+                EventTurn += rnd.Next(10, 11);
                 AlienCounter += 1;
             }
             else if (AlienCounter == 1)
@@ -650,7 +662,7 @@ namespace Xinaschack2._0.Classes
                 AlienCounter = 0;
                 AlienMove();
                 
-                // maybe this? OldPosAlien = new Point(RectList[AlienInfoList[1]].X, RectList[AlienInfoList[1]].Y);
+                
                 AlienEncounter = true;
             }
             

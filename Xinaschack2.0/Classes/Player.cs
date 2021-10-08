@@ -24,7 +24,6 @@ namespace Xinaschack2._0.Classes
 
         public async Task LoadBitmapAsync(CanvasAnimatedControl sender)
         {
-            //remember to make png smaller OR use transform2deffet etc
             switch(PlanetColor)
             {
                 case PlanetEnum.Earth:
@@ -39,8 +38,8 @@ namespace Xinaschack2._0.Classes
                 case PlanetEnum.Jupiter:
                     PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/jupiter.png"));
                     break;
-                case PlanetEnum.Mercury:
-                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/mercury.png"));
+                case PlanetEnum.Moon:
+                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/moon.png"));
                     break;
                 case PlanetEnum.Neptune:
                     PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/neptune.png"));

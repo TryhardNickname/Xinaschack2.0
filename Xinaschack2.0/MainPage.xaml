@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Required">
     <Grid Background="Black">
         <Image Margin="-175,-73,-142,-59">
             <Image.Source>
@@ -17,10 +18,28 @@
 
         <Grid Height="1080" Width="1920" >
             <canvas:CanvasAnimatedControl x:Name="GameCanvas" CreateResources="GameCanvas_CreateResources" Draw="GameCanvas_Draw" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" Height="1080" Width="1920"/>
+            <TextBlock HorizontalAlignment="Left" Margin="24,15,0,0" Text="Current player" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="47" Width="342" FontSize="36" FontFamily="Consolas"   />
         </Grid>
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,864,0,0" VerticalAlignment="Top" Height="126" Width="143">
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="50,866,0,0" Height="126" Width="143" VerticalAlignment="Top" FontFamily="Lenovo Do Bold">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="SettingsOption" Click="Settings_Click" Margin="1711,873,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png">
+            <Button.BorderBrush>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
+            </Button.BorderBrush>
+            <Button.FocusVisualPrimaryBrush>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
+            </Button.FocusVisualPrimaryBrush>
+            <Button.FocusVisualSecondaryBrush>
+                <ImageBrush ImageSource="/Assets/Images/settingsIcon.png" Stretch="UniformToFill"/>
+            </Button.FocusVisualSecondaryBrush>
+            <Button.Foreground>
+                <ImageBrush ImageSource="/Assets/Images/settingsIcon.png" Stretch="UniformToFill"/>
+            </Button.Foreground>
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Images/settingsIcon.png"  Stretch="UniformToFill"/>
             </Button.Background>
         </Button>
     </Grid>
