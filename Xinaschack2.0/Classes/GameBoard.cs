@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace Xinaschack2._0.Classes
@@ -658,7 +660,7 @@ namespace Xinaschack2._0.Classes
                 EventTurn += rnd.Next(10, 11);
                 AlienCounter += 1;
             }
-            else if (AlienCounter == 2)
+            else if (AlienCounter == 1)
             {
                 if (AlienWhosTurn == Players.Count)
                 {
@@ -1006,11 +1008,12 @@ namespace Xinaschack2._0.Classes
 
                 if (correctPos == 10)
                 {
+                    
                     return true;
                 }
             }
             return false;
         }
-    }
 
+    }
 }

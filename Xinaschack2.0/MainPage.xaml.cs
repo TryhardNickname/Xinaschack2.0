@@ -39,6 +39,7 @@ namespace Xinaschack2._0
         private List<CanvasBitmap> FireList { get; set; }
         private CanvasBitmap Comet { get; set; }
         private CanvasBitmap Alien { get; set; }
+        private int WinWindow = 1;
 
         public static MediaPlayer SoundEffectsPlop;
         public static MediaPlayer SoundEffectsMeteor;
@@ -150,6 +151,22 @@ namespace Xinaschack2._0
             if (Game.CheckIfWin())
             {
                 Debug.WriteLine($"{Game.Players[Game.CurrentPlayerIndex].PlanetColor} won");
+
+            }
+            else
+            {
+                
+                if (WinWindow == 1)
+                {
+                    WinWindow += 1;
+                    var showDialogWindow = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        ContentDialog1 dialog1 = new ContentDialog1();
+                        dialog1.ShowAsync();
+                    });
+                }
+
+                
             }
             if (Game.MeteorStrike)
             {
