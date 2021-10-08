@@ -24,11 +24,11 @@
 
         <Image Source="Assets/images/Settings w.png" Margin="404,44,404,889" Grid.ColumnSpan="2"/>
 
-        <Image x:Name="Sound_on" Source="Assets/Images/Sound-On.png" Height="100" Width="100" Margin="581,400,1239,580"/>
-        <StackPanel>
-            <Slider Width="410" Height="80" Margin="600,354,983,546"
+        <Image x:Name="Sound_on"  Source="Assets/Images/Sound-On.png" Margin="477,457,936,471" RenderTransformOrigin="0.496,0.41"/>
+        <StackPanel Margin="284,430,-142,379">
+            <Slider Width="507" Height="101" Margin="550,90,460,297"
                 Maximum="100" TickFrequency="1" Minimum="0" Foreground="#5729ce" Background="#5729ce" 
-                FocusVisualPrimaryBrush="White" ValueChanged="Slider_ValueChanged" Name="VolumeSlider"/>
+                FocusVisualPrimaryBrush="White" ValueChanged="Slider_ValueChanged" Name="VolumeSlider" Canvas.ZIndex="-2" HorizontalAlignment="Left" RequestedTheme="Light"/>
         </StackPanel>
 
     </Grid>
