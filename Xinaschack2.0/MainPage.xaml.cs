@@ -48,7 +48,9 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
+        private int AmountOfPlayers { get; set; }
         private GameBoard Game { get; set; }
+
         public MainPage()
         {
             InitializeComponent();
@@ -60,10 +62,19 @@ namespace Xinaschack2._0
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // First time running game
             if (Game == null)
             {
-                Game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
+                AmountOfPlayers = (int)e.Parameter;
+                Game = new GameBoard(DesignWidth, DesignHeight, AmountOfPlayers);
+
             }
+            //else if (e.Parameter != null && AmountOfPlayers != (int)e.Parameter) // not from settings + new amount of players
+            //{
+            //    AmountOfPlayers = (int)e.Parameter;
+            //    Game = new GameBoard(DesignWidth, DesignHeight, AmountOfPlayers);
+            //}
+            // Add reset button
             base.OnNavigatedTo(e);
         }
         private void Back2menu(object sender, RoutedEventArgs e)
@@ -84,7 +95,7 @@ namespace Xinaschack2._0
         /// <returns></returns>
         private async Task CreateResourcesAsync(CanvasAnimatedControl sender)
         {
-            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameFieldCropped.png"));
+            Board = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/GameFieldCropped2.png"));
             Comet = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/comet.png"));
             Alien = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/alien.png"));
 
@@ -98,15 +109,15 @@ namespace Xinaschack2._0
                 await p.LoadBitmapAsync(sender).AsAsyncAction();
             }
 
-            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
+            SoundEffectsAlien.Volume = MainMenu.BackgroundAudio.Volume;
             SoundEffectsPlop.AutoPlay = false;
             SoundEffectsPlop.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/ballmovesound.wav"));
 
-            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
+            SoundEffectsAlien.Volume = MainMenu.BackgroundAudio.Volume;
             SoundEffectsMeteor.AutoPlay = false;
             SoundEffectsMeteor.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/meteorandboom.wav"));
 
-            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
+            SoundEffectsAlien.Volume = MainMenu.BackgroundAudio.Volume;
             SoundEffectsAlien.AutoPlay = false;
             SoundEffectsAlien.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/aliensound.wav"));
         }
@@ -117,17 +128,17 @@ namespace Xinaschack2._0
         }
 
         /// <summary>
-        /// Draws Rectangles from RectList ( which contains positions of all rectangles ) Also draws planets depending on Players (List of indexes)
+        /// Draws the board, planets, OKmoves and animates the moving planets, meteor and alien.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Board, ((DesignWidth - Board.SizeInPixels.Width) / 2) - 3, ((DesignHeight - Board.SizeInPixels.Height) / 2) - 4);
+            args.DrawingSession.DrawImage(Board, (DesignWidth - Board.SizeInPixels.Width) / 2, (DesignHeight - Board.SizeInPixels.Height) / 2);
             Game.DrawSelectedRect(args);
             Game.DrawPlayerPlanets(sender, args);
             Game.DrawOkayMoves(args);
-            DrawPlayerTurn(args);
+            Game.DrawPlayerTurn(args);
             if (Game.MeteorStrike)
             {
                 Game.DrawMeteor(args, Comet);
@@ -140,12 +151,17 @@ namespace Xinaschack2._0
             {
                 Game.DrawAlien(args, Alien);
             }
-            if (!Game.AnimationComplete)
+            if (!Game.MoveAnimationComplete)
             {
-                Game.DrawAnimations(args);
+                Game.DrawMoveAnimation(args);
             }
         }
 
+        /// <summary>
+        /// Updates positions for moving planets, aliens and meteors when they should be animating. Also checks win-condition, and plays sound effects.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
             if (Game.CheckIfWin())
@@ -161,7 +177,6 @@ namespace Xinaschack2._0
                     });
                 }
             }
-            
             if (Game.MeteorStrike)
             {
                 Game.UpdateMeteor();
@@ -179,20 +194,20 @@ namespace Xinaschack2._0
                     SoundEffectsAlien.Play();
                 });
             }
-            if (!Game.AnimationComplete)
+            if (!Game.MoveAnimationComplete)
             {
-                Game.UpdateAnimation();
+                Game.UpdateMoveAnimation();
 
             }
-            if (Game.AnimationComplete && Game.TurnStarted)
+            if (Game.MoveAnimationComplete && Game.TurnStarted)
             {
                 Game.MoveComplete();
                 var playSoundPlop = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SoundEffectsPlop.Play();
                 });
-
-                if (!Game.OnlyDoubleJump && Game.SavedPosition == -1) // savedpos to prevcent next turn from happening when jumping back to start posistion
+                // Checks SavedPosition to prevent next turn from happening when jumping back to start posistion
+                if (!Game.OnlyDoubleJump && Game.SavedPosition == -1) 
                 {
                     Game.NextTurn();
                 }
@@ -204,17 +219,18 @@ namespace Xinaschack2._0
         }
 
         /// <summary>
-        /// Every click on a rectangle, index in RectList is stored in RectSelected prop
+        /// Sends a Point to CheckIfRect_Pressed everytime use clicks. No click recorded when animation is happening.
+        /// Plays Plop-sound when selecting Planet.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (Game.AnimationComplete && !Game.MeteorStrike && !Game.AlienEncounter) // to prevent HAX by moving while animation happens???
+            if (Game.MoveAnimationComplete && !Game.MeteorStrike && !Game.AlienEncounter)
             {
                 Game.CheckIfRect_Pressed(e.GetCurrentPoint(null).Position);
 
-                if (Game.PlanetSelected != -1 && Game.AnimationComplete)
+                if (Game.PlanetSelected != -1 && Game.MoveAnimationComplete)
                 {
                     var playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
@@ -224,18 +240,5 @@ namespace Xinaschack2._0
                 }
             }
         }
-              
-
-       
-        public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
-        {
-            //args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
-            
-            Rect moveRect = new Rect(135, 100, 66, 66);
-                               
-             args.DrawingSession.DrawImage(Game.Players[Game.CurrentPlayerIndex].PlanetBitmap,moveRect);
-
-        }
-
     }
 }

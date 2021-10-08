@@ -171,6 +171,7 @@
     <Content Include="Assets\Images\fire3.png" />
     <Content Include="Assets\Images\fire4.png" />
     <Content Include="Assets\Images\GameFieldCropped.png" />
+    <Content Include="Assets\Images\GameFieldCropped2.png" />
     <Content Include="Assets\Images\highscore.png" />
     <Content Include="Assets\Images\jupitertry2.png" />
     <Content Include="Assets\Images\marstry5.png" />
