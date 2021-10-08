@@ -19,17 +19,17 @@ namespace Xinaschack2._0
 {
     public sealed partial class ContentDialog1 : ContentDialog
     {
-        public ContentDialog1()
+        private int WhatToWrite;
+
+        public ContentDialog1(PlanetEnum whoWon)
         {
             this.InitializeComponent();
+            WhoWonText.Text = $"{whoWon} won!";
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
+            sender.Hide();
         }
     }
 }
