@@ -124,6 +124,9 @@
     </Compile>
     <Compile Include="Classes\GameBoard.cs" />
     <Compile Include="Classes\Player.cs" />
+    <Compile Include="ContentDialog1.xaml.cs">
+      <DependentUpon>ContentDialog1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Highscorepage.xaml.cs">
       <DependentUpon>Highscorepage.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="amountofplayers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentDialog1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
