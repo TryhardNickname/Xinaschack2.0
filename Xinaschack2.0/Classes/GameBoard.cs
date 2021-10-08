@@ -767,7 +767,9 @@ namespace Xinaschack2._0.Classes
 
             int randomMeteorPos;
             bool _blocking = true;
-            while (_blocking)
+
+            //while loop originally
+            for (int k = 0; k < 100; k++)
             {
                 randomMeteorPos = rnd.Next(0, 120);
                 List<Point> points = new List<Point> {
@@ -807,6 +809,7 @@ namespace Xinaschack2._0.Classes
                 else
                 {
                     _blocking = false;
+                    break;
                 }
             }
             return FirePositions;

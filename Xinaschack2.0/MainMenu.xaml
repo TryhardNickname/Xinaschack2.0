@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
-         
+
         <Grid Margin="10,10,10,10" Background="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="119*"/>
@@ -25,7 +25,7 @@
             <Button x:Name="playbtn" Click="Playbtn_Click" Content="Play" Margin="181,317,0,0" VerticalAlignment="Top" Height="112" Width="260" FontFamily="Consolas" FontSize="85"
                 RenderTransformOrigin="0,0" FocusVisualSecondaryBrush="{x:Null}"
                 FontWeight="Normal" FontStyle="Normal"
-                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
+                RequiresPointer="WhenFocused" BorderThickness="0,0,0,0"  Background="{x:Null}" BorderBrush="{x:Null}" FocusVisualPrimaryBrush="{x:Null}" Grid.Column="1" >
                 <Button.Foreground>
                     <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.01,0">
                         <GradientStop Color="Black"/>
@@ -80,11 +80,11 @@
                     </LinearGradientBrush>
                 </Button.Foreground>
             </Button>
-            
-            <Image Source="Assets/images/chinese-checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
-            <Image Source="/Assets/Images/space-ver.xi.png" Margin="40,128,768,828" Grid.Column="1"/>
 
-            <Button x:Name="SettingsOption" Click="Settings_Click" Margin="0,854,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png">
+            <Image Source="Assets/images/chinese-checkers.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
+            <Image Source="/Assets/Images/space-ver.xi.png" Margin="40,143,768,813" Grid.Column="1"/>
+
+            <Button x:Name="SettingsOption" Click="Settings_Click" Margin="1080,873,0,0" VerticalAlignment="Top" Height="126" Width="143" XYFocusRightNavigationStrategy="Projection" DefaultStyleResourceUri="/Assets/Images/settingsIcon.png" Grid.Column="1">
                 <Button.BorderBrush>
                     <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/settingsIcon.png"/>
                 </Button.BorderBrush>
