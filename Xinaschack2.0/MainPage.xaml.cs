@@ -97,15 +97,15 @@ namespace Xinaschack2._0
                 await p.LoadBitmapAsync(sender).AsAsyncAction();
             }
 
-            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
+            SoundEffectsAlien.Volume = MainMenu.BackgroundAudio.Volume;
             SoundEffectsPlop.AutoPlay = false;
             SoundEffectsPlop.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/ballmovesound.wav"));
 
-            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
+            SoundEffectsAlien.Volume = MainMenu.BackgroundAudio.Volume;
             SoundEffectsMeteor.AutoPlay = false;
             SoundEffectsMeteor.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/meteorandboom.wav"));
 
-            SoundEffectsAlien.Volume = MainMenu.MediaPlayer.Volume;
+            SoundEffectsAlien.Volume = MainMenu.BackgroundAudio.Volume;
             SoundEffectsAlien.AutoPlay = false;
             SoundEffectsAlien.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/aliensound.wav"));
         }
