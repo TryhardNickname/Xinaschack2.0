@@ -161,6 +161,7 @@
     <Content Include="Assets\Images\fire4.png" />
     <Content Include="Assets\Images\GameFieldCentered.png" />
     <Content Include="Assets\Images\GameFieldCropped.png" />
+    <Content Include="Assets\Images\GameFieldCropped2.png" />
     <Content Include="Assets\Images\highscore.png" />
     <Content Include="Assets\Images\jupiter.png" />
     <Content Include="Assets\Images\mars.png" />

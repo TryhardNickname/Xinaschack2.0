@@ -44,7 +44,7 @@ namespace Xinaschack2._0.Classes
         private int AlienWhosTurn {get; set; }
         private List<Point> travelPoints { get; set; } // fix capital letter
         private List<int> PlayerIDs { get; set; }
-        public bool AnimationComplete { get; private set; }
+        public bool MoveAnimationComplete { get; private set; }
 
         private readonly double XSameLevelDiff = 45;
         private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
@@ -79,7 +79,7 @@ namespace Xinaschack2._0.Classes
             EventTurn = rnd.Next(10, 10);
             MeteorStrike = false;
             SetupPlayerID();
-            AnimationComplete = true;
+            MoveAnimationComplete = true;
         }
 
         /// <summary>
@@ -196,21 +196,15 @@ namespace Xinaschack2._0.Classes
             args.DrawingSession.DrawText("YDistance = " + YDistance.ToString(), 10, 360, Windows.UI.Color.FromArgb(255, 50, 50, 50));
         }
 
+        /// <summary>
+        /// Draws green border on selected Rect
+        /// </summary>
+        /// <param name="args"></param>
         public void DrawSelectedRect(CanvasAnimatedDrawEventArgs args)
         {
-            // If a rectangle is selected, make it have a green border.
-            // Permanent red borders turned off for now. 
-            for (int rectIndex = 0; rectIndex < RectList.Count; rectIndex++)
+            if (RectSelected != -1)
             {
-                if (RectSelected == rectIndex)
-                {
-                    // args.DrawingSession.DrawRectangle(RectList[rectIndex], Windows.UI.Color.FromArgb(255, 0, 255, 0), 2);
-                    args.DrawingSession.DrawCircle((float)(RectList[rectIndex].X + RectSize / 2), (float)(RectList[rectIndex].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 0), 5);
-                }
-                else
-                {
-                    args.DrawingSession.DrawCircle((float)(RectList[rectIndex].X + RectSize / 2), (float)(RectList[rectIndex].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 255, 0, 0), 0);
-                }
+                args.DrawingSession.DrawCircle((float)(RectList[RectSelected].X + RectSize / 2), (float)(RectList[RectSelected].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 0), 5);
             }
         }
 
@@ -235,47 +229,26 @@ namespace Xinaschack2._0.Classes
         {
             for (int i = 0; i < SingleJumps.Count; i++)
             {
-                // args.DrawingSession.DrawRectangle(RectList[SingleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 255, 255), 2);
                 args.DrawingSession.DrawCircle((float)(RectList[SingleJumps[i]].X + RectSize / 2), (float)(RectList[SingleJumps[i]].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 255), 5);
             }
 
             for (int i = 0; i < DoubleJumps.Count; i++)
             {
-                // args.DrawingSession.DrawRectangle(RectList[DoubleJumps[i]], Windows.UI.Color.FromArgb(255, 0, 0, 255), 2);
                 args.DrawingSession.DrawCircle((float)(RectList[DoubleJumps[i]].X + RectSize / 2), (float)(RectList[DoubleJumps[i]].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 0, 255), 5);
             }
         }
 
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
-            //args.DrawingSession.DrawText((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
-            //var turn = 0;
-            //var player1Turns = true;
+            Rect moveRect = new Rect(135, 100, 66, 66);
 
-            //while (true)
-            //{
-            //    turn++;
-            //    if (player1Turns)
-            //    {
-            //        //player ones turn
-            //        args.DrawingSession.DrawImage((CurrentPlayerIndex + 1).ToString(), 50, 20, Windows.UI.Color.FromArgb(255, 255, 0, 0));
-            //    }
-            //    else
-            //    {
-            //        //player two trun
-            //    }
-            //    if (turn % 3 == 0)
-            //    {
-            //        player1Turns = !player1Turns;
-            //    }
-            //}
+            args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
         }
 
         public void DrawAnimations(CanvasAnimatedDrawEventArgs args)
         {
             Rect moveRect = new Rect(OldPos.X, OldPos.Y, RectSize, RectSize);
 
-            // args.DrawingSession.DrawRectangle(moveRect, Windows.UI.Color.FromArgb(255, 1, 1, 1), 2);
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
         }
         public void DrawUnavailableRects(CanvasAnimatedDrawEventArgs args, List<CanvasBitmap> FireList)
@@ -343,12 +316,12 @@ namespace Xinaschack2._0.Classes
             distance = Math.Sqrt((XDistance * XDistance) + (YDistance * YDistance));
             if (distance > 1)
             {
-                AnimationComplete = false;
+                MoveAnimationComplete = false;
                 OldPos = new Point(OldPos.X + (XDistance / speed--), OldPos.Y + (YDistance / speed--)); ;
             }
             else
             {
-                AnimationComplete = true;
+                MoveAnimationComplete = true;
             }
             if (speed < 5)
             {
@@ -588,7 +561,7 @@ namespace Xinaschack2._0.Classes
             {
                 // Animation starts
                 NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
-                AnimationComplete = false;
+                MoveAnimationComplete = false;
                 Players[CurrentPlayerIndex].PlayerPositions.RemoveAt(PlanetSelected);
                 SavedPosition = -1; // for GameCanvas_Update flag for next turn so it doesnt do next turn with moving back to pos while double jumping, can be replaced with singlejumps.Count == 0?
             }
@@ -598,7 +571,7 @@ namespace Xinaschack2._0.Classes
                 {
                     // Animation starts
                     NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
-                    AnimationComplete = false;
+                    MoveAnimationComplete = false;
                     Players[CurrentPlayerIndex].PlayerPositions.RemoveAt(PlanetSelected);
                     DoubleJumpSaved = PlanetSelected;
 
@@ -615,7 +588,7 @@ namespace Xinaschack2._0.Classes
 
                     // Animation starts
                     NewPos = new Point(RectList[RectSelected].X, RectList[RectSelected].Y);
-                    AnimationComplete = false;
+                    MoveAnimationComplete = false;
                     Players[CurrentPlayerIndex].PlayerPositions.RemoveAt(PlanetSelected);
                     DoubleJumpSaved = PlanetSelected;
                 }
