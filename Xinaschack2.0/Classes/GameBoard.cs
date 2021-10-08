@@ -660,7 +660,7 @@ namespace Xinaschack2._0.Classes
                 EventTurn += rnd.Next(10, 11);
                 AlienCounter += 1;
             }
-            else if (AlienCounter == 1)
+            else if (AlienCounter == 2)
             {
                 if (AlienWhosTurn == Players.Count)
                 {
