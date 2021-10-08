@@ -17,7 +17,7 @@ namespace Xinaschack2._0.Classes
         private List<Rect> RectList { get; set; }
         public List<Player> Players { get; private set; }
         private int RectSelected { get; set; }
-        private int CurrentPlayerIndex { get; set; }
+        public int CurrentPlayerIndex { get; private set; }
         public bool OnlyDoubleJump { get; set; }
         public int PlanetSelected { get; private set; }
         private int DoubleJumpSaved { get; set; }

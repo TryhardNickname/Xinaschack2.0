@@ -166,7 +166,7 @@ namespace Xinaschack2._0
         {
             if (Game.CheckIfWin())
             {
-                Debug.WriteLine($"{Game.Players[Game.CurrentPlayerIndex].PlanetColor} won");
+                // Debug.WriteLine($"{Game.Players[Game.CurrentPlayerIndex].PlanetColor} won");
                 if (WinWindowCounter == 0)
                 {
                     WinWindowCounter += 1;
