@@ -47,7 +47,9 @@ namespace Xinaschack2._0
         private readonly int DesignWidth = 1920;
         private readonly int DesignHeight = 1080;
 
+        private int AmountOfPlayers { get; set; }
         private GameBoard Game { get; set; }
+
         public MainPage()
         {
             InitializeComponent();
@@ -56,13 +58,25 @@ namespace Xinaschack2._0
             SoundEffectsPlop = new MediaPlayer();
             SoundEffectsMeteor = new MediaPlayer();
             SoundEffectsAlien = new MediaPlayer();
+
+
+
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // First time running game
             if (Game == null)
             {
-                Game = new GameBoard(DesignWidth, DesignHeight, (int)e.Parameter);
+                AmountOfPlayers = (int)e.Parameter;
+                Game = new GameBoard(DesignWidth, DesignHeight, AmountOfPlayers);
+
             }
+            //else if (e.Parameter != null && AmountOfPlayers != (int)e.Parameter) // not from settings + new amount of players
+            //{
+            //    AmountOfPlayers = (int)e.Parameter;
+            //    Game = new GameBoard(DesignWidth, DesignHeight, AmountOfPlayers);
+            //}
+            // Add reset button
             base.OnNavigatedTo(e);
         }
         private void Back2menu(object sender, RoutedEventArgs e)
@@ -108,6 +122,8 @@ namespace Xinaschack2._0
             SoundEffectsAlien.Volume = MainMenu.BackgroundAudio.Volume;
             SoundEffectsAlien.AutoPlay = false;
             SoundEffectsAlien.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/aliensound.wav"));
+
+
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -141,7 +157,7 @@ namespace Xinaschack2._0
             }
             if (!Game.MoveAnimationComplete)
             {
-                Game.DrawAnimations(args);
+                Game.DrawMoveAnimation(args);
             }
         }
 
@@ -154,7 +170,7 @@ namespace Xinaschack2._0
         {
             if (Game.CheckIfWin())
             {
-                Debug.WriteLine($"{Game.Players[Game.CurrentPlayerIndex].PlanetColor} won");
+                // Debug.WriteLine($"{Game.Players[Game.CurrentPlayerIndex].PlanetColor} won");
             }
             if (Game.MeteorStrike)
             {
@@ -175,7 +191,7 @@ namespace Xinaschack2._0
             }
             if (!Game.MoveAnimationComplete)
             {
-                Game.UpdateAnimation();
+                Game.UpdateMoveAnimation();
 
             }
             if (Game.MoveAnimationComplete && Game.TurnStarted)
