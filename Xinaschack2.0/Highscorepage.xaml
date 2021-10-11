@@ -9,29 +9,33 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="219*"/>
+            <RowDefinition Height="781*"/>
+        </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="82*"/>
             <ColumnDefinition Width="293*"/>
         </Grid.ColumnDefinitions>
-        <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2">
+        <Image Margin="-175,-73,-142,-59" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Image.Source>
                 <BitmapImage x:Name="GifImage" UriSource="Assets/Images/Menu-background-1280x720.gif" />
             </Image.Source>
         </Image>
 
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="50,866,0,0" Height="126" Width="143" VerticalAlignment="Top">
+        <Button x:Name="Bk2menu" Click="Back2menu" Margin="50,684,0,0" Height="126" Width="143" VerticalAlignment="Top" Grid.Row="1">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>
         </Button>
 
-        <Image Source="Assets/images/Highscore.png" Margin="284,20,295,868" Grid.ColumnSpan="2"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,231,0,0" Text="1" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,768,0,0" Text="5" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,622,0,0" Text="4" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,493,0,0" Text="3" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="124,364,0,0" Text="2" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="105" Width="88" FontWeight="Bold" FontSize="72" Grid.Column="1" FontFamily="Consolas"/>
+        <Image Source="Assets/images/Highscore.png" Margin="135,54,464,56" Grid.Column="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="142,67,0,0" Text="1" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="78" Width="68" FontWeight="Bold" FontSize="48" Grid.Column="1" FontFamily="Consolas" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="142,592,0,0" Text="5" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="78" Width="68" FontWeight="Bold" FontSize="48" Grid.Column="1" FontFamily="Consolas" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="142,449,0,0" Text="4" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="78" Width="68" FontWeight="Bold" FontSize="48" Grid.Column="1" FontFamily="Consolas" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="142,320,0,0" Text="3" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="78" Width="68" FontWeight="Bold" FontSize="48" Grid.Column="1" FontFamily="Consolas" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="142,191,0,0" Text="2" Foreground="White" TextWrapping="Wrap" VerticalAlignment="Top" Height="78" Width="68" FontWeight="Bold" FontSize="48" Grid.Column="1" FontFamily="Consolas" Grid.Row="1"/>
 
     </Grid>
 </Page>
