@@ -27,22 +27,22 @@ namespace Xinaschack2._0.Classes
             switch(PlanetColor)
             {
                 case PlanetEnum.Earth:
-                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/earth_mini34x34.png"));
+                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/earth256.png"));
                     break;
                 case PlanetEnum.Venus:
-                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/venus.png"));
+                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/venustry3.png"));
                     break;
                 case PlanetEnum.Mars:
-                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/mars.png"));
+                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/marstry5.png"));
                     break;
                 case PlanetEnum.Jupiter:
-                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/jupiter.png"));
+                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/jupitertry2.png"));
                     break;
                 case PlanetEnum.Moon:
-                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/moon.png"));
+                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/moontry2.png"));
                     break;
                 case PlanetEnum.Neptune:
-                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/neptune.png"));
+                    PlanetBitmap = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/neptunetry2.png"));
                     break;
             }
         }

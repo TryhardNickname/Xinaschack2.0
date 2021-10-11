@@ -32,28 +32,31 @@ namespace Xinaschack2._0
     public sealed partial class MainMenu : Page
     {
 
-        public static MediaPlayer MediaPlayer;
+        public static MediaPlayer BackgroundAudio;
         public MainMenu()
         {
             InitializeComponent();
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
         }
-
+        /// <summary>
+        /// Starts Mediaplayer if it is not already playing background music
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (MediaPlayer == null)
+            if (BackgroundAudio == null)
             {
-                MediaPlayer = new MediaPlayer();
+                BackgroundAudio = new MediaPlayer();
             }
-            
-            if (MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
+
+            if (BackgroundAudio.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
             {
-                
-                MediaPlayer.IsLoopingEnabled = true;
-                MediaPlayer.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSongQuieter.mp3"));
-                MediaPlayer.Play();
-                MediaPlayer.Volume = 0.5;
+
+                BackgroundAudio.IsLoopingEnabled = true;
+                BackgroundAudio.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/sounds/SpaceSongQuieter.mp3"));
+                BackgroundAudio.Play();
+                BackgroundAudio.Volume = 0.5;
             }
         }
         private void Playbtn_Click(object sender, RoutedEventArgs e)
@@ -62,7 +65,7 @@ namespace Xinaschack2._0
         }
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)
-        {           
+        {
             CoreApplication.Exit();
         }
 
@@ -73,7 +76,7 @@ namespace Xinaschack2._0
 
         private void Tutorialbtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(Tutorial), null);
         }
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
