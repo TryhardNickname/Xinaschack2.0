@@ -17,9 +17,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Xinaschack2._0
 {
-    public sealed partial class ContentDialog1 : ContentDialog
+    public sealed partial class WinPopup : ContentDialog
     {
-        public ContentDialog1(PlanetEnum whoWon)
+        public WinPopup(PlanetEnum whoWon)
         {
             this.InitializeComponent();
             WhoWonText.Text = $"{whoWon} won!";

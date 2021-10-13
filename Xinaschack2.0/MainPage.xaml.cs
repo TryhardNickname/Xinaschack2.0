@@ -172,7 +172,7 @@ namespace Xinaschack2._0
                     WinWindowCounter += 1;
                     var showDialogWindow = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        ContentDialog1 dialog1 = new ContentDialog1(Game.Players[Game.CurrentPlayerIndex].PlanetColor);
+                        WinPopup dialog1 = new WinPopup(Game.Players[Game.CurrentPlayerIndex].PlanetColor);
                         dialog1.ShowAsync();
                     });
                 }
