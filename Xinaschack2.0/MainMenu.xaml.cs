@@ -59,9 +59,14 @@ namespace Xinaschack2._0
                 BackgroundAudio.Volume = 0.5;
             }
         }
+
+        /// <summary>
+        /// All these methods below are buttons that do things such as starting the game, going to the highscore page and so on.
+        /// </summary>
+
         private void Playbtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(amountofplayers), null);
+            Frame.Navigate(typeof(AmountOfPlayers), null);
         }
 
         private void Quitbtn_Click(object sender, RoutedEventArgs e)

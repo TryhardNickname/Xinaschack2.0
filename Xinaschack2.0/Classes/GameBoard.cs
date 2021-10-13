@@ -132,7 +132,8 @@ namespace Xinaschack2._0.Classes
         }
 
         /// <summary>
-        /// 
+        /// This method sets up a List of ints so that other methods can use the proper indexes of players rather than just the index when its their turn.
+        /// For example, if you have two players then player two's index should be 3 since if it was 1, that player would be represented by the second base, which is not correct.
         /// </summary>
         private void SetupPlayerID()
         {
@@ -349,6 +350,9 @@ namespace Xinaschack2._0.Classes
 
         }
 
+        /// <summary>
+        /// This method works by comparing two points and traveling from the Oldpos to the NewPos. The mathemathical formulas makes the animation smooth.
+        /// </summary>
         public void UpdateMoveAnimation()
         {
             double XDistance = NewPos.X - OldPos.X;
@@ -369,6 +373,9 @@ namespace Xinaschack2._0.Classes
             }
         }
 
+        /// <summary>
+        /// Works the same way as the above method but we found out that you dont have to have OldPos and NewPos.
+        /// </summary>
         public void UpdateMeteor()
         {
             double XDistanceMeteor = RectList[UnavailableRects[0]].X - OldPosMeteor.X;
@@ -389,6 +396,10 @@ namespace Xinaschack2._0.Classes
             }
         }
 
+        /// <summary>
+        /// This method uses the TravelPoints list created in CheckOKAlienMoves to know where to go and when. 
+        /// This makes it look like the alien travels from outside the screen, to the planet and then to the destination.
+        /// </summary>
         public void UpdateAlien()
         {
             int speedAlien = 13;
@@ -401,7 +412,7 @@ namespace Xinaschack2._0.Classes
 
                 if (distanceAlien > 1)
                 {
-                    OldPosAlien = new Point(TravelPoints[0].X + (XDistanceAlien / speedAlien--), TravelPoints[0].Y + (YDistanceAlien / speedAlien--));
+                    OldPosAlien = new Point(TravelPoints[0].X + (XDistanceAlien / speedAlien), TravelPoints[0].Y + (YDistanceAlien / speedAlien));
                 }
                 else
                 {
@@ -421,7 +432,7 @@ namespace Xinaschack2._0.Classes
 
                 if (distanceAlien > 1)
                 {
-                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien), OldPosAlien.Y + (YDistanceAlien / speedAlien));
                 }
                 else
                 {
@@ -442,7 +453,7 @@ namespace Xinaschack2._0.Classes
 
                 if (distanceAlien > 1)
                 {
-                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                    OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien), OldPosAlien.Y + (YDistanceAlien / speedAlien));
                 }
                 else
                 {
@@ -464,7 +475,7 @@ namespace Xinaschack2._0.Classes
 
                     if (distanceAlien > 1)
                     {
-                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien), OldPosAlien.Y + (YDistanceAlien / speedAlien));
                     }
                     else
                     {
@@ -486,7 +497,7 @@ namespace Xinaschack2._0.Classes
 
                     if (distanceAlien > 1)
                     {
-                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien), OldPosAlien.Y + (YDistanceAlien / speedAlien));
                     }
                     else
                     {
@@ -509,7 +520,7 @@ namespace Xinaschack2._0.Classes
 
                     if (distanceAlien > 1)
                     {
-                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien--), OldPosAlien.Y + (YDistanceAlien / speedAlien--));
+                        OldPosAlien = new Point(OldPosAlien.X + (XDistanceAlien / speedAlien), OldPosAlien.Y + (YDistanceAlien / speedAlien));
                     }
                     else
                     {
@@ -527,7 +538,7 @@ namespace Xinaschack2._0.Classes
         }
 
         /// <summary>
-        /// Checks if mouse clicked on a Rectangle(On the game board)
+        /// Checks if mouse clicked on a Rectangle(On the game board). If yes, 
         /// </summary>
         /// <param name="e"></param>
         public void CheckIfRect_Pressed(Point position)
@@ -685,6 +696,10 @@ namespace Xinaschack2._0.Classes
 
         }
 
+        /// <summary>
+        /// This method is dedicated to the alien event. It uses AlienWhosTurn to choose a player who is going to get abducted. 
+        /// It randomizes which planet to abduct. If all of a players planets lie in the excluded zones, in the "bases", then the alien will not come.
+        /// </summary>
         private void CheckOKAlienMoves()
         {
             List<int> AllPlayerPositions = new List<int>();

@@ -19,8 +19,6 @@ namespace Xinaschack2._0
 {
     public sealed partial class ContentDialog1 : ContentDialog
     {
-        private int WhatToWrite;
-
         public ContentDialog1(PlanetEnum whoWon)
         {
             this.InitializeComponent();
