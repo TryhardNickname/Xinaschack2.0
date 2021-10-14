@@ -30,6 +30,11 @@ namespace Xinaschack2._0
         {
             this.InitializeComponent();
         }
+        /// <summary>
+        /// Back button returns to page that was active before.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back2menu(object sender, RoutedEventArgs e)
         {
             if (ReturnTo == "Menu")
@@ -42,13 +47,16 @@ namespace Xinaschack2._0
             }
 
         }
+        /// <summary>
+        /// Changes MainMenus static Mediaplayers Volume. Also affects MainPages Soundeffects.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-
-
             Slider slider = sender as Slider;
             SliderValue = slider.Value / 100;
-            MainMenu.MediaPlayer.Volume = SliderValue;
+            MainMenu.BackgroundAudio.Volume = SliderValue;
 
             if (MainPage.SoundEffectsAlien != null)
             {
@@ -57,15 +65,18 @@ namespace Xinaschack2._0
                 MainPage.SoundEffectsPlop.Volume = SliderValue;
             }
         }
+
+        /// <summary>
+        /// Saves ReturnTo to know what page we came from. Also sets the slider to active Volume position
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ReturnTo = e.Parameter.ToString();
-            SliderValue = MainMenu.MediaPlayer.Volume * 100;
+            SliderValue = MainMenu.BackgroundAudio.Volume * 100;
             VolumeSlider.Value = SliderValue;
 
             base.OnNavigatedTo(e);
-
-
         }
     }
 }
