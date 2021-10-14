@@ -23,8 +23,6 @@ namespace Xinaschack2._0.Classes
         private int DoubleJumpSaved { get; set; }
         public int SavedPosition { get; set; }
 
-        //private double XDistance { get; set; }
-        //private double YDistance { get; set; }
         private int MoveAnimationSpeed { get; set; }
         public Point NewPos { get; set; }
         public Point OldPos { get; set; }
@@ -55,6 +53,7 @@ namespace Xinaschack2._0.Classes
         private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
         private readonly double YDiff = 40; // rectsize + 4?
         private readonly double RectSize = 36;
+        
 
         public GameBoard(int width, int height, int amountOfPlayers)
         {
@@ -98,7 +97,7 @@ namespace Xinaschack2._0.Classes
             int[] boardRows = new int[] { 1, 2, 3, 4, 13, 12, 11, 10, 9, 10, 11, 12, 13, 4, 3, 2, 1 };
 
             double XStart = (width / 2) - (RectSize / 2);
-            double boardHeight = (YDiff * boardRows.Length);
+            double boardHeight = YDiff * boardRows.Length;
             double YStart = (height - boardHeight) / 2;
 
             double XCurrent;
@@ -262,7 +261,7 @@ namespace Xinaschack2._0.Classes
         /// <param name="args"></param>
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
-            Rect playerturnRect = new Rect(135, 100, 66, 66);
+            Rect playerturnRect = new Rect(135, 100, RectSize*2, RectSize*2);
 
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, playerturnRect);
         }
@@ -405,8 +404,9 @@ namespace Xinaschack2._0.Classes
                 }
                 else
                 {
+                    // animation complete
                     OldPosAlien = TravelPoints[0];
-                    AlienAnimationCounter++;// animation complete
+                    AlienAnimationCounter++;
                 }
                 if (speedAlien < 5)
                 {
@@ -425,8 +425,9 @@ namespace Xinaschack2._0.Classes
                 }
                 else
                 {
+                    // animation complete   
                     OldPosAlien = TravelPoints[1];
-                    AlienAnimationCounter++;// animation complete      
+                    AlienAnimationCounter++;   
 
                 }
                 if (speedAlien < 5)
@@ -446,9 +447,10 @@ namespace Xinaschack2._0.Classes
                 }
                 else
                 {
+                    // animation complete
                     Players[AlienInfoList[0]].PlayerPositions.RemoveAt(AlienInfoList[1]);
                     OldPosAlien = TravelPoints[2];
-                    AlienAnimationCounter++;// animation complete
+                    AlienAnimationCounter++;
                 }
                 if (speedAlien < 5)
                 {
@@ -468,8 +470,9 @@ namespace Xinaschack2._0.Classes
                     }
                     else
                     {
+                        // animation complete
                         OldPosAlien = TravelPoints[3];
-                        AlienAnimationCounter++;// animation complete
+                        AlienAnimationCounter++;
                     }
                     if (speedAlien < 5)
                     {
@@ -490,8 +493,9 @@ namespace Xinaschack2._0.Classes
                     }
                     else
                     {
+                        // animation complete
                         OldPosAlien = TravelPoints[4];
-                        AlienAnimationCounter++;// animation complete
+                        AlienAnimationCounter++;
                         Players[AlienInfoList[0]].PlayerPositions.Insert(AlienInfoList[1], AlienInfoList[2]);
                     }
                     if (speedAlien < 5)
