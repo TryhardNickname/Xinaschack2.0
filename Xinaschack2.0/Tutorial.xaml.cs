@@ -26,7 +26,7 @@ namespace Xinaschack2._0
         {
             this.InitializeComponent();
         }
-        private void Back2menu(object sender, RoutedEventArgs e)
+        private void Back2Menu(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainMenu), null);
         }

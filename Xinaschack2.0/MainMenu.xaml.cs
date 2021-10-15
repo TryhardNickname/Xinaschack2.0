@@ -76,7 +76,7 @@ namespace Xinaschack2._0
 
         private void Scorebtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Highscorepage), null);
+            Frame.Navigate(typeof(HighScorePage), null);
         }
 
         private void Tutorialbtn_Click(object sender, RoutedEventArgs e)

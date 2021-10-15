@@ -24,7 +24,7 @@
             <Image Source="/Assets/Images/6.gif"></Image>
         
         </FlipView>
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
+        <Button x:Name="Bk2menu" Click="Back2Menu" Margin="10,14,0,0" VerticalAlignment="Top" Height="126" Width="143">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>

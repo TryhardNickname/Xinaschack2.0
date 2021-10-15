@@ -45,8 +45,8 @@ namespace Xinaschack2._0
         public static MediaPlayer SoundEffectsMeteor;
         public static MediaPlayer SoundEffectsAlien;
 
-        private readonly int DesignWidth = 1920;
-        private readonly int DesignHeight = 1080;
+        private readonly int _designWidth = 1920;
+        private readonly int _designHeight = 1080;
 
         private int AmountOfPlayers { get; set; }
         private GameBoard Game { get; set; }
@@ -66,7 +66,7 @@ namespace Xinaschack2._0
             if (Game == null)
             {
                 AmountOfPlayers = (int)e.Parameter;
-                Game = new GameBoard(DesignWidth, DesignHeight, AmountOfPlayers);
+                Game = new GameBoard(_designWidth, _designHeight, AmountOfPlayers);
 
             }
             //else if (e.Parameter != null && AmountOfPlayers != (int)e.Parameter) // not from settings + new amount of players
@@ -134,7 +134,7 @@ namespace Xinaschack2._0
         /// <param name="args"></param>
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Board, (DesignWidth - Board.SizeInPixels.Width) / 2, (DesignHeight - Board.SizeInPixels.Height) / 2);
+            args.DrawingSession.DrawImage(Board, (_designWidth - Board.SizeInPixels.Width) / 2, (_designHeight - Board.SizeInPixels.Height) / 2);
             Game.DrawSelectedRect(args);
             Game.DrawPlayerPlanets(sender, args);
             Game.DrawOkayMoves(args);

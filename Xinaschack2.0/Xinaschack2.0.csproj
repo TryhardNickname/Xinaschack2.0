@@ -127,8 +127,8 @@
     <Compile Include="WinPopup.xaml.cs">
       <DependentUpon>WinPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Highscorepage.xaml.cs">
-      <DependentUpon>Highscorepage.xaml</DependentUpon>
+    <Compile Include="HighScorePage.xaml.cs">
+      <DependentUpon>HighScorePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -209,7 +209,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Highscorepage.xaml">
+    <Page Include="HighScorePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,13 +20,13 @@
             </Image.Source>
         </Image>
 
-        <Button  Margin="728,299,0,0" Click="threeplayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
+        <Button  Margin="728,299,0,0" Click="ThreePlayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/3user.png"/>
             </Button.Background>
         </Button>
 
-        <Button  Margin="224,684,0,0" Click="fourplayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
+        <Button  Margin="224,684,0,0" Click="FourPlayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1" >
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/4user.png"/>
             </Button.Background>
@@ -38,7 +38,7 @@
             </Button.Background>
         </Button>
 
-        <Button  Margin="728,684,0,0" Click="sixplayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
+        <Button  Margin="728,684,0,0" Click="SixPlayers" VerticalAlignment="Top" Height="230" Width="230" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/6user.png"/>
             </Button.Background>
@@ -51,7 +51,7 @@
         <Image Source="/Assets/Images/amountofplayers.png" Grid.Column="1" Margin="4,-423,327,423"/>
 
 
-        <Button x:Name="Bk2menu" Click="Back2menu" Margin="50,866,0,0" Height="126" Width="143" VerticalAlignment="Top">
+        <Button x:Name="Bk2menu" Click="Back2Menu" Margin="50,866,0,0" Height="126" Width="143" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="/Assets/Images/doubleArrow.png"/>
             </Button.Background>

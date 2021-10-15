@@ -35,7 +35,7 @@ namespace Xinaschack2._0
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Back2menu(object sender, RoutedEventArgs e)
+        private void Back2Menu(object sender, RoutedEventArgs e)
         {
             if (ReturnTo == "Menu")
             {

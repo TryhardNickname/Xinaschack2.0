@@ -32,22 +32,22 @@ namespace Xinaschack2._0
         Frame.Navigate(typeof(MainPage), 2);
       }
 
-      private void threeplayers(object sender, RoutedEventArgs e)
+      private void ThreePlayers(object sender, RoutedEventArgs e)
       {
         Frame.Navigate(typeof(MainPage), 3);
       }
 
-      private void fourplayers(object sender, RoutedEventArgs e)
+      private void FourPlayers(object sender, RoutedEventArgs e)
       {
         Frame.Navigate(typeof(MainPage), 4);
       }
 
-      private void sixplayers(object sender, RoutedEventArgs e)
+      private void SixPlayers(object sender, RoutedEventArgs e)
       {
         Frame.Navigate(typeof(MainPage), 6);
       }
 
-      private void Back2menu(object sender, RoutedEventArgs e)
+      private void Back2Menu(object sender, RoutedEventArgs e)
       {
             Frame.Navigate(typeof(MainMenu), null);
       }
