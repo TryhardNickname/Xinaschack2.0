@@ -170,7 +170,7 @@ namespace Xinaschack2._0
                 if (WinWindowCounter == 0)
                 {
                     WinWindowCounter += 1;
-                    var showDialogWindow = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    IAsyncAction showDialogWindow = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         WinPopup dialog1 = new WinPopup(Game.Players[Game.CurrentPlayerIndex].PlanetColor);
                         dialog1.ShowAsync();
@@ -181,7 +181,7 @@ namespace Xinaschack2._0
             {
                 Game.UpdateMeteor();
 
-                var playSoundMeteor = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                IAsyncAction playSoundMeteor = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SoundEffectsMeteor.Play();
                 });
@@ -189,7 +189,7 @@ namespace Xinaschack2._0
             if (Game.AlienEncounter)
             {
                 Game.UpdateAlien();
-                var playSoundAlien = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                IAsyncAction playSoundAlien = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SoundEffectsAlien.Play();
                 });
@@ -202,7 +202,7 @@ namespace Xinaschack2._0
             if (Game.MoveAnimationComplete && Game.TurnStarted)
             {
                 Game.MoveComplete();
-                var playSoundPlop = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                IAsyncAction playSoundPlop = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SoundEffectsPlop.Play();
                 });
@@ -232,7 +232,7 @@ namespace Xinaschack2._0
 
                 if (Game.PlanetSelected != -1 && Game.MoveAnimationComplete)
                 {
-                    var playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    IAsyncAction playSound = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         SoundEffectsPlop.Play();
                     });
