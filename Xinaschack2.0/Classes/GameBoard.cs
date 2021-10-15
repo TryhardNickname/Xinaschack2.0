@@ -51,10 +51,10 @@ namespace Xinaschack2._0.Classes
         private int TurnCounter { get; set; }
         private int EventTurn { get; set; }
 
-        private readonly double XSameLevelDiff = 45;
-        private readonly double XDiff = 22.5; // XSameLevelDiff / 2; // trigonometry
-        private readonly double YDiff = 40; // rectsize + 4?
-        private readonly double RectSize = 36;
+        private readonly double _xSameLevelDiff = 45;
+        private readonly double xDiff = 22.5; // _xSameLevelDiff / 2; // trigonometry
+        private readonly double yDiff = 40; // rectsize + 4?
+        private readonly double rectSize = 36;
 
         public GameBoard(int width, int height, int amountOfPlayers)
         {
@@ -87,6 +87,8 @@ namespace Xinaschack2._0.Classes
             MoveAnimationSpeed = 20;
         }
 
+
+
         /// <summary>
         /// This methods draws rectangles so as to make a board that looks like the game field. 
         /// Relative values found in paint.net and these help build the field by knowing the distance between each rectangle on the x-axis for example.
@@ -97,24 +99,24 @@ namespace Xinaschack2._0.Classes
 
             int[] boardRows = new int[] { 1, 2, 3, 4, 13, 12, 11, 10, 9, 10, 11, 12, 13, 4, 3, 2, 1 };
 
-            double XStart = (width / 2) - (RectSize / 2);
-            double boardHeight = (YDiff * boardRows.Length);
-            double YStart = (height - boardHeight) / 2;
+            double xStart = (width / 2) - (rectSize / 2);
+            double boardHeight = (yDiff * boardRows.Length);
+            double yStart = (height - boardHeight) / 2;
 
-            double XCurrent;
-            double YCurrent;
+            double xCurrent;
+            double yCurrent;
 
             for (int i = 0; i < boardRows.Length; i++)
             {
-                YCurrent = YStart + (YDiff * i);
-                XCurrent = XStart - (XDiff * (boardRows[i] - 1));
+                yCurrent = yStart + (yDiff * i);
+                xCurrent = xStart - (xDiff * (boardRows[i] - 1));
 
                 for (int j = 0; j < boardRows[i]; j++)
                 {
-                    Rect newRect = new Rect(XCurrent, YCurrent, RectSize, RectSize);
+                    Rect newRect = new Rect(xCurrent, yCurrent, rectSize, rectSize);
                     RectList.Add(newRect);
 
-                    XCurrent += XSameLevelDiff;
+                    xCurrent += _xSameLevelDiff;
                 }
             }
         }
@@ -219,7 +221,7 @@ namespace Xinaschack2._0.Classes
         {
             if (RectSelected != -1)
             {
-                args.DrawingSession.DrawCircle((float)(RectList[RectSelected].X + RectSize / 2), (float)(RectList[RectSelected].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 0), 5);
+                args.DrawingSession.DrawCircle((float)(RectList[RectSelected].X + rectSize / 2), (float)(RectList[RectSelected].Y + rectSize / 2), (float)rectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 0), 5);
             }
         }
 
@@ -248,12 +250,12 @@ namespace Xinaschack2._0.Classes
         {
             for (int i = 0; i < SingleJumps.Count; i++)
             {
-                args.DrawingSession.DrawCircle((float)(RectList[SingleJumps[i]].X + RectSize / 2), (float)(RectList[SingleJumps[i]].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 255), 5);
+                args.DrawingSession.DrawCircle((float)(RectList[SingleJumps[i]].X + rectSize / 2), (float)(RectList[SingleJumps[i]].Y + rectSize / 2), (float)rectSize / 2, Windows.UI.Color.FromArgb(128, 0, 255, 255), 5);
             }
 
             for (int i = 0; i < DoubleJumps.Count; i++)
             {
-                args.DrawingSession.DrawCircle((float)(RectList[DoubleJumps[i]].X + RectSize / 2), (float)(RectList[DoubleJumps[i]].Y + RectSize / 2), (float)RectSize / 2, Windows.UI.Color.FromArgb(128, 0, 0, 255), 5);
+                args.DrawingSession.DrawCircle((float)(RectList[DoubleJumps[i]].X + rectSize / 2), (float)(RectList[DoubleJumps[i]].Y + rectSize / 2), (float)rectSize / 2, Windows.UI.Color.FromArgb(128, 0, 0, 255), 5);
             }
         }
 
@@ -263,9 +265,9 @@ namespace Xinaschack2._0.Classes
         /// <param name="args"></param>
         public void DrawPlayerTurn(CanvasAnimatedDrawEventArgs args)
         {
-            Rect playerturnRect = new Rect(135, 100, 66, 66);
+            Rect playerTurnRect = new Rect(135, 100, 66, 66);
 
-            args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, playerturnRect);
+            args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, playerTurnRect);
         }
         /// <summary>
         /// Draws the moving planet depending on the updated OldPos.X & Y values (Updates in UpdateMoveAnimation)
@@ -273,7 +275,7 @@ namespace Xinaschack2._0.Classes
         /// <param name="args"></param>
         public void DrawMoveAnimation(CanvasAnimatedDrawEventArgs args)
         {
-            Rect moveRect = new Rect(OldPos.X, OldPos.Y, RectSize, RectSize);
+            Rect moveRect = new Rect(OldPos.X, OldPos.Y, rectSize, rectSize);
 
             args.DrawingSession.DrawImage(Players[CurrentPlayerIndex].PlanetBitmap, moveRect);
         }
@@ -322,7 +324,7 @@ namespace Xinaschack2._0.Classes
         /// <param name="comet"></param>
         public void DrawMeteor(CanvasAnimatedDrawEventArgs args, CanvasBitmap comet)
         {
-            Rect moveRect = new Rect(OldPosMeteor.X, OldPosMeteor.Y, RectSize, RectSize);
+            Rect moveRect = new Rect(OldPosMeteor.X, OldPosMeteor.Y, rectSize, rectSize);
 
             args.DrawingSession.DrawImage(comet, moveRect);
         }
@@ -334,17 +336,17 @@ namespace Xinaschack2._0.Classes
         /// <param name="alien"></param>
         public void DrawAlien(CanvasAnimatedDrawEventArgs args, CanvasBitmap alien)
         {
-            int YOffset = 20;
+            int yOffset = 20;
 
             //planet lifting alien
             if (AlienAnimationCounter > 2 && AlienAnimationCounter < 5)
             {
-                Rect planetRect = new Rect(OldPosAlien.X, OldPosAlien.Y, RectSize, RectSize);
+                Rect planetRect = new Rect(OldPosAlien.X, OldPosAlien.Y, rectSize, rectSize);
 
                 args.DrawingSession.DrawImage(Players[AlienInfoList[0]].PlanetBitmap, planetRect);
             }
 
-            Rect alienRect = new Rect(OldPosAlien.X, OldPosAlien.Y - YOffset, RectSize, RectSize);
+            Rect alienRect = new Rect(OldPosAlien.X, OldPosAlien.Y - yOffset, rectSize, rectSize);
 
             args.DrawingSession.DrawImage(alien, alienRect);
 
@@ -799,18 +801,18 @@ namespace Xinaschack2._0.Classes
                 List<Point> points = new List<Point> {
                 new Point //top right
                 {
-                    X = RectList[randomMeteorPos].X + XDiff,
-                    Y = RectList[randomMeteorPos].Y - YDiff
+                    X = RectList[randomMeteorPos].X + xDiff,
+                    Y = RectList[randomMeteorPos].Y - yDiff
                 },
                 new Point // right
                 {
-                    X = RectList[randomMeteorPos].X + XSameLevelDiff,
+                    X = RectList[randomMeteorPos].X + _xSameLevelDiff,
                     Y = RectList[randomMeteorPos].Y
                 },
                 new Point //bot right
                 {
-                    X = RectList[randomMeteorPos].X + XDiff,
-                    Y = RectList[randomMeteorPos].Y + YDiff
+                    X = RectList[randomMeteorPos].X + xDiff,
+                    Y = RectList[randomMeteorPos].Y + yDiff
                 }};
 
                 FirePositions.Add(randomMeteorPos);
@@ -866,32 +868,32 @@ namespace Xinaschack2._0.Classes
             List<Point> points = new List<Point> {
                 new Point // top left
                 {
-                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - XDiff,
-                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y - YDiff
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - xDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y - yDiff
                 },
                 new Point //top right
                 {
-                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + XDiff,
-                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y - YDiff
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + xDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y - yDiff
                 },
                 new Point // right
                 {
-                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + XSameLevelDiff,
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + _xSameLevelDiff,
                     Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y
                 },
                 new Point //bot right
                 {
-                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + XDiff,
-                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y + YDiff
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X + xDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y + yDiff
                 },
                 new Point // bot left
                 {
-                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - XDiff,
-                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y + YDiff
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - xDiff,
+                    Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y + yDiff
                 },
                 new Point // left
                 {
-                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - XSameLevelDiff,
+                    X = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].X - _xSameLevelDiff,
                     Y = RectList[Players[CurrentPlayerIndex].PlayerPositions[PlanetSelected]].Y
                 }};
 
@@ -929,8 +931,8 @@ namespace Xinaschack2._0.Classes
                             switch (j)
                             {
                                 case 0:
-                                    jumpPoint.X -= XDiff;
-                                    jumpPoint.Y -= YDiff;
+                                    jumpPoint.X -= xDiff;
+                                    jumpPoint.Y -= yDiff;
 
                                     for (int k = i; k >= 0; k--)
                                     {
@@ -942,8 +944,8 @@ namespace Xinaschack2._0.Classes
                                     break;
 
                                 case 1:
-                                    jumpPoint.X += XDiff;
-                                    jumpPoint.Y -= YDiff;
+                                    jumpPoint.X += xDiff;
+                                    jumpPoint.Y -= yDiff;
 
                                     for (int k = i; k >= 0; k--)
                                     {
@@ -954,7 +956,7 @@ namespace Xinaschack2._0.Classes
                                     }
                                     break;
                                 case 2:
-                                    jumpPoint.X += XSameLevelDiff;
+                                    jumpPoint.X += _xSameLevelDiff;
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
@@ -965,8 +967,8 @@ namespace Xinaschack2._0.Classes
                                     }
                                     break;
                                 case 3:
-                                    jumpPoint.X += XDiff;
-                                    jumpPoint.Y += YDiff;
+                                    jumpPoint.X += xDiff;
+                                    jumpPoint.Y += yDiff;
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
@@ -977,8 +979,8 @@ namespace Xinaschack2._0.Classes
                                     }
                                     break;
                                 case 4:
-                                    jumpPoint.X -= XDiff;
-                                    jumpPoint.Y += YDiff;
+                                    jumpPoint.X -= xDiff;
+                                    jumpPoint.Y += yDiff;
 
                                     for (int k = i; k < RectList.Count; k++)
                                     {
@@ -989,7 +991,7 @@ namespace Xinaschack2._0.Classes
                                     }
                                     break;
                                 case 5:
-                                    jumpPoint.X -= XDiff;
+                                    jumpPoint.X -= xDiff;
 
                                     for (int k = i; k >= 0; k--)
                                     {
