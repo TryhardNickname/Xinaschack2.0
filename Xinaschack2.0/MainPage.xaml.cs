@@ -45,6 +45,7 @@ namespace Xinaschack2._0
         public static MediaPlayer SoundEffectsMeteor;
         public static MediaPlayer SoundEffectsAlien;
 
+        // Hardcoded for fullscreen 1080p
         private readonly int _designWidth = 1920;
         private readonly int _designHeight = 1080;
 
@@ -69,8 +70,9 @@ namespace Xinaschack2._0
                 Game = new GameBoard(_designWidth, _designHeight, AmountOfPlayers);
 
             }
-            //else if (e.Parameter != null && AmountOfPlayers != (int)e.Parameter) // not from settings + new amount of players
-            //{
+            // NYI save/reset game + changing amount of players
+            // else if (e.Parameter != null && AmountOfPlayers != (int)e.Parameter) // not from settings + new amount of players
+            // {
             //    AmountOfPlayers = (int)e.Parameter;
             //    Game = new GameBoard(DesignWidth, DesignHeight, AmountOfPlayers);
             //}
@@ -166,7 +168,6 @@ namespace Xinaschack2._0
         {
             if (Game.CheckIfWin())
             {
-                // Debug.WriteLine($"{Game.Players[Game.CurrentPlayerIndex].PlanetColor} won");
                 if (WinWindowCounter == 0)
                 {
                     WinWindowCounter += 1;
