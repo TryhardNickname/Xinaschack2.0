@@ -605,10 +605,10 @@ namespace Xinaschack2._0.Classes
                 MeteorStrike = true;
 
                 Random rnd = new Random();
-                EventTurn += rnd.Next(2, 3); // 10-11
+                EventTurn += rnd.Next(10, 11);
                 AlienEventCounter++;
             }
-            else if (AlienEventCounter == 100)
+            else if (AlienEventCounter == 2)
             {
                 AlienEventCounter = 0;
                 AlienWhosTurn++;
